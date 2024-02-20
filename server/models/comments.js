@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) =>{
             allowNull: false,
             unique: true,
         },
+        image: {
+            type: DataTypes.BLOB('long'),
+        },
     });
     comments.associate = (models) =>{
         comments.hasMany(models.likes, {
