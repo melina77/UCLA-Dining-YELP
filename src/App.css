@@ -1,0 +1,18 @@
+.styled-hr {
+    border: none;
+    height: 2px;
+    background-color: black;
+}
+
+header {
+    position: relative;
+}
+
+.logout-box {
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+
+
