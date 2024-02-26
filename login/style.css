@@ -48,11 +48,21 @@
   color: #b3b3b3;
   font-size: 12px;
 }
+
+.form .message large {
+  /*margin: 15px 0 0;*/
+  /*color: #b3b3b3;*/
+  font-size: 16px;
+}
+
 .form .message a {
   color: #718bd9;
   text-decoration: none;
 }
-.form .register-form {
+.form .register-form-student {
+  display: none;
+}
+.form .register-form-dining-hall {
   display: none;
 }
 .container {
