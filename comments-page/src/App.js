@@ -34,25 +34,46 @@ function ImageUpload() {
 }
 function App() {
   const [inputValue, setInputValue] = useState('');
-  const HandleInputChange = (event) => {
-    setInputValue(event.target.value);    
+  const adjustHeight = (event) => {
+    const element = event.target;
+    element.style.height = 'auto'; // Reset height to recalculate
+    element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
 
 
   
   return (
     <div className="App">
+      <div className="BG-header">
+          BruinGrub
+        </div>
+        <hr
+          style={{
+            border: 'none'
+          }}
+        ></hr>
       <div className="App-title">
       Comments - [RESTAURANT/DINING HALL]
+      <hr className="App-divider" />
       </div>
       
+
       <header className="App-header">
-      <hr />
-          <input
-          type="text"
-          value={inputValue}
-          onChange={HandleInputChange}
-          placeholder="Write a comment..."
+      <textarea
+            placeholder = "Add description..."
+            value={inputValue}
+            onChange={(e) =>{
+              setInputValue(e.target.value);
+              adjustHeight(e);
+            }}
+            style={{ 
+              overflowY: 'hidden',
+              width: '500px',
+              height: '55px',
+              resize: 'none',
+              fontFamily: 'Arial, sans-sherif'
+
+            }}
         />
           <ImageUpload /> 
           <hr />

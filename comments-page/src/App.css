@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+.App-divider{
+  border-style: solid;
+  background-color: black;
+  width:calc(80% + 2vmin);
+  height: 2px;
+  box-shadow: none;
+  outline: none;
+
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -12,23 +21,38 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.BG-header{
+  padding-top: 1%;
+  padding-left: 1%;
+  background-color: #c5d3fc;
+  min-height: 1vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: calc(25% + 2vmin);
+  color: black;
+  font-family: Serif;
+}
+
 .App-title{
   padding-top: 10%;
   padding-left: 10%;
-  background-color: #8fabff;
+  background-color: #c5d3fc;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: calc(15px + 2vmin);
+  color: black;
+  font-family: Serif;
 }
 
 .App-header {
   padding-bottom: 10%;
   padding-left: 10%;
-  background-color: #8fabff;
+  background-color: #c5d3fc;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
