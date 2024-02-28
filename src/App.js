@@ -5,23 +5,15 @@ function Header() {
     <div>
       <header>
         <h1 id='title'>BruinGrub</h1>
-
-        <div id='navbar'>
-          <nav>
-            <a href='google.com'>Test</a>
-            <a href='google.com'>Test2</a>
-            <a className='active' href='calorie-counter'>Calorie Counter</a>
-          </nav>
-        </div>
-
+        <nav>
+          <a class="active" href="#home">Home</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+        </nav>
       </header>
-      <hr className="styled-hr"/>
     </div>
   )
-}
-
-function NavBar() {
-  return null
 }
 
 function CalorieCounter() {
@@ -42,8 +34,8 @@ function CalorieCounter() {
             <div className='calorie-title'>
               <h3>Calories</h3>
             </div>
+          </div>
 
-        </div>
         </div>
       </div>
     </main>
@@ -55,7 +47,6 @@ export default function App() {
   return (
     <div>
       <Header />
-      <NavBar />
       <CalorieCounter />
     </div>
   )

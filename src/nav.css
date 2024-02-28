@@ -1,0 +1,25 @@
+nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+nav a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 30px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+  }
+
+nav a:hover {
+    background-color: white;
+    color: black;
+  }
+
+nav a:active {
+    background-color: #04AA6D;
+    color: white;
+  }
