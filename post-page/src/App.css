@@ -1,5 +1,6 @@
 .App {
   text-align: start;
+  background-color: #c5d3fc;
 }
 
 .App-logo {
@@ -44,12 +45,11 @@
   justify-content: center;
   border-width: medium;
   border-color: black;
-  border-style: dotted;
+  border-style: solid;
 }
 .App-header {
   padding-top: 5%;
   padding-left: 10%;
-  background-color: #c5d3fc;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -90,4 +90,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.styled-line {
+  border: none;
+  height: 2px;
+  background-color: black;
 }

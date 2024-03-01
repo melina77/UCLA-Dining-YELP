@@ -86,14 +86,9 @@ function App() {
         <div className="BG-header">
           BruinGrub
         </div>
-        <hr
-          style={{
-            border: 'none'
-          }}
-        >
-
-        </hr>
+        <hr className='styled-line'/>
         <header className="App-header">
+          
           Make a Post
           <div>
           ____________

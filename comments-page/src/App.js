@@ -45,20 +45,19 @@ function App() {
   return (
     <div className="App">
       <div className="BG-header">
-          BruinGrub
+          BruinGrub  
         </div>
-        <hr
-          style={{
-            border: 'none'
-          }}
-        ></hr>
+        <hr />
       <div className="App-title">
-      Comments - [RESTAURANT/DINING HALL]
-      <hr className="App-divider" />
+      Comments
+      <div>
+      ____________
+      </div>
       </div>
       
-
+      
       <header className="App-header">
+      <div className = "box-border">
       <textarea
             placeholder = "Add description..."
             value={inputValue}
@@ -75,11 +74,15 @@ function App() {
 
             }}
         />
+        <div>
+          
+        </div>
           <ImageUpload /> 
           <hr />
           <button className="post">Save & Post</button>
- 
+          </div>
       </header>
+      
     </div>
   );
 }
