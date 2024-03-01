@@ -1,7 +1,7 @@
 body {
     font-family: monospace;
-    background-color: #e6f2fe;
-    background: linear-gradient(to bottom right, #E3F0FF, #FAFCFF);
+    background-color: #8fabff;
+    background: linear-gradient(to bottom right, #c5d3fc, #718bd9);
 }
 
 .styled-hr {
