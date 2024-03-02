@@ -4,9 +4,8 @@ import {useRef} from 'react';
 
 import './App.css';
 
-function ImageUpload() {
+function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
-  const fileInputRef = useRef(null);
 
   // Function to handle the image selection
   const handleImageChange = (e) => {
@@ -32,19 +31,10 @@ function ImageUpload() {
         style={{ display: 'none' }} // Hide the file input
         ref={fileInputRef}
       />
-      {image && <img src={image} alt="Uploaded" style={{ width: '100%', marginTop: '20px' }} />}
+      {image && <img src={image} alt="Uploaded" style={{ width: '75%', marginTop: '20px' }} />}
     </div>
   );
 }
-function Post(){
-  const handleClick = () => {
-    return;
-  };
- return(
-  <button className="post" onClick={handleClick}>Save & Post</button>
- ) 
-}
-
 
 
 
@@ -52,6 +42,7 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [inputTwo, setInputTwo] = useState('');
   const [wordCount, setWordCount] = useState(0);
+  const fileInputRef = useRef(null);
   const maxWords = 20;
 
   // Function to update the state with the input's current value
@@ -79,14 +70,39 @@ function App() {
       adjustHeight(inputValue);
     }
   };
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('title', inputValue);
+    if (fileInputRef.current && fileInputRef.current.files[0]) {
+      formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
+    }
+    formData.append('description', inputTwo); // Assuming you want to include the description as well
+    
+
+   // try {
+      // Replace 'your-server-endpoint' with your actual endpoint URL
+  //    const response = await fetch('your-server-endpoint', {
+    //    method: 'POST',
+      //  body: formData,
+     // });
+//      const result = await response.json();
+  //    console.log(result);
+      // Handle success
+   // } catch (error) {
+     // console.error('Error submitting form:', error);
+      // Handle error
+    //}
+  }
 
 
   return (
       <div className="App">
         <div className="BG-header">
           BruinGrub
+
         </div>
-        <hr className='styled-line'/>
         <header className="App-header">
           
           Make a Post
@@ -94,7 +110,8 @@ function App() {
           ____________
           </div>
           <hr/>
-          <div className="box-border">
+          <div className="box-border" >
+          <form id="postForm" onSubmit={handleSubmit}>
           <input
           type="text"
           value={inputValue}
@@ -105,7 +122,7 @@ function App() {
             height: '30px'
           }}
         />
-          <ImageUpload />
+          <ImageUpload fileInputRef={fileInputRef}/>
           <hr />
           <textarea
             placeholder = "Add description..."
@@ -123,7 +140,8 @@ function App() {
             }}
         />
         <hr />
-        <Post/ >
+        <button type="submit">Save & Post</button>
+        </form>
         </div>
         </header>
         </div>

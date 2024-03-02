@@ -2,9 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
 import {useRef} from 'react';
-function ImageUpload() {
+function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
-  const fileInputRef = useRef(null);
 
   // Function to handle the image selection
   const handleImageChange = (e) => {
@@ -28,17 +27,43 @@ function ImageUpload() {
         style={{ display: 'none' }} // Hide the file input
         ref={fileInputRef}
       />
-      {image && <img src={image} alt="Uploaded" style={{ width: '100%', marginTop: '20px' }} />}
+      <div>
+      {image && <img src={image} alt="Uploaded" style={{ width: '70%', marginTop: '20px' }} />}
+      </div>
     </div>
   );
 }
 function App() {
   const [inputValue, setInputValue] = useState('');
+  const fileInputRef = useRef(null);
   const adjustHeight = (event) => {
     const element = event.target;
     element.style.height = 'auto'; // Reset height to recalculate
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('title', inputValue);
+    if (fileInputRef.current && fileInputRef.current.files[0]) {
+      formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
+    }
+
+    try {
+      // Replace 'your-server-endpoint' with your actual endpoint URL
+      const response = await fetch('your-server-endpoint', {
+        method: 'POST',
+        body: formData,
+      });
+      const result = await response.json();
+      console.log(result);
+      // Handle success
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Handle error
+    }
+  }
 
 
   
@@ -58,6 +83,7 @@ function App() {
       
       <header className="App-header">
       <div className = "box-border">
+      <form id="postForm" onSubmit={handleSubmit}>
       <textarea
             placeholder = "Add description..."
             value={inputValue}
@@ -74,12 +100,10 @@ function App() {
 
             }}
         />
-        <div>
-          
-        </div>
-          <ImageUpload /> 
+          <ImageUpload fileInputRef={fileInputRef}/> 
           <hr />
-          <button className="post">Save & Post</button>
+          <button className="submit">Save & Post</button>
+          </form>
           </div>
       </header>
       
