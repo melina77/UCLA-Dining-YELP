@@ -53,6 +53,7 @@
 
 .box-border{
   min-width: 10vh;
+  max-width: 600 px;
   padding-top: 8%;
   padding-bottom: 8%;
   padding-left: 8%;
