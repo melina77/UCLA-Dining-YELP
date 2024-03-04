@@ -23,9 +23,15 @@ module.exports = (sequelize, DataTypes) =>{
         },
     });
     food.associate = (models) =>{
-        food.hasMany(models.students)
-        food.hasMany(models.comments)
-        food.hasMany(models.likes)
+        food.hasMany(models.comments, {
+            onDelete: "cascade",
+        })
+        food.hasMany(models.likes, {
+            onDelete: "cascade",
+        })
+        food.hasMany(models.calories, {
+            onDelete: "cascade",
+        })
     }
 
     return food;

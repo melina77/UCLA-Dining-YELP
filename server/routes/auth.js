@@ -10,6 +10,9 @@ const validate = (req, res, next) => {
             return next();
         }
     }
+    else{
+        res.json({"message": "not authorized"})
+    }
 }
 
 module.exports = { validate };

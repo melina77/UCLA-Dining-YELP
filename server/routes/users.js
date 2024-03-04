@@ -15,7 +15,7 @@ router.post("/student-register", async (req, res) =>{
                     email: req.body.email,
                     password: hash,
                 }).then(user =>{
-                    const token = jwt.sign({ id: user.id, username: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
+                    const token = jwt.sign({ id: user.id, name: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
                     res.json({ token });
                 })
             });
@@ -53,13 +53,15 @@ router.post("/student-login", async (req, res) => {
     if(!user){
         res.json({ message: 'Username or email does not exist'})
     }
-    await bcrypt.compare(req.body.password, user.password).then(match =>{
-        if(!match){
-            res.json({ message: 'Password does not match'})
-        }
-        const token = jwt.sign({ id: user.id, name: user.name }, process.env.SECRET_KEY , { expiresIn: '2h' });
-        res.json({ token })
-    });
+    else{
+        await bcrypt.compare(req.body.password, user.password).then(match =>{
+            if(!match){
+                res.json({ message: 'Password does not match'})
+            }
+            const token = jwt.sign({ id: user.id, name: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
+            res.json({ token })
+        });
+    }
 });
 
 router.post("/dining-login", async (req, res) => {
@@ -69,13 +71,15 @@ router.post("/dining-login", async (req, res) => {
     if(!user){
         res.json({ message: 'Email does not exist'})
     }
-    await bcrypt.compare(req.body.password, user.password).then(match =>{
-        if(!match){
-            res.json({ message: 'Password does not match'})
-        }
-        const token = jwt.sign({ id: user.id, name: user.name }, process.env.SECRET_KEY , { expiresIn: '2h' });
-        res.json({ token })
-    });
+    else {
+        await bcrypt.compare(req.body.password, user.password).then(match =>{
+            if(!match){
+                res.json({ message: 'Password does not match'})
+            }
+            const token = jwt.sign({ id: user.id, name: user.name }, process.env.SECRET_KEY , { expiresIn: '2h' });
+            res.json({ token })
+        });
+    }
 });
 
 module.exports = router;
