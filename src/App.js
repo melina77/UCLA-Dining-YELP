@@ -25,14 +25,19 @@ function CalorieCounter() {
   // State to manage input value
   const [inputValue, setInputValue] = useState('');
 
+  // State to manage add food button
   const [isEditing, setisEditing] = useState(false);
 
+  // Make input bar visible
   const handleButtonClick = () => {
     setisEditing(true);
   };
 
+  // Handles food and calorie submission
   const handleSubmit = () => {
+    // Check if input has values in it
     if (inputValue.trim() !== '' && calories.trim() !== '') {
+      // Sets food with corresponding calories
       setFoods([...foods, { food: inputValue, calorie: calories}]);
       setInputValue('');
       setCalories('');
