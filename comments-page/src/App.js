@@ -1,10 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
 import {useRef} from 'react';
 function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
-
   // Function to handle the image selection
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -36,34 +34,35 @@ function ImageUpload({fileInputRef}) {
 function App() {
   const [inputValue, setInputValue] = useState('');
   const fileInputRef = useRef(null);
+  
   const adjustHeight = (event) => {
     const element = event.target;
     element.style.height = 'auto'; // Reset height to recalculate
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Create FormData object to hold the data to submit
     const formData = new FormData();
-    formData.append('title', inputValue);
+    // Append the selected file to the FormData object. Ensure that `fileInputRef.current.files[0]` exists
     if (fileInputRef.current && fileInputRef.current.files[0]) {
-      formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
+      formData.append('image', fileInputRef.current.files[0]);
     }
+    // Append the caption or description text to the FormData object
+    formData.append('caption', inputValue);
 
-    try {
-      // Replace 'your-server-endpoint' with your actual endpoint URL
-      const response = await fetch('your-server-endpoint', {
-        method: 'POST',
-        body: formData,
-      });
-      const result = await response.json();
-      console.log(result);
-      // Handle success
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      // Handle error
-    }
-  }
+    // Replace 'https://your-backend.com/api/posts' with your actual API endpoint
+    fetch('https://your-backend.com/api/posts', {
+      method: 'POST',
+      body: formData,
+      // Omit Content-Type header, let the browser set it with the correct boundary for multipart/form-data
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  };
+
 
 
   
