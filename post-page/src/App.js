@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import {useState} from 'react';
 import {useRef} from 'react';
 
@@ -41,6 +40,7 @@ function ImageUpload({fileInputRef}) {
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [inputTwo, setInputTwo] = useState('');
+  const [inputThree, setInputThree] = useState('');
   const [wordCount, setWordCount] = useState(0);
   const fileInputRef = useRef(null);
   const maxWords = 20;
@@ -124,6 +124,20 @@ function App() {
         />
           <ImageUpload fileInputRef={fileInputRef}/>
           <hr />
+          <textarea
+            placeholder = "Add calories..."
+            value={inputThree}
+            onChange={(e) =>{
+              setInputThree(e.target.value);
+              adjustHeight(e);
+            }}
+            style={{ 
+              resize: 'none',
+              width: '100px',
+              height: '20px',
+              fontFamily: 'Arial, sans-serif'
+            }}/>
+            <hr />
           <textarea
             placeholder = "Add description..."
             value={inputTwo}
