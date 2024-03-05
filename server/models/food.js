@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) =>{
         food.hasMany(models.likes, {
             onDelete: "cascade",
         })
-        food.hasMany(models.calories, {
+        food.hasMany(models.calcounter, {
             onDelete: "cascade",
         })
     }

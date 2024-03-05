@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { dining, food } = require("../models");
+const { dining, food, likes } = require("../models");
 const multer = require("multer");
-const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 const { validate } = require("./auth")
 
 // const storage = multer.diskStorage({
@@ -52,7 +52,14 @@ router.get("/", async (req, res) =>{
     const startOfDay = new Date();
     const endOfDay = new Date();
     const result = await food.findAll({
-        where: {createdAt: { [Op.between]: [startOfDay.setHours(0, 0, 0, 0), endOfDay.setHours(24, 0, 0, 0)]}}
+        where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(0, 0, 0, 0), endOfDay.setHours(24, 0, 0, 0)]}},
+        include: [
+            {
+              model: likes,
+              attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'likeCount']],
+            },
+        ],
+        group: ['food.id'],
     });
     res.json(result);
 });
@@ -63,25 +70,53 @@ router.get("/:time", async (req, res) =>{
     const endOfDay = new Date();
     if(req.params.time == "breakfast"){
         const result = await food.findAll({
-            where: {createdAt: { [Op.between]: [startOfDay.setHours(7, 0, 0, 0), endOfDay.setHours(10, 0, 0, 0)]}}
+            where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(7, 0, 0, 0), endOfDay.setHours(10, 0, 0, 0)]}},
+            include: [
+                {
+                  model: likes,
+                  attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'likeCount']],
+                },
+            ],
+            group: ['food.id'],
         });
         res.json(result);
     }
     else if(req.params.time == "lunch"){
         const result = await food.findAll({
-            where: {createdAt: { [Op.between]: [startOfDay.setHours(11, 0, 0, 0), endOfDay.setHours(15, 0, 0, 0)]}}
+            where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(11, 0, 0, 0), endOfDay.setHours(15, 0, 0, 0)]}},
+            include: [
+                {
+                  model: likes,
+                  attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'likeCount']],
+                },
+            ],
+            group: ['food.id'],
         });
         res.json(result);
     }
     else if(req.params.time == "dinner"){
         const result = await food.findAll({
-            where: {createdAt: { [Op.between]: [startOfDay.setHours(17, 0, 0, 0), endOfDay.setHours(21, 0, 0, 0)]}}
+            where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(17, 0, 0, 0), endOfDay.setHours(21, 0, 0, 0)]}},
+            include: [
+                {
+                  model: likes,
+                  attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'likeCount']],
+                },
+            ],
+            group: ['food.id'],
         });
         res.json(result);
     }
     else if(req.params.time == "late"){
         const result = await food.findAll({
-            where: {createdAt: { [Op.between]: [startOfDay.setHours(21, 0, 0, 0), endOfDay.setHours(24, 0, 0, 0)]}}
+            where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(21, 0, 0, 0), endOfDay.setHours(24, 0, 0, 0)]}},
+            include: [
+                {
+                  model: likes,
+                  attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'likeCount']],
+                },
+            ],
+            group: ['food.id'],
         });
         res.json(result);
     }
