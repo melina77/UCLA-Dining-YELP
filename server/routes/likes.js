@@ -6,10 +6,10 @@ const { validate } = require("./auth");
 router.post("/", validate, async (req, res) => {
     const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
     if(user){
-        const liked = await likes.findOne({
+        const result = await likes.findOne({
             where: { foodId: req.body.foodId, studentId: req.user.id },
         });
-        if(!liked){
+        if(!result){
             await likes.create({ foodId: req.body.foodId, studentId: req.user.id });
             res.json({ liked: true });
         }
