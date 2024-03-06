@@ -3,7 +3,8 @@
 }
 body {
   font-family: monospace;
-  background-color: #e6f2fe;
+  /* webpage background color */
+  background-color: #8fabff;
 }
 
 .styled-hr {
@@ -26,7 +27,7 @@ header {
 
 #title {
   margin-left: 30px;
-  text-shadow: 5px 2px 2px pink;
+  text-shadow: 5px 2px 2px yellow;
 }
 
 nav {
