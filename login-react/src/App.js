@@ -3,16 +3,37 @@ import './App.css'; // Assuming your CSS file is named style.css and is located 
 
 function LoginPage() {
   const [formToShow, setFormToShow] = useState('login-form'); // Default to showing the login form
+  const [toggleValue, setToggleValue] = useState('student');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [dining_hall_name, set_dining_hall_name] = useState('');
   const [email, setEmail] = useState('');
 
   const toggleForm = (newForm) => {
     setFormToShow(newForm);
   };
 
+  const handleToggleChange = () => {
+    //update toggle value
+    setToggleValue(toggleValue === 'student' ? 'dining hall' : 'student');
+  };
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+
+    const userData = {
+      username: username,
+      password: password,
+      email: email
+    };
+    
+    if (toggleValue === 'student') {
+      console.log('Submitting data for student:', userData);
+    } 
+    else if (toggleValue === 'dining hall') {
+      // Handle form data for dining hall login
+      console.log('Submitting data for dining hall:', userData);
+    }
   };
 
   //commented implementation does not take into account the Student/Dining Hall toggle
@@ -34,12 +55,13 @@ function LoginPage() {
     const userData = {
       username: username,
       password: password,
+      dining_hall_name: dining_hall_name,
       email: email
     };
     
     if (formToShow === 'register-form-student') {
       // Send student registration data to the student registration endpoint
-      fetch('student_registration_endpoint', {//replace with URL of backend endpoint
+      fetch('/student-register', {//replace with URL of backend endpoint
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -59,7 +81,7 @@ function LoginPage() {
       });
     } else if (formToShow === 'register-form-dining-hall') {
       // Send dining hall registration data to the dining hall registration endpoint
-      fetch('dining_hall_registration_endpoint', {//replace with URL of backend endpoint
+      fetch('/dining-register', {//replace with URL of backend endpoint
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -101,24 +123,28 @@ function LoginPage() {
             <large>Dining Hall Registration</large>
             <div style={{padding: '5px', fontSize: '36px'}}></div>
           </p>
-          <input type="text" placeholder="Dining Hall Name" />
+          <input type="text" placeholder="Dining Hall Name" value={dining_hall_name} onChange={(e) => set_dining_hall_name(e.target.value)}/>
           <p className="message">
-            The following fields are for dining hall users:
+            The following fields are for individual dining hall staff:
             <div style={{padding: '5px'}}></div>
           </p>
-          <input type="text" placeholder="Username" />
-          <input type="password" placeholder="Password" />
-          <input type="text" placeholder="Email Address" />
+          <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <button>create</button>
           <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
         </form>
 
         <form className="login-form" onSubmit={handleLoginSubmit} style={{ display: formToShow === 'login-form' ? 'block' : 'none' }}>
-          <input type="text" placeholder="Username" />
-          <input type="password" placeholder="Password" />
-          <input type="text" placeholder="Email Address" />
+          <input type="text" placeholder= {toggleValue === 'dining hall' ? 'Dining Hall Name' : 'Username'} value={username} onChange={(e) => setUsername(e.target.value)}/>
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
           <label className="toggle">
-            <input className="toggle-input" type="checkbox" />
+            <input 
+              className="toggle-input" 
+              type="checkbox" 
+              checked={toggleValue === 'dining hall'}//check based on toggleValue
+              onChange={handleToggleChange}//handle toggle change
+            />
             <span className="toggle-label" data-off="Student" data-on="Dining"></span>
             <span className="toggle-handle"></span>
           </label>
