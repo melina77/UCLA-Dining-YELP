@@ -53,10 +53,10 @@
     overflow: hidden;
   }
   
-  .fade-img {
+  /* .fade-img {
     animation-name: fade-img;
     animation-duration: 2s;
-  }
+  } */
   
   .cards__item__pic-wrap::after {
     content: attr(data-category);
@@ -88,13 +88,13 @@
     transition: all 0.2s linear;
   }
   
-  .cards__item__img:hover {
+  /* .cards__item__img:hover {
     transform: scale(1.1);
-  }
+  } */
   
   /* caption */
   .cards__item__info {
-    padding: 20px 20px 20px;
+    padding: 0px 50px 5px;
   }
   
   .cards__item__text {

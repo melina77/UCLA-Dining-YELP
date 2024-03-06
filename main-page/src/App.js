@@ -52,7 +52,6 @@ function App() {
     <>
     <Header />
     <div>
-      <hr />
       {/* <MainPage /> */}
       <Cards />
     </div>
