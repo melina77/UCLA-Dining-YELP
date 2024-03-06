@@ -1,10 +1,12 @@
-import React, { useState } from 'react'; 
-// import './header.css';
+import React, { useState, useEffect } from 'react'; 
+//import axios from 'axios';
+//import { Link } from 'react-router-dom'
 import './nav.css';
 
-
 function Header() {
-
+  const handleLogout = () => {
+    console.log('logged out')
+  }
   return (
     <div>
       <header>
@@ -12,10 +14,10 @@ function Header() {
           <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
         </div>
         <nav>
-          <a className="active" href="#home">Home</a>
-          <a className="active" href="#calorie-counter">Calorie Counter</a>
-          <a className="active" href="#contact">Contact</a>
-          <a className="active" href="#logout">Logout</a>
+          <a to="/" className="nav-link">Home</a>
+          <a to="/calorie-counter" className="nav-link">Calorie Counter</a>
+          <a to="/contact" className="nav-link">Contact</a>
+          <button id='logout-button' onClick={handleLogout}>Logout</button>   
         </nav>
       </header>
     </div>
@@ -113,6 +115,14 @@ function CalorieCounter() {
               ) : (
                 null
               )}
+            </div>
+          </div>
+          <div className='total-container'>
+            <div className='food-total-container'>
+                <p>Total Food Ate Today: </p>
+            </div>
+            <div className='calorie-total-container'>
+                <p>Total Calories:</p>
             </div>
           </div>
         </div>
