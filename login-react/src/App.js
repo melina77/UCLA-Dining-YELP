@@ -22,18 +22,34 @@ function LoginPage() {
     e.preventDefault();
 
     const userData = {
-      username: username,
+      username: (toggleValue === 'dining hall' ? '' : username),
       password: password,
-      email: email
+      email: email,
+      dining_hall_name: (toggleValue === 'dining hall' ? dining_hall_name : '')
     };
+
+    const endpoint = toggleValue === 'dining hall' ? '/dining-login' : '/student-login';
     
-    if (toggleValue === 'student') {
-      console.log('Submitting data for student:', userData);
-    } 
-    else if (toggleValue === 'dining hall') {
-      // Handle form data for dining hall login
-      console.log('Submitting data for dining hall:', userData);
-    }
+    fetch(endpoint, {
+      method: 'POST',
+      body: JSON.stringify(userData),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Authentication failed');
+      }
+    })
+    .then(data => {
+      console.log('Authentication successful:', data.token);
+    })
+    .catch(error => {
+      console.error('Authentication error:', error.message);
+    });
   };
 
   //commented implementation does not take into account the Student/Dining Hall toggle
@@ -55,8 +71,8 @@ function LoginPage() {
     const userData = {
       username: username,
       password: password,
-      dining_hall_name: dining_hall_name,
-      email: email
+      email: email,
+      dining_hall_name: dining_hall_name
     };
     
     if (formToShow === 'register-form-student') {
@@ -135,7 +151,7 @@ function LoginPage() {
         </form>
 
         <form className="login-form" onSubmit={handleLoginSubmit} style={{ display: formToShow === 'login-form' ? 'block' : 'none' }}>
-          <input type="text" placeholder= {toggleValue === 'dining hall' ? 'Dining Hall Name' : 'Username'} value={username} onChange={(e) => setUsername(e.target.value)}/>
+          <input type="text" placeholder= {toggleValue === 'dining hall' ? 'Dining Hall Name' : 'Username'} value={toggleValue === 'dining hall' ? dining_hall_name : username} onChange={(e) => toggleValue === 'dining hall' ? set_dining_hall_name(e.target.value) : setUsername(e.target.value)}/>
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
           <label className="toggle">
