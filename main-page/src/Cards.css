@@ -38,15 +38,15 @@
     display: flex;
     flex-flow: column;
     width: 100%;
-    box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
-    -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
-    filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+    box-shadow: 0 6px 20px rgba(1, 2, 6, 0.17);
+    -webkit-filter: drop-shadow(0 6px 20px rgba(1, 7, 17, 0.017));
+    filter: drop-shadow(0 6px 20px rgba(2, 9, 21, 0.017));
     border-radius: 10px;
     overflow: hidden;
     text-decoration: none;
   }
   
-  .cards__item__pic-wrap {
+  .cards__item__wrap-dining_name {
     position: relative;
     width: 100%;
     padding-top: 67%;
@@ -58,14 +58,14 @@
     animation-duration: 2s;
   } */
   
-  .cards__item__pic-wrap::after {
+  .cards__item__wrap-dining_name::after {
     content: attr(data-category);
     position: absolute;
     bottom: 0;
     margin-left: 10px;
     padding: 6px 8px;
     max-width: calc((100%) - 60px);
-    font-size: 12px;
+    font-size: 22px;
     font-weight: 700;
     color: #fff;
     background-color: #8fabff;
@@ -85,7 +85,7 @@
     height: 100%;
     max-height: 100%;
     object-fit: cover;
-    transition: all 0.2s linear;
+    /* transition: all 0.2s linear; */
   }
   
   /* .cards__item__img:hover {
@@ -93,11 +93,11 @@
   } */
   
   /* caption */
-  .cards__item__info {
+  .cards__item__caption {
     padding: 0px 50px 5px;
   }
   
-  .cards__item__text {
+  .cards__item__caption_text {
     color: #252e48;
     font-size: 18px;
     line-height: 24px;

@@ -21,15 +21,17 @@ function CardItem(props) {
         <>
         <li className='cards__item'>
             <Link className='cards__item__link' to={props.path}>
-            <figure className='cards__item__pic-wrap' data-category={props.label}>
+            <figure className='cards__item__wrap-dining_name' data-category={props.dining_name}>
                 <img
                 className='cards__item__img'
                 alt='Travel Image'
                 src={props.src}
                 />
             </figure>
-            <div className='cards__item__info'>
-                <h5 className='cards__item__text'>{props.text}</h5>
+            <div className='cards__item__caption'>
+                <h5 className='cards__item__caption_text'>Name: {props.name}</h5>
+                <h5 className='cards__item__caption_text'>Description: {props.description}</h5>
+                <h5 className='cards__item__caption_text'>Calorie Count: {props.calories}</h5>
                 <div className='cards__item__buttons'>
                     <button onClick={handleAddFoodClick}>Add Food to Calories</button>
                     <button onClick={handleOpenCommentsClick}>Open or Add Comments</button>

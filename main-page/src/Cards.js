@@ -36,8 +36,10 @@ function Cards() {
             <ul className='cards__items'>
                 <CardItem
                 src='/images/img-9.jpg'
-                text='Explore the hidden waterfall deep inside the Amazon Jungle'
-                label='Adventure'
+                name='Juicy Chicken'
+                description='Pretend this is scrumptious bplate chicken. Bro its literally 6AM, bplate literally opens in an hour.'
+                calories='too many'
+                dining_name='B-Plate'
                 path='/services'
                 onAddFood = {onAddFood}
                 onOpenComments = {onOpenComments}
@@ -45,7 +47,7 @@ function Cards() {
                 {/* <CardItem
                 src='/images/img-2.jpg'
                 text='Travel through the Islands of Bali in a Private Cruise'
-                label='Luxury'
+                dining_name='Luxury'
                 path='/services'
                 /> */}
             </ul>
@@ -53,19 +55,19 @@ function Cards() {
                 <CardItem
                 src='/images/img-3.jpg'
                 text='Set Sail in the Atlantic Ocean visiting Uncharted Waters'
-                label='Mystery'
+                dining_name='Mystery'
                 path='/services'
                 />
                 <CardItem
                 src='/images/img-4.jpg'
                 text='Experience Football on Top of the Himilayan Mountains'
-                label='Adventure'
+                dining_name='Adventure'
                 path='/products'
                 />
                 <CardItem
                 src='/images/img-8.jpg'
                 text='Ride through the Sahara Desert on a guided camel tour'
-                label='Adrenaline'
+                dining_name='Adrenaline'
                 path='/sign-up'
                 />
             </ul>

@@ -10,7 +10,6 @@ body {
 .styled-hr {
   border: none;
   height: 2px;
-  background-color: black;
 }
 
 header {
@@ -44,7 +43,7 @@ nav a {
   padding: 30px 30px;
   text-decoration: none;
   font-size: 18px;
-  color: black;
+  color: white;
 }
 
 nav a:hover {
@@ -53,7 +52,7 @@ nav a:hover {
 }
 
 nav a:active {
-  background-color: #04AA6D;
+  background-color: #325ecf;
   color: white;
 }
 
