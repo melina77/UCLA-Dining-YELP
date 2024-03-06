@@ -1,16 +1,21 @@
 import React, { useState } from 'react'; 
+// import './header.css';
+import './nav.css';
+
 
 function Header() {
 
   return (
     <div>
       <header>
-        <h1 id='title'>BruinGrub</h1>
+        <div className="logo-container">
+          <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
+        </div>
         <nav>
-          <a class="active" href="#home">Home</a>
-          <a href="#calorie-counter">Calorie Counter</a>
-          <a href="#contact">Contact</a>
-          <a href="#logout">Logout</a>
+          <a className="active" href="#home">Home</a>
+          <a className="active" href="#calorie-counter">Calorie Counter</a>
+          <a className="active" href="#contact">Contact</a>
+          <a className="active" href="#logout">Logout</a>
         </nav>
       </header>
     </div>
