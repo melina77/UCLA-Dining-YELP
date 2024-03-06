@@ -120,55 +120,65 @@ function LoginPage() {
   
   
   return (
-    <div className="login-page">
-      <div className="form">
-        <form className="register-form-student" onSubmit={handleRegistrationSubmit} style={{ display: formToShow === 'register-form-student' ? 'block' : 'none' }}>
-          <p className="message">
-            <large>Student Registration</large>
-            <div style={{padding: '5px', fontSize: '36px'}}></div>
-          </p>
-          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <button>create</button>
-          <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
-        </form>
+    <div className = "app">
+      <header className="header">
+      {/* Apply CSS styles to make the header have a different background color */}
+        <div className="logo-container">
+          {/* Apply CSS styles to align the logo left */}
+          <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
+        </div>
+      </header>
+      <div className="login-page">
+        <div className="form">
+          <form className="register-form-student" onSubmit={handleRegistrationSubmit} style={{ display: formToShow === 'register-form-student' ? 'block' : 'none' }}>
+            <p className="message">
+              <large>Student Registration</large>
+              <div style={{padding: '5px', fontSize: '36px'}}></div>
+            </p>
+            <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <button>create</button>
+            <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
+          </form>
 
-        <form className="register-form-dining-hall" onSubmit={handleRegistrationSubmit} style={{ display: formToShow === 'register-form-dining-hall' ? 'block' : 'none' }}>
-          <p className="message">
-            <large>Dining Hall Registration</large>
-            <div style={{padding: '5px', fontSize: '36px'}}></div>
-          </p>
-          <input type="text" placeholder="Dining Hall Name" value={dining_hall_name} onChange={(e) => set_dining_hall_name(e.target.value)}/>
-          <p className="message">
-            The following fields are for individual dining hall staff:
-            <div style={{padding: '5px'}}></div>
-          </p>
-          <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <button>create</button>
-          <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
-        </form>
+          <form className="register-form-dining-hall" onSubmit={handleRegistrationSubmit} style={{ display: formToShow === 'register-form-dining-hall' ? 'block' : 'none' }}>
+            <p className="message">
+              <large>Dining Hall Registration</large>
+              <div style={{padding: '5px', fontSize: '36px'}}></div>
+            </p>
+            <input type="text" placeholder="Dining Hall Name" value={dining_hall_name} onChange={(e) => set_dining_hall_name(e.target.value)}/>
+            <p className="message">
+              The following fields are for individual dining hall staff:
+              <div style={{padding: '5px'}}></div>
+            </p>
+            <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <button>create</button>
+            <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
+          </form>
 
-        <form className="login-form" onSubmit={handleLoginSubmit} style={{ display: formToShow === 'login-form' ? 'block' : 'none' }}>
-          <input type="text" placeholder= {toggleValue === 'dining hall' ? 'Dining Hall Name' : 'Username'} value={toggleValue === 'dining hall' ? dining_hall_name : username} onChange={(e) => toggleValue === 'dining hall' ? set_dining_hall_name(e.target.value) : setUsername(e.target.value)}/>
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <label className="toggle">
-            <input 
-              className="toggle-input" 
-              type="checkbox" 
-              checked={toggleValue === 'dining hall'}//check based on toggleValue
-              onChange={handleToggleChange}//handle toggle change
-            />
-            <span className="toggle-label" data-off="Student" data-on="Dining"></span>
-            <span className="toggle-handle"></span>
-          </label>
-          <button type="submit">login</button>
-          <p className="message">Not registered? Create account as: <span className="toggle-form" onClick={() => toggleForm('register-form-student')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}> Student</span> or <span className="toggle-form" onClick={() => toggleForm('register-form-dining-hall')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}> Dining-affiliated</span></p>
-        </form>
+          <form className="login-form" onSubmit={handleLoginSubmit} style={{ display: formToShow === 'login-form' ? 'block' : 'none' }}>
+            <input type="text" placeholder= {toggleValue === 'dining hall' ? 'Dining Hall Name' : 'Username'} value={toggleValue === 'dining hall' ? dining_hall_name : username} onChange={(e) => toggleValue === 'dining hall' ? set_dining_hall_name(e.target.value) : setUsername(e.target.value)}/>
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <label className="toggle">
+              <input 
+                className="toggle-input" 
+                type="checkbox" 
+                checked={toggleValue === 'dining hall'}//check based on toggleValue
+                onChange={handleToggleChange}//handle toggle change
+              />
+              <span className="toggle-label" data-off="Student" data-on="Dining"></span>
+              <span className="toggle-handle"></span>
+            </label>
+            <button type="submit">login</button>
+            <p className="message">Not registered? Create account as: <span className="toggle-form" onClick={() => toggleForm('register-form-student')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}> Student</span> or <span className="toggle-form" onClick={() => toggleForm('register-form-dining-hall')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}> Dining-affiliated</span></p>
+          </form>
+        </div>
       </div>
     </div>
+    
   );
 }
 
