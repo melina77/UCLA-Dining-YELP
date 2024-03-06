@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import DiningHallCard from './DiningHallCard';
-import Cards from './Cards';
+import DiningHallCard from './cards/DiningHallCard';
+import Cards from './cards/Cards';
 
 function Header() {
 

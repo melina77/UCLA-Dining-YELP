@@ -54,20 +54,20 @@ function Cards() {
             <ul className='cards__items'>
                 <CardItem
                 src='/images/img-3.jpg'
-                text='Set Sail in the Atlantic Ocean visiting Uncharted Waters'
-                dining_name='Mystery'
+                description='Lets pretend you see asian food here.'
+                dining_name='Feast'
                 path='/services'
                 />
                 <CardItem
                 src='/images/img-4.jpg'
-                text='Experience Football on Top of the Himilayan Mountains'
-                dining_name='Adventure'
+                description='Does anyone still eat here?'
+                dining_name='De Neve'
                 path='/products'
                 />
                 <CardItem
                 src='/images/img-8.jpg'
-                text='Ride through the Sahara Desert on a guided camel tour'
-                dining_name='Adrenaline'
+                description='BEST dining hall for real.'
+                dining_name='The Study'
                 path='/sign-up'
                 />
             </ul>
