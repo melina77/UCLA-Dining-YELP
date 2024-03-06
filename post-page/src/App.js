@@ -3,6 +3,27 @@ import {useState} from 'react';
 import {useRef} from 'react';
 
 import './App.css';
+import './nav.css';
+import './header.css';
+
+function Header() {
+
+  return (
+    <div>
+      <header>
+        <div className="logo-container">
+          <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
+        </div>
+        <nav>
+          <a className="active" href="#home">Home</a>
+          <a className="active" href="#calorie-counter">Calorie Counter</a>
+          <a className="active" href="#contact">Contact</a>
+          <a className="active" href="#logout">Logout</a>
+        </nav>
+      </header>
+    </div>
+  )
+}
 
 function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
@@ -99,11 +120,11 @@ function App() {
 
   return (
       <div className="App">
-        <div className="BG-header">
+        {/* <div className="BG-header">
           BruinGrub
 
-        </div>
-        <header className="App-header">
+        </div> */}
+        <div className="App-header">
           
           Make a Post
           <div>
@@ -143,9 +164,16 @@ function App() {
         <button type="submit">Save & Post</button>
         </form>
         </div>
-        </header>
+        </div>
         </div>
   );
 }
 
-export default App;
+export default function PostPage(){
+  return(
+    <div>
+      <Header />
+      <App />
+    </div>
+  )
+};
