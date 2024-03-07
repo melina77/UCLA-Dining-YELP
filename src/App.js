@@ -46,8 +46,8 @@ function CalorieCounter() {
     if (inputValue.trim() !== '' && calories.trim() !== '') {
       // Sets food with corresponding calories
       setFoods([...foods, { food: inputValue, calorie: calories}]);
-      setInputValue('');
-      setCalories('');
+      // setInputValue('');
+      // setCalories('');
     }
   };
 
@@ -74,30 +74,30 @@ function CalorieCounter() {
               <h3>Calories</h3>
             </div>
           </div>
+          <div className='counter-list-container-wrapper'>
             <div className='counter-list-container'>
               <div className='food-list-container'>
                 {foods.map((food, index) => (
                   <div key={index}>{food.food}</div>
                 ))}
-              <div className='add-item-container'>
-                {isEditing ? ( 
-                  <div>
-                    <input 
-                        type="text"
-                        value={inputValue}
-                        placeholder="Enter food item"
-                        onChange={(e) => setInputValue(e.target.value)}
-                        
-                      />
-                    <button onClick={handleSubmit}>Submit</button>
-                    <button onClick={handleCancel}>Cancel</button>
-                  </div>
-                ) : (
-                    <button onClick={handleButtonClick}>Add Food</button>
-                )}
+                <div className='add-item-container'>
+                  {isEditing ? ( 
+                    <div>
+                      <input 
+                          type="text"
+                          value={inputValue}
+                          placeholder="Enter food item"
+                          onChange={(e) => setInputValue(e.target.value)}
+                          
+                        />
+                      <button onClick={handleSubmit}>Submit</button>
+                      <button onClick={handleCancel}>Cancel</button>
+                    </div>
+                  ) : (
+                      <button onClick={handleButtonClick}>Add Food</button>
+                  )}
                 </div>
               </div>
-
               <div className='calories-list-container'>
                 {foods.map((food, index) => (
                   <div key={index}>{food.calorie}</div>
@@ -117,12 +117,13 @@ function CalorieCounter() {
                 )}
               </div>
             </div>
-          <div className='total-container'>
-            <div className='food-total-container'>
+            <div className='total-container'>
+              <div className='food-total-container'>
                 <p>Total Food Ate Today: </p>
-            </div>
-            <div className='calorie-total-container'>
-                <p>Total Calories:</p>
+              </div>
+              <div className='calorie-total-container'>
+                <p>Total Calories: </p>
+              </div>
             </div>
           </div>
         </div>

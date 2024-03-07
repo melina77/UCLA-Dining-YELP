@@ -26,6 +26,7 @@ nav a:active {
   }
 
   #logout-button {
+    color: white;
     font-family: monospace;
     background: none;
     border: none;
@@ -42,6 +43,6 @@ nav a:active {
   }
   
   #logout-button:active {
-    background-color: #04AA6D;
+    background-color: #325ecf;
     color: white;
   }
