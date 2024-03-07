@@ -3,3 +3,5 @@ sequelize
 bcrypt
 dotenv
 jsonwebtoken
+
+.env

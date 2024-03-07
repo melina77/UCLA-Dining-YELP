@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { students, calcounter, food } = require("../models");
+const { students, calcounter } = require("../models");
 const sequelize = require("sequelize");
 const { validate } = require("./auth");
 
