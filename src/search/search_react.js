@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './search.css';
 
 const UserSearch = () => {
     const [users, setUsers] = useState([]);//state to hold user data

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 //import axios from 'axios';
 //import { Link } from 'react-router-dom'
 import './nav.css';
+import Search from './search/search_react.js';
 
 function Header() {
   const handleLogout = () => {
@@ -136,6 +137,7 @@ export default function App() {
   return (
       <body>
         <Header />
+        {/* <Search /> */}
         <CalorieCounter />
       </body>
   )
