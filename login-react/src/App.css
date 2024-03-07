@@ -13,6 +13,22 @@
   }
 }
 
+.header {
+  background-color: #718bd9;
+  padding: 20px;
+  text-align: left;
+}
+
+.logo-container {
+  display: inline-block;  /*align the contents left*/
+}
+
+.logo {
+  width: 200px; /* Adjust the size of the logo as needed */
+  height: auto;
+  display: block; 
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -38,6 +54,10 @@
 }
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.app{
+  margin: auto;
+}
 
 .login-page {
   width: 360px;
@@ -138,7 +158,7 @@
   color: #EF3B3A;
 }
 body {
-  background: #718bd9; /* fallback for old browsers */
+  background: #8fabff; /* fallback for old browsers */
   /*background: rgb(141,194,111);
   background: linear-gradient(90deg, rgba(141,194,111,1) 0%, rgba(118,184,82,1) 50%);*/
   font-family: "Roboto", sans-serif;
