@@ -60,6 +60,7 @@
     flex-direction: column;
     background-color: #f7ee8b;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .counter-list-container {
@@ -99,10 +100,12 @@
 
 /* Total box */
 .total-container {
+    background-color: white;
     display: flex;
     flex-direction: row;
     width: 100%;
     border-top: 1px solid black;
+    
 }
 
 .food-total-container {
