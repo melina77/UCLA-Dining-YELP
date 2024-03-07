@@ -28,7 +28,7 @@ function LoginPage() {
       dining_hall_name: (toggleValue === 'dining hall' ? dining_hall_name : '')
     };
 
-    const endpoint = toggleValue === 'dining hall' ? '/dining-login' : '/student-login';
+    const endpoint = toggleValue === 'dining hall' ? 'http://localhost:8080/dining-login' : 'http://localhost:8080/student-login';
     
     fetch(endpoint, {
       method: 'POST',
@@ -72,13 +72,18 @@ function LoginPage() {
       username: username,
       password: password,
       email: email,
-      dining_hall_name: dining_hall_name
+      // dining_hall_name: dining_hall_name
     };
     
     if (formToShow === 'register-form-student') {
       // Send student registration data to the student registration endpoint
-      fetch('/student-register', {//replace with URL of backend endpoint
+      fetch('http://localhost:8080/student-register', {//replace with URL of backend endpoint
         method: 'POST',
+        // body: JSON.stringify({
+        //   "username": "fdafw",
+        //   "password": "dfiifwiof",
+        //   "email": "x@gmail.com"
+        // }),
         body: JSON.stringify(userData),
         headers: {
           'Content-Type': 'application/json'
@@ -97,7 +102,7 @@ function LoginPage() {
       });
     } else if (formToShow === 'register-form-dining-hall') {
       // Send dining hall registration data to the dining hall registration endpoint
-      fetch('/dining-register', {//replace with URL of backend endpoint
+      fetch('http://localhost:8080/dining-register', {//replace with URL of backend endpoint
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {

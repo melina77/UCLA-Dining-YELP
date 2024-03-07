@@ -12,6 +12,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "server": "node index.js",
+    "login-react": "npm start --prefix login-react",
+    "dev": "concurrently \"npm run server\" \"npm run login-react\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
