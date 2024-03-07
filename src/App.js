@@ -8,7 +8,7 @@ function Header() {
     console.log('logged out')
   }
   return (
-    <div>
+    <div className='header-container'>
       <header>
         <div className="logo-container">
           <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
@@ -74,49 +74,49 @@ function CalorieCounter() {
               <h3>Calories</h3>
             </div>
           </div>
-          <div className='counter-list-container'>
-            <div className='food-list-container'>
-              {foods.map((food, index) => (
-                <div key={index}>{food.food}</div>
-              ))}
-            <div className='add-item-container'>
-              {isEditing ? ( 
-                <div>
-                  <input 
-                      type="text"
-                      value={inputValue}
-                      placeholder="Enter food item"
-                      onChange={(e) => setInputValue(e.target.value)}
-                      
-                    />
-                  <button onClick={handleSubmit}>Submit</button>
-                  <button onClick={handleCancel}>Cancel</button>
+            <div className='counter-list-container'>
+              <div className='food-list-container'>
+                {foods.map((food, index) => (
+                  <div key={index}>{food.food}</div>
+                ))}
+              <div className='add-item-container'>
+                {isEditing ? ( 
+                  <div>
+                    <input 
+                        type="text"
+                        value={inputValue}
+                        placeholder="Enter food item"
+                        onChange={(e) => setInputValue(e.target.value)}
+                        
+                      />
+                    <button onClick={handleSubmit}>Submit</button>
+                    <button onClick={handleCancel}>Cancel</button>
+                  </div>
+                ) : (
+                    <button onClick={handleButtonClick}>Add Food</button>
+                )}
                 </div>
-              ) : (
-                  <button onClick={handleButtonClick}>Add Food</button>
-              )}
+              </div>
+
+              <div className='calories-list-container'>
+                {foods.map((food, index) => (
+                  <div key={index}>{food.calorie}</div>
+                ))}
+                {isEditing ? (
+                  <div>
+                    <input 
+                      className='calories-input' 
+                      type="text"
+                      value={calories}
+                      placeholder="Enter calories"
+                      onChange={(e) => setCalories(e.target.value)}  
+                    />
+                  </div>
+                ) : (
+                  null
+                )}
               </div>
             </div>
-
-            <div className='calories-list-container'>
-              {foods.map((food, index) => (
-                <div key={index}>{food.calorie}</div>
-              ))}
-              {isEditing ? (
-                <div>
-                  <input 
-                    className='calories-input' 
-                    type="text"
-                    value={calories}
-                    placeholder="Enter calories"
-                    onChange={(e) => setCalories(e.target.value)}  
-                  />
-                </div>
-              ) : (
-                null
-              )}
-            </div>
-          </div>
           <div className='total-container'>
             <div className='food-total-container'>
                 <p>Total Food Ate Today: </p>
@@ -134,9 +134,9 @@ function CalorieCounter() {
 
 export default function App() {
   return (
-    <div>
-      <Header />
-      <CalorieCounter />
-    </div>
+      <body>
+        <Header />
+        <CalorieCounter />
+      </body>
   )
 }
