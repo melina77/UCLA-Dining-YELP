@@ -25,7 +25,7 @@ function LoginPage() {
       username: (toggleValue === 'dining hall' ? '' : username),
       password: password,
       email: email,
-      dining_hall_name: (toggleValue === 'dining hall' ? dining_hall_name : '')
+      name: (toggleValue === 'dining hall' ? dining_hall_name : '')
     };
 
     const endpoint = toggleValue === 'dining hall' ? 'http://localhost:8080/dining-login' : 'http://localhost:8080/student-login';
@@ -72,7 +72,7 @@ function LoginPage() {
       username: username,
       password: password,
       email: email,
-      // dining_hall_name: dining_hall_name
+      name: dining_hall_name
     };
     
     if (formToShow === 'register-form-student') {
@@ -141,12 +141,11 @@ function LoginPage() {
               <div style={{padding: '5px', fontSize: '36px'}}></div>
             </p>
             <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" placeholder="Password (must be at least 8 characters)" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <button>create</button>
             <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
           </form>
-
           <form className="register-form-dining-hall" onSubmit={handleRegistrationSubmit} style={{ display: formToShow === 'register-form-dining-hall' ? 'block' : 'none' }}>
             <p className="message">
               <large>Dining Hall Registration</large>
@@ -158,7 +157,7 @@ function LoginPage() {
               <div style={{padding: '5px'}}></div>
             </p>
             <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" placeholder="Password (must be at least 8 characters)" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <button>create</button>
             <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
           </form>
