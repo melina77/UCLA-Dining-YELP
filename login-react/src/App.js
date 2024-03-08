@@ -21,13 +21,15 @@ function LoginPage() {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
+    // 🍅🍅🍅🍅🍅: POTENTIAL ISSUE: since there is no dining hall "username" it's going to be incorrect
     const userData = {
       username: (toggleValue === 'dining hall' ? '' : username),
       password: password,
       email: email,
-      name: (toggleValue === 'dining hall' ? dining_hall_name : '')
+      name: (toggleValue === 'dining hall' ? dining_hall_name : '') // dining hall name is called "name" in the database
     };
 
+    // will route to dining hall or
     const endpoint = toggleValue === 'dining hall' ? 'http://localhost:8080/dining-login' : 'http://localhost:8080/student-login';
     
     fetch(endpoint, {
@@ -39,6 +41,9 @@ function LoginPage() {
     })
     .then(response => {
       if (response.ok) {
+        console.log('Login successful');
+        // 🍅🍅🍅: ADD THIS LINE OF CODE FOR LOCAL STORAGE WHEREVER WE LOGIN AND REGISTRATION
+        localStorage.setItem('accessToken', response);
         return response.json();
       } else {
         throw new Error('Authentication failed');
@@ -79,6 +84,7 @@ function LoginPage() {
       // Send student registration data to the student registration endpoint
       fetch('http://localhost:8080/student-register', {//replace with URL of backend endpoint
         method: 'POST',
+        // 🌸 Hard Coded Data commented out below for testing reasons:
         // body: JSON.stringify({
         //   "username": "fdafw",
         //   "password": "dfiifwiof",
@@ -92,6 +98,9 @@ function LoginPage() {
       .then(response => {
         if(response.ok){
           console.log('Student registration successful');
+          // 🍅🍅🍅: ADD THIS LINE OF CODE FOR LOCAL STORAGE WHEREVER WE LOGIN AND REGISTRATION
+          localStorage.setItem('accessToken', response);
+          return response.json();
         }
         else{
           console.error('Student registration failed');
@@ -112,6 +121,9 @@ function LoginPage() {
       .then(response => {
         if(response.ok){
           console.log('Dining Hall registration successful');
+          // 🍅🍅🍅: ADD THIS LINE OF CODE FOR LOCAL STORAGE WHEREVER WE LOGIN AND REGISTRATION
+          localStorage.setItem('accessToken', response);
+          return response.json();
         }
         else{
           console.error('Dining hall registration failed');
@@ -141,11 +153,12 @@ function LoginPage() {
               <div style={{padding: '5px', fontSize: '36px'}}></div>
             </p>
             <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-            <input type="password" placeholder="Password (must be at least 8 characters)" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <button>create</button>
             <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
           </form>
+
           <form className="register-form-dining-hall" onSubmit={handleRegistrationSubmit} style={{ display: formToShow === 'register-form-dining-hall' ? 'block' : 'none' }}>
             <p className="message">
               <large>Dining Hall Registration</large>
@@ -157,7 +170,7 @@ function LoginPage() {
               <div style={{padding: '5px'}}></div>
             </p>
             <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input type="password" placeholder="Password (must be at least 8 characters)" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <button>create</button>
             <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
           </form>
