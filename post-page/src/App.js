@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import {useState} from 'react';
 import {useRef} from 'react';
 
@@ -62,6 +61,7 @@ function ImageUpload({fileInputRef}) {
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [inputTwo, setInputTwo] = useState('');
+  const [inputThree, setInputThree] = useState('');
   const [wordCount, setWordCount] = useState(0);
   const [calories, setCalories] = useState('');
   const fileInputRef = useRef(null);
