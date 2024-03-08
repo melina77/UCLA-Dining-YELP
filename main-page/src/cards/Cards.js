@@ -4,75 +4,125 @@ import './CardButton.css';
 import CardItem from './CardItem';
 import React, { useState, useEffect } from 'react';
 
-function Cards() {
+// function Cards() {
 
-    // Example state and function in a parent component (e.g., Cards.js or App.js)
+//     // Example state and function in a parent component (e.g., Cards.js or App.js)
 
-    const [totalCalories, setTotalCalories] = useState(0);
+//     const [totalCalories, setTotalCalories] = useState(0);
 
-    const onAddFood = (calories) => {
-        setTotalCalories(totalCalories + calories);
-        console.log("clicked the add food button! that's it sorry :(");
-    };
-    // Pass onAddFood down to each CardItem, where it's invoked with specific calorie values
+//     const onAddFood = (calories) => {
+//         setTotalCalories(totalCalories + calories);
+//         console.log("clicked the add food button! that's it sorry :(");
+//     };
+//     // Pass onAddFood down to each CardItem, where it's invoked with specific calorie values
 
-    // Example state and modal opening function in a parent component
-    const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
-    const [selectedItemId, setSelectedItemId] = useState(null);
+//     // Example state and modal opening function in a parent component
+//     const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
+//     const [selectedItemId, setSelectedItemId] = useState(null);
 
-    const onOpenComments = (itemId) => {
-        setSelectedItemId(itemId);
-        setCommentsModalOpen(true);
-        console.log("clicked the comments button! that's it sorry :(");
-        // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
-    };
-    // In your render method, conditionally render a comments modal based on isCommentsModalOpen
+//     const onOpenComments = (itemId) => {
+//         setSelectedItemId(itemId);
+//         setCommentsModalOpen(true);
+//         console.log("clicked the comments button! that's it sorry :(");
+//         // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
+//     };
+//     // In your render method, conditionally render a comments modal based on isCommentsModalOpen
         
+//     return (
+//         <div className='cards'>
+//         <h1> ~ Check out the top Dining Hall Menu Items! ~ </h1>
+//         <div className='cards__container'>
+//             <div className='cards__wrapper'>
+//             <ul className='cards__items'>
+//                 <CardItem
+//                 src='/images/img-9.jpg'
+//                 name='Juicy Chicken'
+//                 description='Pretend this is scrumptious bplate chicken. Bro its literally 6AM, bplate literally opens in an hour.'
+//                 calories='too many'
+//                 dining_name='B-Plate'
+//                 path='/services'
+//                 onAddFood = {onAddFood}
+//                 onOpenComments = {onOpenComments}
+//                 />
+//                 {/* <CardItem
+//                 src='/images/img-2.jpg'
+//                 text='Travel through the Islands of Bali in a Private Cruise'
+//                 dining_name='Luxury'
+//                 path='/services'
+//                 /> */}
+//             </ul>
+//             <ul className='cards__items'>
+//                 <CardItem
+//                 src='/images/img-3.jpg'
+//                 description='Lets pretend you see asian food here.'
+//                 dining_name='Feast'
+//                 path='/services'
+//                 />
+//                 <CardItem
+//                 src='/images/img-4.jpg'
+//                 description='Does anyone still eat here?'
+//                 dining_name='De Neve'
+//                 path='/products'
+//                 />
+//                 <CardItem
+//                 src='/images/img-8.jpg'
+//                 description='BEST dining hall for real.'
+//                 dining_name='The Study'
+//                 path='/sign-up'
+//                 />
+//             </ul>
+//             </div>
+//         </div>
+//         </div>
+//     );
+// }
+
+// export default Cards;
+
+// 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸 ALTERNATE FETCH API 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
+
+function Cards() {
+    // State to store fetched card data
+    const [cardsData, setCardsData] = useState([]);
+
+    // Fetch card data from the backend API
+    useEffect(() => {
+        const fetchCardsData = async () => {
+            try {
+                const response = await fetch('YOUR_API_ENDPOINT/cards');
+                const data = await response.json();
+                setCardsData(data);
+            } catch (error) {
+                console.error("Failed to fetch cards data:", error);
+            }
+        };
+
+        fetchCardsData();
+    }, []);
+
+    // Render the cards dynamically
     return (
         <div className='cards'>
-        <h1> ~ Check out the top Dining Hall Menu Items! ~ </h1>
-        <div className='cards__container'>
-            <div className='cards__wrapper'>
-            <ul className='cards__items'>
-                <CardItem
-                src='/images/img-9.jpg'
-                name='Juicy Chicken'
-                description='Pretend this is scrumptious bplate chicken. Bro its literally 6AM, bplate literally opens in an hour.'
-                calories='too many'
-                dining_name='B-Plate'
-                path='/services'
-                onAddFood = {onAddFood}
-                onOpenComments = {onOpenComments}
-                />
-                {/* <CardItem
-                src='/images/img-2.jpg'
-                text='Travel through the Islands of Bali in a Private Cruise'
-                dining_name='Luxury'
-                path='/services'
-                /> */}
-            </ul>
-            <ul className='cards__items'>
-                <CardItem
-                src='/images/img-3.jpg'
-                description='Lets pretend you see asian food here.'
-                dining_name='Feast'
-                path='/services'
-                />
-                <CardItem
-                src='/images/img-4.jpg'
-                description='Does anyone still eat here?'
-                dining_name='De Neve'
-                path='/products'
-                />
-                <CardItem
-                src='/images/img-8.jpg'
-                description='BEST dining hall for real.'
-                dining_name='The Study'
-                path='/sign-up'
-                />
-            </ul>
+            <h1> ~ Check out the top Dining Hall Menu Items! ~ </h1>
+            <div className='cards__container'>
+                <div className='cards__wrapper'>
+                    <ul className='cards__items'>
+                        {cardsData.map((card, index) => (
+                            <CardItem
+                                key={index}
+                                src={card.src}
+                                name={card.name}
+                                description={card.description}
+                                calories={card.calories}
+                                dining_name={card.dining_name}
+                                path={card.path}
+                                onAddFood={onAddFood} // Assuming onAddFood function is defined
+                                onOpenComments={onOpenComments} // Assuming onOpenComments function is defined
+                            />
+                        ))}
+                    </ul>
+                </div>
             </div>
-        </div>
         </div>
     );
 }
