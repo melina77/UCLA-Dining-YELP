@@ -23,8 +23,8 @@ function CalorieCounter() {
       if (inputValue.trim() !== '' && calories.trim() !== '') {
         // Sets food with corresponding calories
         setFoods([...foods, { food: inputValue, calorie: calories}]);
-        // setInputValue('');
-        // setCalories('');
+        setInputValue('');
+        setCalories('');
       }
     };
   
