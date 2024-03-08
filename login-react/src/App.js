@@ -46,6 +46,7 @@ function LoginPage() {
         localStorage.setItem('accessToken', response);
         return response.json();
       } else {
+        alert('Authentication/Login Failed')
         throw new Error('Authentication failed');
       }
     })
@@ -53,6 +54,7 @@ function LoginPage() {
       console.log('Authentication successful:', data.token);
     })
     .catch(error => {
+      alert('Authentication/Login Failed')
       console.error('Authentication error:', error.message);
     });
   };
@@ -103,6 +105,7 @@ function LoginPage() {
           return response.json();
         }
         else{
+          alert('Student Registration Failed')
           console.error('Student registration failed');
         }
       })
@@ -126,6 +129,7 @@ function LoginPage() {
           return response.json();
         }
         else{
+          alert('Dining Hall Registration Failed')
           console.error('Dining hall registration failed');
         }
       })
