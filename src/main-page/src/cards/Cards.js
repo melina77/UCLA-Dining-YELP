@@ -3,6 +3,8 @@ import './Cards.css';
 import './CardButton.css';
 import CardItem from './CardItem';
 import React, { useState, useEffect } from 'react';
+import logo1 from '../../public/images/img-9.jpg';
+import logo2 from '../../public/images/img-3.jpg'
 
 function Cards() {
 
@@ -35,7 +37,7 @@ function Cards() {
             <div className='cards__wrapper'>
             <ul className='cards__items'>
                 <CardItem
-                src='/images/img-9.jpg'
+                src={logo1}
                 name='Juicy Chicken'
                 description='Pretend this is scrumptious bplate chicken. Bro its literally 6AM, bplate literally opens in an hour.'
                 calories='too many'
@@ -53,7 +55,7 @@ function Cards() {
             </ul>
             <ul className='cards__items'>
                 <CardItem
-                src='/images/img-3.jpg'
+                src={logo2}
                 description='Lets pretend you see asian food here.'
                 dining_name='Feast'
                 path='/services'

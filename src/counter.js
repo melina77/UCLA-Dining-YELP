@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react'; 
-import Header from './header.js';
 
 function CalorieCounter() {
     // List to manage list of foods
@@ -58,23 +57,7 @@ function CalorieCounter() {
                   {foods.map((food, index) => (
                     <div key={index}>{food.food}</div>
                   ))}
-                  <div className='add-item-container'>
-                    {isEditing ? ( 
-                      <div>
-                        <input 
-                            type="text"
-                            value={inputValue}
-                            placeholder="Enter food item"
-                            onChange={(e) => setInputValue(e.target.value)}
-                            
-                          />
-                        <button onClick={handleSubmit}>Submit</button>
-                        <button onClick={handleCancel}>Cancel</button>
-                      </div>
-                    ) : (
-                        <button onClick={handleButtonClick}>Add Food</button>
-                    )}
-                  </div>
+                  
                 </div>
                 <div className='calories-list-container'>
                   {foods.map((food, index) => (
@@ -97,7 +80,7 @@ function CalorieCounter() {
               </div>
               <div className='total-container'>
                 <div className='food-total-container'>
-                  <p>Total Food Ate Today: </p>
+                  <p>Total Food Consumed Today: </p>
                 </div>
                 <div className='calorie-total-container'>
                   <p>Total Calories: </p>

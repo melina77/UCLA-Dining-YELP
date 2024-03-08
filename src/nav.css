@@ -26,15 +26,17 @@ nav a:active {
   }
 
   #logout-button {
+    background-color: #718bd9;
     color: white;
     font-family: monospace;
-    background: none;
     text-align: center;
     padding: 30px 30px;
     border: none;
     text-decoration: none;
     font-size: 18px;
     cursor: pointer;
+    border-radius: 0;
+    box-shadow: none;
   }
   
   #logout-button:hover {
@@ -45,4 +47,9 @@ nav a:active {
   #logout-button:active {
     background-color: #325ecf;
     color: white;
+  }
+
+  button {
+    border: none;
+    outline: none;
   }
