@@ -130,7 +130,7 @@ function App() {
 
   return (
       <div className="App">
-        <h1> 🌸 post a food item for the current meal period 🌸 </h1>
+        <h1> 🌸 Post a Food Item for the Current Meal Period 🌸 </h1>
         <div className="App-header">
           <div className="box-border" >
           <form id="postForm" onSubmit={handleSubmit}>
