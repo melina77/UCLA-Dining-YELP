@@ -66,6 +66,7 @@
 }
 .form {
   position: relative;
+  border-radius: 10px;
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;

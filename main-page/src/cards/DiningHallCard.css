@@ -1,0 +1,26 @@
+.main-page {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .card {
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    background-color: #f7ee8b;
+    border-radius: 15px;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-body {
+    padding: 2px 16px;
+  }
+  
+  .btn-primary, .btn-secondary {
+    margin: 5px;
+  }
+  

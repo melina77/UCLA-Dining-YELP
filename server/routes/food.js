@@ -31,22 +31,6 @@ router.post("/", validate, upload.single('image'), async (req, res) =>{
     }
 });
 
-router.post("/", validate, async (req, res) =>{
-    const user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
-    if(user){
-        await food.create({
-            name: req.body.name,
-            description: req.body.description,
-            image: req.body.image,
-            calories: req.body.calories,
-            diningId: req.user.id
-        });
-        res.json({ "message": "Post created" });
-    }else{
-        res.json({ "message": "Not a dining hall user" });
-    }
-});
-
 router.get("/", async (req, res) =>{
     const startOfDay = new Date();
     const endOfDay = new Date();
