@@ -125,6 +125,12 @@
 
 
 /* Input related items */
+.calorie-input-container {
+    width: 100%;
+    display: flex; /* Add this line to make it a flex container */
+    justify-content: center; /* Center its children horizontally */
+}
+
 .add-item-container {
     width: 100%;
     padding: 10px;
@@ -134,5 +140,5 @@
 .calories-input {
     box-sizing: border-box;
     margin: 10px;
-    width: 100%;
+    width: 40%;
 }

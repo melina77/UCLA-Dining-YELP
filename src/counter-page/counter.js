@@ -6,13 +6,35 @@ function CalorieCounter() {
     // List to manage list of foods
     const [foods, setFoods] = useState([]);
     const [calories, setCalories] = useState('')
+    const [inputValue, setInputValue] = useState('');    // State to manage input value
+    const [isEditing, setisEditing] = useState(false);    // State to manage add food button
+    const [totalFoodConsumed, setTotalFoodConsumed]  = useState(0);
+    const [totalCalories, setTotalCalories] = useState(0);
   
-    // State to manage input value
-    const [inputValue, setInputValue] = useState('');
-  
-    // State to manage add food button
-    const [isEditing, setisEditing] = useState(false);
-  
+    useEffect(() => {
+      fetch('http://localhost:8080/counter/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        let totalFood = 0;
+        let totalCalories = 0;
+    
+        data.forEach(food => {
+          totalFood += 1;
+          totalCalories += parseInt(food.calorie);
+        });
+    
+        setTotalFoodConsumed(totalFood);
+        setTotalCalories(totalCalories);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+    }, [foods]);
+
+
     // Make input bar visible
     const handleButtonClick = () => {
       setisEditing(true);
@@ -23,22 +45,38 @@ function CalorieCounter() {
       // Check if input has values in it
       if (inputValue.trim() !== '' && calories.trim() !== '') {
         // Sets food with corresponding calories
-        setFoods([...foods, { food: inputValue, calorie: calories}]);
-        setInputValue('');
-        setCalories('');
+        const newFood = { food: inputValue, calorie: calories };
+        setFoods([...foods, newFood]);
+
+        fetch('http://localhost:8080/counter/', {
+          method: 'POST',
+          body: JSON.stringify(newFood), // Sending only the newly added food
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => {
+          // Handle response if needed
+        })
+        .catch(error => console.error('Error posting data:', error));
       }
-    };
+
+      setInputValue('');
+      setCalories('');
+      setisEditing(false);
+
+    }
   
     const handleCancel = () => {
       setisEditing(false);
       setInputValue('');
+      setCalories('');
     }
   
     return (
       <main>
         <div className='main-container'>
           <div className='counter-container'>
-  
             <div className='counter-title'>
               <h2>Calorie Counter</h2>
             </div>
@@ -59,20 +97,19 @@ function CalorieCounter() {
                     <div key={index}>{food.food}</div>
                   ))}
                   <div className='add-item-container'>
-                    {isEditing ? ( 
+                    {isEditing ? (
                       <div>
-                        <input 
-                            type="text"
-                            value={inputValue}
-                            placeholder="Enter food item"
-                            onChange={(e) => setInputValue(e.target.value)}
-                            
-                          />
+                        <input
+                          type='text'
+                          value={inputValue}
+                          placeholder='Enter food item'
+                          onChange={(e) => setInputValue(e.target.value)}
+                        />
                         <button onClick={handleSubmit}>Submit</button>
                         <button onClick={handleCancel}>Cancel</button>
                       </div>
                     ) : (
-                        <button onClick={handleButtonClick}>Add Food</button>
+                      <button onClick={handleButtonClick}>Add Food</button>
                     )}
                   </div>
                 </div>
@@ -81,13 +118,13 @@ function CalorieCounter() {
                     <div key={index}>{food.calorie}</div>
                   ))}
                   {isEditing ? (
-                    <div>
-                      <input 
-                        className='calories-input' 
-                        type="text"
+                    <div className='calorie-input-container'>
+                      <input
+                        className='calories-input'
+                        type='number'
                         value={calories}
-                        placeholder="Enter calories"
-                        onChange={(e) => setCalories(e.target.value)}  
+                        placeholder='Enter calories'
+                        onChange={(e) => setCalories(e.target.value)}
                       />
                     </div>
                   ) : (
@@ -97,17 +134,17 @@ function CalorieCounter() {
               </div>
               <div className='total-container'>
                 <div className='food-total-container'>
-                  <p>Total Food Consumed Today: </p>
+                  <p>Total Food Consumed Today: {totalFoodConsumed}</p>
                 </div>
                 <div className='calorie-total-container'>
-                  <p>Total Calories: </p>
+                  <p>Total Calories: {totalCalories}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </main>
-    )
+    );
   }
 
 
