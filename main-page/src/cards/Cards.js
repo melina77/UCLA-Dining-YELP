@@ -10,11 +10,11 @@ import React, { useState, useEffect } from 'react';
 
 //     const [totalCalories, setTotalCalories] = useState(0);
 
-//     const onAddFood = (calories) => {
+//     const onAddCalories = (calories) => {
 //         setTotalCalories(totalCalories + calories);
-//         console.log("clicked the add food button! that's it sorry :(");
+//         console.log("clicked the add food button! that's it sorry :( calorie count: ", calories);
 //     };
-//     // Pass onAddFood down to each CardItem, where it's invoked with specific calorie values
+//     // Pass onAddCalories down to each CardItem, where it's invoked with specific calorie values
 
 //     // Example state and modal opening function in a parent component
 //     const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
@@ -41,7 +41,7 @@ import React, { useState, useEffect } from 'react';
 //                 calories='too many'
 //                 dining_name='B-Plate'
 //                 path='/services'
-//                 onAddFood = {onAddFood}
+//                 onAddCalories = {onAddCalories}
 //                 onOpenComments = {onOpenComments}
 //                 />
 //                 {/* <CardItem
@@ -79,7 +79,7 @@ import React, { useState, useEffect } from 'react';
 
 // export default Cards;
 
-// 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸 ALTERNATE FETCH API 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
+// 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸 DYNAMIC 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
 
 function Cards() {
     // State to store fetched card data
@@ -89,7 +89,7 @@ function Cards() {
     useEffect(() => {
         const fetchCardsData = async () => {
             try {
-                const response = await fetch('YOUR_API_ENDPOINT/cards');
+                const response = await fetch('http://localhost:8080/f/');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -99,6 +99,29 @@ function Cards() {
 
         fetchCardsData();
     }, []);
+
+    // Example state and function in a parent component (e.g., Cards.js or App.js)
+
+    const [totalCalories, setTotalCalories] = useState(0);
+
+    const onAddCalories = (calories) => {
+        setTotalCalories(totalCalories + calories);
+        console.log("clicked the add food button! that's it sorry :(, calorie count: ", calories);
+    };
+    // Pass onAddCalories down to each CardItem, where it's invoked with specific calorie values
+
+    // Example state and modal opening function in a parent component
+    const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
+    const [selectedItemId, setSelectedItemId] = useState(null);
+
+    const onOpenComments = (itemId) => {
+        setSelectedItemId(itemId);
+        setCommentsModalOpen(true);
+        console.log("clicked the comments button! that's it sorry :(");
+        // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
+    };
+    // In your render method, conditionally render a comments modal based on isCommentsModalOpen
+    
 
     // Render the cards dynamically
     return (
@@ -110,13 +133,13 @@ function Cards() {
                         {cardsData.map((card, index) => (
                             <CardItem
                                 key={index}
-                                src={card.src}
+                                src={card.image}
                                 name={card.name}
                                 description={card.description}
                                 calories={card.calories}
-                                dining_name={card.dining_name}
-                                path={card.path}
-                                onAddFood={onAddFood} // Assuming onAddFood function is defined
+                                // dining_name={card.diningid.name} // 🍅🍅🍅: How do you get the dining ID name?
+                                // path={card.path}
+                                onAddCalories={onAddCalories} // Assuming onAddCalories function is defined
                                 onOpenComments={onOpenComments} // Assuming onOpenComments function is defined
                             />
                         ))}

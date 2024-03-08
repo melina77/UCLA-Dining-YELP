@@ -21,7 +21,7 @@ function CardItem(props) {
     return (
         <>
         <li className='cards__item'>
-            <div className='cards__item__link' to={props.path}>
+            <div className='cards__item__link'>
             <figure className='cards__item__wrap-dining_name' data-category={props.dining_name}>
                 <img
                 className='cards__item__img'
