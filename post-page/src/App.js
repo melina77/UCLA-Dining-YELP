@@ -169,7 +169,7 @@ function App() {
 
             {/* input box for calories */}
             <div>
-              <textarea
+              <input
                 type="number"
                 value={calories}
                 onChange={(e) => setCalories(e.target.value)}

@@ -157,6 +157,14 @@ textarea {
   box-shadow:  -3px 3px 5px rgba(164, 160, 141, 0.5); /* This creates a shadow effect inside the textbox */
 }
 
+input {
+  border: none; /* delete border of input box */
+  border-radius: 5px;
+  font-family: monospace;
+  margin-top: 3%;
+  box-shadow:  -3px 3px 5px rgba(164, 160, 141, 0.5); /* This creates a shadow effect inside the textbox */
+}
+
 button {
   border: none;
   background-color: #8fabff;
