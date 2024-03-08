@@ -11,14 +11,26 @@ function CalorieCounter() {
     const [totalCalories, setTotalCalories] = useState(0);
   
     useEffect(() => {
-      let totalFood = 0;
-      let totalCalories = 0;
-      foods.forEach(food => {
-        totalFood +=1;
-        totalCalories += parseInt(food.calorie);
+      fetch('http://localhost:8080/counter/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
-      setTotalFoodConsumed(totalFood);
-      setTotalCalories(totalCalories);
+      .then(response => response.json())
+      .then(data => {
+        let totalFood = 0;
+        let totalCalories = 0;
+    
+        data.forEach(food => {
+          totalFood += 1;
+          totalCalories += parseInt(food.calorie);
+        });
+    
+        setTotalFoodConsumed(totalFood);
+        setTotalCalories(totalCalories);
+      })
+      .catch(error => console.error('Error fetching data:', error));
     }, [foods]);
 
 
@@ -32,12 +44,27 @@ function CalorieCounter() {
       // Check if input has values in it
       if (inputValue.trim() !== '' && calories.trim() !== '') {
         // Sets food with corresponding calories
-        setFoods([...foods, { food: inputValue, calorie: calories}]);
+        const newFood = { food: inputValue, calorie: calories };
+        setFoods([...foods, newFood]);
+
+        fetch('http://localhost:8080/counter/', {
+          method: 'POST',
+          body: JSON.stringify(newFood), // Sending only the newly added food
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => {
+          // Handle response if needed
+        })
+        .catch(error => console.error('Error posting data:', error));
       }
-        setInputValue('');
-        setCalories('');
-        setisEditing(false);
-    };
+
+      setInputValue('');
+      setCalories('');
+      setisEditing(false);
+
+    }
   
     const handleCancel = () => {
       setisEditing(false);
