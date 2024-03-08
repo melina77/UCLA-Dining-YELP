@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
-
+import { Link, useLocation } from "react-router-dom";
+import './header.css';
+import './nav.css';
 
 function Header() {
     const handleLogout = () => {
       console.log('logged out')
     }
+
     return (
       <div className='header-container'>
         <header>
@@ -15,7 +17,7 @@ function Header() {
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/post" className="nav-link">Post</Link>
             <Link to="/calorie-counter" className="nav-link">Calorie Counter</Link>
-            <button id='logout-button' onClick={handleLogout}>Logout</button>   
+            <Link to="/login" className="nav-link" onClick={handleLogout}>Logout</Link>
           </nav>
         </header>
       </div>

@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react'; 
+import "./counter.css"
 
 function CalorieCounter() {
     // List to manage list of foods
