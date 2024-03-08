@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) =>{
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         description: {
            type: DataTypes.STRING,
@@ -22,15 +23,9 @@ module.exports = (sequelize, DataTypes) =>{
         },
     });
     food.associate = (models) =>{
-        food.hasMany(models.comments, {
-            onDelete: "cascade",
-        })
-        food.hasMany(models.likes, {
-            onDelete: "cascade",
-        })
-        food.hasMany(models.calcounter, {
-            onDelete: "cascade",
-        })
+        food.hasMany(models.students)
+        food.hasMany(models.comments)
+        food.hasMany(models.likes)
     }
 
     return food;
