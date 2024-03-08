@@ -57,7 +57,23 @@ function CalorieCounter() {
                   {foods.map((food, index) => (
                     <div key={index}>{food.food}</div>
                   ))}
-                  
+                  <div className='add-item-container'>
+                    {isEditing ? ( 
+                      <div>
+                        <input 
+                            type="text"
+                            value={inputValue}
+                            placeholder="Enter food item"
+                            onChange={(e) => setInputValue(e.target.value)}
+                            
+                          />
+                        <button onClick={handleSubmit}>Submit</button>
+                        <button onClick={handleCancel}>Cancel</button>
+                      </div>
+                    ) : (
+                        <button onClick={handleButtonClick}>Add Food</button>
+                    )}
+                  </div>
                 </div>
                 <div className='calories-list-container'>
                   {foods.map((food, index) => (
