@@ -1,6 +1,8 @@
 import './App.css';
+import Nav from './nav.js';
 import {useState} from 'react';
 import {useRef} from 'react';
+
 function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
   // Function to handle the image selection
@@ -17,7 +19,7 @@ function ImageUpload({fileInputRef}) {
 
   return (
     <div className="App">
-      <button className="pics" onClick={handleButtonClick}>Add an image</button>
+      <button className="pics" onClick={handleButtonClick} style={{fontFamily: 'monospace'}}>Upload an image</button>
       <input
         type="file"
         accept="image/*"
@@ -31,7 +33,8 @@ function ImageUpload({fileInputRef}) {
     </div>
   );
 }
-function App() {
+
+function Comment() {
   const [inputValue, setInputValue] = useState('');
   const fileInputRef = useRef(null);
   
@@ -68,23 +71,17 @@ function App() {
   
   return (
     <div className="App">
-      <div className="BG-header">
+      {/* <div className="BG-header">
           BruinGrub  
         </div>
-        <hr />
-      <div className="App-title">
-      Comments
-      <div>
-      ____________
-      </div>
-      </div>
+        <hr /> */}
+      <h1> ~ Here is the comment section! ~ </h1>
       
-      
-      <header className="App-header">
+      <div className="App-header">
       <div className = "box-border">
       <form id="postForm" onSubmit={handleSubmit}>
       <textarea
-            placeholder = "Add description..."
+            placeholder = "Add a comment..."
             value={inputValue}
             onChange={(e) =>{
               setInputValue(e.target.value);
@@ -95,18 +92,27 @@ function App() {
               width: '500px',
               height: '55px',
               resize: 'none',
-              fontFamily: 'Arial, sans-sherif'
+              fontFamily: 'monospace'
 
             }}
         />
-          <ImageUpload fileInputRef={fileInputRef}/> 
-          <hr />
-          <button className="submit">Save & Post</button>
-          </form>
-          </div>
-      </header>
-      
+        <ImageUpload fileInputRef={fileInputRef}/> 
+        <button className="submit" style={{fontFamily: 'monospace'}}>Save & Post</button>
+        </form>
+        </div>
+      </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <>
+    <Nav />
+    <div>
+      <Comment />
+    </div>
+    </>
   );
 }
 

@@ -2,6 +2,27 @@ import {useState} from 'react';
 import {useRef} from 'react';
 
 import './App.css';
+import './nav.css';
+import './header.css';
+
+function Header() {
+
+  return (
+    <div>
+      <header>
+        <div className="logo-container">
+          <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
+        </div>
+        <nav>
+          <a className="active" href="#home">Home</a>
+          <a className="active" href="#calorie-counter">Calorie Counter</a>
+          <a className="active" href="#contact">Contact</a>
+          <a className="active" href="#logout">Logout</a>
+        </nav>
+      </header>
+    </div>
+  )
+}
 
 function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
@@ -42,6 +63,7 @@ function App() {
   const [inputTwo, setInputTwo] = useState('');
   const [inputThree, setInputThree] = useState('');
   const [wordCount, setWordCount] = useState(0);
+  const [calories, setCalories] = useState('');
   const fileInputRef = useRef(null);
   const maxWords = 20;
 
@@ -51,6 +73,7 @@ function App() {
     element.style.height = 'auto'; // Reset height to recalculate
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
+  // Event handler for the first input field
   const HandleInputChange = (event) => {
     const userInput = event.target.value;
     const words = userInput.trim().split(/\s+/);
@@ -70,15 +93,23 @@ function App() {
       adjustHeight(inputValue);
     }
   };
+  // Event handler for form submission
   const handleSubmit = async(e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', inputValue);
+    formData.append('name', inputValue);
+
+    // Include image if provided
     if (fileInputRef.current && fileInputRef.current.files[0]) {
       formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
     }
-    formData.append('description', inputTwo); // Assuming you want to include the description as well
+
+    // Include description
+    formData.append('description', inputTwo);
+
+    // Include calories
+    formData.append('calories', calories);
     
 
    // try {
@@ -99,67 +130,67 @@ function App() {
 
   return (
       <div className="App">
-        <div className="BG-header">
-          BruinGrub
-
-        </div>
-        <header className="App-header">
-          
-          Make a Post
-          <div>
-          ____________
-          </div>
-          <hr/>
+        <h1> 🌸 Post a Food Item for the Current Meal Period 🌸 </h1>
+        <div className="App-header">
           <div className="box-border" >
           <form id="postForm" onSubmit={handleSubmit}>
-          <input
-          type="text"
-          value={inputValue}
-          onChange={HandleInputChange}
-          placeholder="Enter title..."
-          style= {{
-            width: '350px',
-            height: '30px'
-          }}
-        />
-          <ImageUpload fileInputRef={fileInputRef}/>
-          <hr />
-          <textarea
-            placeholder = "Add calories..."
-            value={inputThree}
-            onChange={(e) =>{
-              setInputThree(e.target.value);
-              adjustHeight(e);
+
+            {/* input box for food name */}
+            <textarea
+            type="text"
+            value={inputValue}
+            onChange={HandleInputChange}
+            placeholder="Enter name of the dish..."
+            style= {{
+              width: '350px',
+              height: '30px',
+              fontFamily: 'monospace'
             }}
-            style={{ 
-              resize: 'none',
-              width: '100px',
-              height: '20px',
-              fontFamily: 'Arial, sans-serif'
-            }}/>
-            <hr />
-          <textarea
-            placeholder = "Add description..."
-            value={inputTwo}
-            onChange={(e) =>{
-              setInputTwo(e.target.value);
-              adjustHeight(e);
-            }}
-            style={{ 
-              overflowY: 'hidden',
-              width: '500px',
-              height: '50px',
-              resize: 'none',
-              fontFamily: 'Arial, sans-serif'
-            }}
-        />
-        <hr />
-        <button type="submit">Save & Post</button>
+            />
+            <ImageUpload fileInputRef={fileInputRef}/>
+
+            {/* input box for description */}
+            <textarea
+              type="text"
+              placeholder = "Add description..."
+              value={inputTwo}
+              onChange={(e) =>{
+                setInputTwo(e.target.value);
+                adjustHeight(e);
+              }}
+              style={{ 
+                // overflowY: 'hidden',
+                width: '500px',
+                height: '50px',
+                resize: 'none',
+                fontFamily: 'monospace'
+              }}
+            />
+
+            {/* input box for calories */}
+            <div>
+              <textarea
+                type="number"
+                value={calories}
+                onChange={(e) => setCalories(e.target.value)}
+                placeholder="Enter calories..."
+              />
+            </div>
+          <div>
+            <button type="submit">Save & Post</button>
+          </div>
         </form>
         </div>
-        </header>
+        </div>
         </div>
   );
 }
 
-export default App;
+export default function PostPage(){
+  return(
+    <div>
+      <Header />
+      <App />
+    </div>
+  )
+};
