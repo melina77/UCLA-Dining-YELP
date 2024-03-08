@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>BruinGrub Login Page</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- Login Page and Box -->
+<div class="login-page">
+  <div class="form">
+    <!-- Sign Up Form -->
+    <form class="register-form-student">
+      <p class="message">
+        <large> 
+          Student Registration
+        </large>
+        <div style="padding:5px" style="font-size:36px"></div>
+      </p>
+      <input type="text" placeholder="Username"/>
+      <input type="password" placeholder="Password"/>
+      <input type="text" placeholder="Email Address"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#" class="toggle-form" data-form="login-form">Sign In</a></p>
+    </form>
+
+    <form class="register-form-dining-hall" style="display: none;">
+      <p class="message">
+        <large>
+          Dining Hall Registration
+        </large>
+        <div style="padding:5px" style="font-size:36px"></div>
+      </p>
+      <input type="text" placeholder="Dining Hall Name"/>
+      <p class="message">
+        The following fields are for dining hall users:
+        <div style="padding:5px"></div>
+      </p>
+      <input type="text" placeholder="Username"/>
+      <input type="password" placeholder="Password"/>
+      <input type="text" placeholder="Email Address"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#" class="toggle-form" data-form="login-form">Sign In</a></p>
+    </form>
+    <!-- Log In Form --> 
+    <form class="login-form">
+      <input type="text" placeholder="Username"/>
+      <input type="password" placeholder="Password"/>
+      <input type="text" placeholder="Email Address"/>
+      <label class="toggle">
+        <input class="toggle-input" type="checkbox" />
+        <span class="toggle-label" data-off="Student" data-on="Dining"></span>
+        <span class="toggle-handle"></span>
+      </label>
+      <button>login</button>
+      <p class="message">Not registered? Create account as: <a href="#" class="toggle-form" data-form="register-form-student"> Student</a> or <a href="#" class="toggle-form" data-form="register-form-dining-hall"> Dining-affiliated</a></p>
+    </form>
+  </div>
+</div>
+<!-- partial -->
+<!-- a minified version of jQuery 2.1.3, a fast, small, and feature-rich JavaScript library -->
+<!-- designed to simplify HTML document handling, event management, and Ajax interactions across various web browsers. -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to toggle between login and registration forms
+      var toggleForms = document.querySelectorAll('.toggle-form');
+      toggleForms.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          var formToShow = this.getAttribute('data-form');
+          var forms = document.querySelectorAll('.form form');
+          forms.forEach(function(form) {
+            form.style.display = 'none';
+          });
+          document.querySelector('.' + formToShow).style.display = 'block';
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

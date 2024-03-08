@@ -12,6 +12,8 @@ const foodRouter = require("./routes/food");
 app.use("/f", foodRouter);
 const calRouter = require("./routes/calcounter");
 app.use("/count", calRouter);
+const likeRouter = require("./routes/likes");
+app.use("/l", likeRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(8080, ()=>{
