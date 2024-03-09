@@ -6,7 +6,7 @@ import CalorieCounter from './counter-page/counter.js';
 import HomePage from './main-page/src/App.js';
 import LoginPage from './login-react/src/App.js';
 import CommentsPage from './comments-page/src/App.js';
-import PostPage from './post-page/src/App.js';
+import PostPage from './post-page-new/src/App.js';
 
 
 function PageRoutes() {
