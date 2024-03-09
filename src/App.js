@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect, useState, Navigate } from 'react'
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import Header from './global-header/header.js';
 import CalorieCounter from './counter-page/counter.js';
@@ -12,7 +12,23 @@ import PostPage from './post-page/src/App.js';
 function PageRoutes() {
   const location = useLocation();
   const hideHeader = location.pathname === '/';
-  console.log(location)
+  
+  const navigate = useNavigate();
+
+  const checkAuthToken = () => {
+    const token = localStorage.getItem('authToken'); 
+    if (!token && location.pathname !== '/') { // Only redirect if not already on login page
+      navigate('/');
+    }
+  };
+
+  useEffect(() => {
+    checkAuthToken(); // Check authentication token on initial render
+  }, []);
+
+  useEffect(() => {
+    checkAuthToken(); 
+  }, [location]); // Check authentication token whenever location changes (Clicking on nav)
 
   return (
     <div>
@@ -21,7 +37,6 @@ function PageRoutes() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/calorie-counter" element={<CalorieCounter />} />
-
         <Route path="/comments" element={<CommentsPage />} /> 
         <Route path="/post" element={<PostPage />} /> 
       </Routes>
@@ -30,7 +45,7 @@ function PageRoutes() {
 }
 
 export default function App() {
-  
+
   return (
     <Router>
       <PageRoutes />

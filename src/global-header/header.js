@@ -1,10 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import './header.css';
 import './nav.css';
 
 function Header() {
     const handleLogout = () => {
-      console.log('logged out')
+      localStorage.removeItem('authToken');
+      Navigate('/');
     }
 
     return (
@@ -14,6 +15,7 @@ function Header() {
             <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
           </div>
           <nav>
+            {/* <button onClick={handleLogout}>Remove Token</button> */}
             <Link to="/home" className="nav-link">Home</Link>
             <Link to="/post" className="nav-link">Post</Link>
             <Link to="/calorie-counter" className="nav-link">Calorie Counter</Link>
