@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import './App.css'; // Assuming your CSS file is named style.css and is located in the same directory
 
 function LoginPage() {
@@ -8,6 +9,8 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [dining_hall_name, set_dining_hall_name] = useState('');
   const [email, setEmail] = useState('');
+
+  const navigate = useNavigate();
 
   const toggleForm = (newForm) => {
     setFormToShow(newForm);
@@ -30,7 +33,7 @@ function LoginPage() {
 
     const endpoint = toggleValue === 'dining hall' ? '/dining-login' : '/student-login';
     
-    fetch(endpoint, {
+    fetch("http://localhost:8080" + endpoint, {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: {
@@ -46,6 +49,7 @@ function LoginPage() {
     })
     .then(data => {
       console.log('Authentication successful:', data.token);
+      navigate('/home')
     })
     .catch(error => {
       console.error('Authentication error:', error.message);
@@ -77,7 +81,7 @@ function LoginPage() {
     
     if (formToShow === 'register-form-student') {
       // Send student registration data to the student registration endpoint
-      fetch('/student-register', {//replace with URL of backend endpoint
+      fetch('http://localhost:8080/student-register', {//replace with URL of backend endpoint
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -97,7 +101,7 @@ function LoginPage() {
       });
     } else if (formToShow === 'register-form-dining-hall') {
       // Send dining hall registration data to the dining hall registration endpoint
-      fetch('/dining-register', {//replace with URL of backend endpoint
+      fetch('http://localhost:8080/dining-register', {//replace with URL of backend endpoint
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {

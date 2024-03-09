@@ -11,16 +11,17 @@ import PostPage from './post-page/src/App.js';
 
 function PageRoutes() {
   const location = useLocation();
-  const hideHeader = location.pathname === '/login';
+  const hideHeader = location.pathname === '/';
   console.log(location)
 
   return (
     <div>
       {!hideHeader && <Header />}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/calorie-counter" element={<CalorieCounter />} />
-        <Route path="/login" element={<LoginPage />} />
+
         <Route path="/comments" element={<CommentsPage />} /> 
         <Route path="/post" element={<PostPage />} /> 
       </Routes>

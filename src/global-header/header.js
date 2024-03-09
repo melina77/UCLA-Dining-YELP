@@ -14,10 +14,10 @@ function Header() {
             <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
           </div>
           <nav>
-            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/home" className="nav-link">Home</Link>
             <Link to="/post" className="nav-link">Post</Link>
             <Link to="/calorie-counter" className="nav-link">Calorie Counter</Link>
-            <Link to="/login" className="nav-link" onClick={handleLogout}>Logout</Link>
+            <Link to="/" className="nav-link" onClick={handleLogout}>Logout</Link>
           </nav>
         </header>
       </div>
