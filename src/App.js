@@ -34,7 +34,7 @@ function PageRoutes() {
     <div>
       {!hideHeader && <Header />}
       <Routes>
-        <Route path="/" element={<CommentsPage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/calorie-counter" element={<CalorieCounter />} />
         <Route path="/comments" element={<CommentsPage />} /> 
