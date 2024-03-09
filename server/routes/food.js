@@ -35,8 +35,8 @@ router.get("/", async (req, res) =>{
     const startOfDay = new Date();
     const endOfDay = new Date();
     const result = await food.findAll({
-        where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(0, 0, 0, 0), endOfDay.setHours(24, 0, 0, 0)]}},
         include: [likes],
+        order: [['createdAt', 'DESC']],
     });
     res.json(result);
 });
@@ -48,6 +48,7 @@ router.get("/:time", async (req, res) =>{
         const result = await food.findAll({
             where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(7, 0, 0, 0), endOfDay.setHours(10, 0, 0, 0)]}},
             include: [likes],
+            order: [['createdAt', 'DESC']],
         });
         res.json(result);
     }
@@ -55,6 +56,7 @@ router.get("/:time", async (req, res) =>{
         const result = await food.findAll({
             where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(11, 0, 0, 0), endOfDay.setHours(15, 0, 0, 0)]}},
             include: [likes],
+            order: [['createdAt', 'DESC']],
         });
         res.json(result);
     }
@@ -62,6 +64,7 @@ router.get("/:time", async (req, res) =>{
         const result = await food.findAll({
             where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(17, 0, 0, 0), endOfDay.setHours(21, 0, 0, 0)]}},
             include: [likes],
+            order: [['createdAt', 'DESC']],
         });
         res.json(result);
     }
@@ -69,6 +72,7 @@ router.get("/:time", async (req, res) =>{
         const result = await food.findAll({
             where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(21, 0, 0, 0), endOfDay.setHours(24, 0, 0, 0)]}},
             include: [likes],
+            order: [['createdAt', 'DESC']],
         });
         res.json(result);
     }
