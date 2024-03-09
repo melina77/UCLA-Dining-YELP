@@ -56,7 +56,7 @@ function Comment() {
     formData.append('caption', inputValue);
 
     // Replace 'https://your-backend.com/api/posts' with your actual API endpoint
-    fetch('https://your-backend.com/api/posts', {
+    fetch('https://localhost:8080/c/', {
       method: 'POST',
       body: formData,
       // Omit Content-Type header, let the browser set it with the correct boundary for multipart/form-data
@@ -66,6 +66,72 @@ function Comment() {
     .catch(error => console.error('Error:', error));
   };
 
+  /*  const [diningHalls, setDiningHalls] = useState([
+    {
+      id: 1,
+      imageURL: '/images/img-1.jpg',
+      caption: 'Delicious pizza at our Italian Night',
+      username: 'ItalianDiningHall',
+    },
+    // Add more dining hall objects here
+  ]);
+
+  useEffect(() => {
+    // Fetch the data from an API or server and set it in state
+    // This example uses static data defined above
+  }, []);
+
+  return (
+    <div className="main-page">
+      {diningHalls.map(diningHall => (
+        <DiningHallCard key={diningHall.id} diningHall={diningHall} />
+      ))}
+    </div>
+  );*/
+
+  const CommentDisplay = () => {
+    const [posts, setPosts] = useState([
+      {
+      id: 1,
+      imageURL: '/images/logo512.png',
+      caption: 'This burger was so good',
+      username: 'happybruin',
+      }
+    ]);
+
+  /*useEffect(() => {
+      fetch('https://localhost:8080/c/')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => setPosts(data))
+        .catch(error => console.error('Error fetching data:', error));
+        
+    }, []); // Empty dependency array means this effect runs once on component mount
+  */
+
+    /*      {diningHalls.map(diningHall => (
+      <DiningHallCard key={diningHall.id} diningHall={diningHall} />
+      ))}
+      */
+
+    return (
+      <div className = "comment-box">
+        <div className = "text-box">
+        {posts.map(post => (
+          <div key={post.id} style={{ marginBottom: '20px' }}>
+            console.log('hi')
+            {post.imageURL && <img src={post.imageURL} alt={post.caption} style={{ width: '70%', marginTop: '10px' }} />}
+            <p style={{ fontFamily: 'monospace' }}>@{post.username}: {post.caption}</p>
+          </div>
+        ))}
+        </div>
+      </div>
+    );
+  }
 
 
   
@@ -76,7 +142,7 @@ function Comment() {
         </div>
         <hr /> */}
       <h1> ~ Here is the comment section! ~ </h1>
-      
+      <CommentDisplay />
       <div className="App-header">
       <div className = "box-border">
       <form id="postForm" onSubmit={handleSubmit}>
