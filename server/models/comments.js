@@ -8,16 +8,10 @@ module.exports = (sequelize, DataTypes) =>{
         body: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         image: {
             type: DataTypes.BLOB('long'),
         },
     });
-    comments.associate = (models) =>{
-        comments.hasMany(models.likes, {
-            onDelete: "cascade",
-        })
-    }
     return comments;
 }

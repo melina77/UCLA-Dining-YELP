@@ -142,8 +142,7 @@ function Cards() {
                                 name={card.name}
                                 description={card.description}
                                 calories={card.calories}
-                                // dining_name={card.diningid.name} // 🍅🍅🍅: How do you get the dining ID name?
-                                // path={card.path}
+                                dining_name={card.poster} // 🍅🍅🍅: How do you get the dining ID name?
                                 onAddCalories={onAddCalories} // Assuming onAddCalories function is defined
                                 onOpenComments={onOpenComments} // Assuming onOpenComments function is defined
                             />

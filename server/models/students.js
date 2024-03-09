@@ -30,6 +30,12 @@ module.exports = (sequelize, DataTypes) =>{
         students.hasMany(models.comments, {
             onDelete: "cascade",
         })
+        students.hasMany(models.calcounter, {
+            onDelete: "cascade",
+        })
+        students.hasMany(models.likes, {
+            onDelete: "cascade",
+        })
     }
     return students;
 }
