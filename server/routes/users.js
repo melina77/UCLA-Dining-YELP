@@ -74,7 +74,7 @@ router.post("/dining-login", async (req, res) => {
     else {
         await bcrypt.compare(req.body.password, user.password).then(match =>{
             if(!match){
-                res.json({ message: 'Password does not match'})
+                res.status(401).json({ message: 'Password does not match'})
             }
             const token = jwt.sign({ id: user.id, name: user.name }, process.env.SECRET_KEY , { expiresIn: '2h' });
             res.json({ token })

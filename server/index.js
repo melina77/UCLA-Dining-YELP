@@ -6,7 +6,9 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'], 
+    allowedHeaders: ['Authorization', 'Content-Type'],
   }));
 
 const userRouter = require("./routes/users");
@@ -16,7 +18,7 @@ app.use("/c", commentRouter);
 const foodRouter = require("./routes/food");
 app.use("/f", foodRouter);
 const calRouter = require("./routes/calcounter");
-app.use("/count", calRouter);
+app.use("/calorie-counter", calRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(8080, ()=>{
