@@ -7,6 +7,7 @@ import HomePage from './main-page/src/App.js';
 import LoginPage from './login-react/src/App.js';
 import CommentsPage from './comments-page/src/App.js';
 import PostPage from './post-page/src/App.js';
+import SearchPage from './search-page/src/App.js';
 
 
 function PageRoutes() {
@@ -35,6 +36,7 @@ function PageRoutes() {
       {!hideHeader && <Header />}
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/calorie-counter" element={<CalorieCounter />} />
         <Route path="/comments" element={<CommentsPage />} /> 

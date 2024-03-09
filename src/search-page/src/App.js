@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './search.css';
+import './App.css';
 
 const Search = () => {
     const [users, setUsers] = useState([]);
