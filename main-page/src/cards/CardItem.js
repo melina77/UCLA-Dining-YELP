@@ -25,8 +25,7 @@ function CardItem(props) {
             <figure className='cards__item__wrap-dining_name' data-category={props.dining_name}>
                 <img
                 className='cards__item__img'
-                alt='Travel Image'
-                src={props.src}
+                src={`http://localhost:8080/images/${props.src}`}
                 />
             </figure>
             <div className='cards__item__caption'>
