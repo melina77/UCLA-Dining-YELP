@@ -192,6 +192,7 @@ button {
   justify-content: flex-end;
   font-size: calc(10px + 2vmin);
   color: white;
+  background-color: #c5d3fc;;
 }
 
 .BG-header{
@@ -278,4 +279,5 @@ button {
   gap: 30px; 
   margin-bottom: 20px; 
   font-size: larger;
+  font-family: monospace;
 }
