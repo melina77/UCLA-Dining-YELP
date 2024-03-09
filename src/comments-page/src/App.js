@@ -66,36 +66,15 @@ function Comment() {
     .catch(error => console.error('Error:', error));
   };
 
-  /*  const [diningHalls, setDiningHalls] = useState([
-    {
-      id: 1,
-      imageURL: '/images/img-1.jpg',
-      caption: 'Delicious pizza at our Italian Night',
-      username: 'ItalianDiningHall',
-    },
-    // Add more dining hall objects here
-  ]);
-
-  useEffect(() => {
-    // Fetch the data from an API or server and set it in state
-    // This example uses static data defined above
-  }, []);
-
-  return (
-    <div className="main-page">
-      {diningHalls.map(diningHall => (
-        <DiningHallCard key={diningHall.id} diningHall={diningHall} />
-      ))}
-    </div>
-  );*/
 
   const CommentDisplay = () => {
     const [posts, setPosts] = useState([
       {
       id: 1,
-      imageURL: '/images/logo512.png',
-      caption: 'This burger was so good',
+      imageURL: './images/logo512.png',
+      caption: 'This burger was so good. 10/10 would come here again. De Neve is the best dining hall.',
       username: 'happybruin',
+      timestamp: '2:00 PM'
       }
     ]);
 
@@ -122,17 +101,51 @@ function Comment() {
       <div className = "comment-box">
         <div className = "text-box">
         {posts.map(post => (
-          <div key={post.id} style={{ marginBottom: '20px' }}>
-            console.log('hi')
-            {post.imageURL && <img src={post.imageURL} alt={post.caption} style={{ width: '70%', marginTop: '10px' }} />}
-            <p style={{ fontFamily: 'monospace' }}>@{post.username}: {post.caption}</p>
+          <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
+            {post.imageURL && <img src={post.imageURL} alt={post.caption} style={{ width: '20%', marginTop: '10px' }} />}
+            <div style={{flex:1}}>
+              <div>
+            <p style={{ fontFamily: 'monospace' }}>@{post.username}: <span style={{ color: '#888888', fontSize: '0.8em' }}>{post.timestamp}</span></p>
+            </div>
+            <p style={{ fontFamily: 'monospace' }}>{post.caption}</p>
+            </div>
           </div>
         ))}
         </div>
       </div>
     );
   }
+  const CommentNoImage = () => {
+    const [posts, setPosts] = useState([
+    {
+    id: 1,
+    imageURL: './images/logo512.png',
+    caption: 'This burger was so good. 10/10 would come here again. De Neve is the best dining hall.',
+    username: 'happybruin',
+    timestamp: '2:00 PM'
+    }
+  ]);
 
+  return (
+    <div className = "comment-box">
+      <div className = "text-box">
+      {posts.map(post => (
+        <div key={post.id} className = "comment2" style={{ marginBottom: '20px' }}>
+          <div style={{flex:1}}>
+            <div>
+          <p style={{ fontFamily: 'monospace' }}>@{post.username}: <span style={{ color: '#888888', fontSize: 'em' }}>{post.timestamp}</span></p>
+          </div>
+          <p >{post.caption}</p>
+          </div>
+        </div>
+      ))}
+      </div>
+    </div>
+  );
+
+  }
+
+  
 
   
   return (
@@ -143,6 +156,8 @@ function Comment() {
         <hr /> */}
       <h1> ~ Here is the comment section! ~ </h1>
       <CommentDisplay />
+      <p></p>
+      <CommentNoImage />
       <div className="App-header">
       <div className = "box-border">
       <form id="postForm" onSubmit={handleSubmit}>
