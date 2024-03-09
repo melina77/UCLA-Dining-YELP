@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 const { students, dining } = require("../models");
 
 router.post("/student-register", async (req, res) =>{
-    students.findOne({
-        where: {username: req.body.username}
+    students.findAll({
+        where: {username: req.body.username, email: req.body.email}
     }).then(acc => {
         if(!acc){
             bcrypt.hash(req.body.password, 10).then((hash) =>{
@@ -15,7 +15,7 @@ router.post("/student-register", async (req, res) =>{
                     email: req.body.email,
                     password: hash,
                 }).then(user =>{
-                    const token = jwt.sign({ id: user.id, name: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
+                    const token = jwt.sign({ id: user.id, username: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
                     res.json({ token });
                 })
             });
@@ -27,7 +27,7 @@ router.post("/student-register", async (req, res) =>{
 
 router.post("/dining-register", async (req, res) =>{
     dining.findOne({
-        where: {email: req.body.email}
+        where: {name: req.body.name}
     }).then(acc => {
         if(!acc){
             bcrypt.hash(req.body.password, 10).then((hash) =>{

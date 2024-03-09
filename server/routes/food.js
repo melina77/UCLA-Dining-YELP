@@ -5,61 +5,66 @@ const multer = require("multer");
 const sequelize = require("sequelize");
 const { validate } = require("./auth")
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, 'post_photos/');
-//     },
-//     filename: (req, file, cb) => {
-//       cb(null, Date.now() + '-' + file.originalname);
-//     },
-// });
-// const upload = multer({ storage: storage });
+// const uploadSingle = require('./upload-single');
 
-// router.post("/", validate, upload.single('image'), async (req, res) =>{
-//     const user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
-//     if(user){
-//         await food.create({
-//             name: req.body.name,
-//             description: req.body.description,
-//             image: req.file.filename,
-//             calories: req.body.calories,
-//             foodId: req.params.postId,
-//             studentId: req.user.id
-//         });
-//         res.json({ "message": "Comment created" });
-//     }else{
-//         res.json({"message": "Not a dining hall user"});
+// const storage = multer.diskStorage({
+//     destination: function (req, file, callback) {
+//         callback(null, __root + uploadConfiguration.uploadPath);
+//     },
+
+//     filename: function (req, file, callback) {
+//         callback(null, Date.now() + '.' + getFileExtension(file));
 //     }
 // });
 
-router.post("/", validate, async (req, res) =>{
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'post_photos/');
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + '-' + file.originalname);
+    },
+});
+const upload = multer({ storage: storage });
+
+router.post("/", validate, upload.single('image'), async (req, res) =>{
     const user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
     if(user){
         await food.create({
             name: req.body.name,
             description: req.body.description,
-            image: req.body.image,
+            image: req.file.filename,
             calories: req.body.calories,
-            diningId: req.user.id
+            diningId: req.user.id,
         });
-        res.json({ "message": "Post created" });
+        res.json({ "message": "Comment created" });
     }else{
-        res.json({ "message": "Not a dining hall user" });
+        res.json({"message": "Not a dining hall user"});
     }
 });
+
+// router.post("/", validate, async (req, res) =>{
+//     const user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
+//     if(user){
+//         await food.create({
+//             name: req.body.name,
+//             description: req.body.description,
+//             image: req.body.image,
+//             calories: req.body.calories,
+//             diningId: req.user.id
+//         });
+//         res.json({ "message": "Post created" });
+//     }else{
+//         res.json({ "message": "Not a dining hall user" });
+//     }
+// });
 
 router.get("/", async (req, res) =>{
     const startOfDay = new Date();
     const endOfDay = new Date();
     const result = await food.findAll({
         where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(0, 0, 0, 0), endOfDay.setHours(24, 0, 0, 0)]}},
-        include: [
-            {
-              model: likes,
-              attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'likeCount']],
-            },
-        ],
-        group: ['food.id'],
+        include: [likes],
     });
     res.json(result);
 });
