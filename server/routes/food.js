@@ -64,13 +64,7 @@ router.get("/", async (req, res) =>{
     const endOfDay = new Date();
     const result = await food.findAll({
         where: {updatedAt: { [sequelize.Op.between]: [startOfDay.setHours(0, 0, 0, 0), endOfDay.setHours(24, 0, 0, 0)]}},
-        include: [
-            {
-              model: likes,
-              attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'likeCount']],
-            },
-        ],
-        group: ['food.id'],
+        include: [likes],
     });
     res.json(result);
 });
