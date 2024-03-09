@@ -10,12 +10,14 @@ function CalorieCounter() {
     const [isEditing, setisEditing] = useState(false);    // State to manage add food button
     const [totalFoodConsumed, setTotalFoodConsumed]  = useState(0);
     const [totalCalories, setTotalCalories] = useState(0);
-  
+    const authToken = localStorage.getItem('authToken')
+    
     useEffect(() => {
-      fetch('http://localhost:8080/counter/', {
+      fetch('http://localhost:8080/calorie-counter/c2a68194-5bed-435f-9357-48324cd3e55b', {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
         }
       })
       .then(response => response.json())
@@ -48,11 +50,12 @@ function CalorieCounter() {
         const newFood = { food: inputValue, calorie: calories };
         setFoods([...foods, newFood]);
 
-        fetch('http://localhost:8080/counter/', {
+        fetch('http://localhost:8080/calorie-counter/', {
           method: 'POST',
           body: JSON.stringify(newFood), // Sending only the newly added food
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
           }
         })
         .then(response => {

@@ -3,15 +3,19 @@ const jwt = require('jsonwebtoken');
 const validate = (req, res, next) => {
     const header = req.headers['authorization'];
     const token = header && header.split(' ')[1];
+
     if(token){
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        req.user = decoded;
-        if(decoded){
+        try {
+            const decoded = jwt.verify(token, process.env.SECRET_KEY);
+            req.user = decoded;
             return next();
+
+        } catch (error) {
+            console.error('Token verification failed:', error);
+            return res.status(401).json({ message: 'Token verification failed' });
         }
-    }
-    else{
-        res.json({"message": "not authorized"})
+    } else {
+        return res.status(401).json({"messages": "not authorized"})
     }
 }
 
