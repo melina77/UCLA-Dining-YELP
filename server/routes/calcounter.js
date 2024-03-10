@@ -25,7 +25,8 @@ router.post("/", validate, async (req, res) =>{
 });
 
 router.get("/:studentId", validate, async (req, res) =>{
-    const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
+    console.log('username: ', req.user.username);
+    const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     if(user && req.params.studentId == req.user.id){
         const result = await calcounter.findAll({
             attributes: [
@@ -35,7 +36,7 @@ router.get("/:studentId", validate, async (req, res) =>{
         });
         res.json({ result });
     }else {
-        res.json({message: "You do not have access to this page"})
+        res.status(401).json({message: "You do not have access to this page"})
     }
 });
 

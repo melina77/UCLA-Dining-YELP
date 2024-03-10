@@ -1,9 +1,11 @@
 import {useState} from 'react';
 import {useRef} from 'react';
+import { useNavigate } from 'react-router-dom'
 
 import './App.css';
 import './nav.css';
 import './header.css';
+import { jwtDecode } from 'jwt-decode';
 
 // function Header() {
 
@@ -64,6 +66,7 @@ function App() {
   const [inputThree, setInputThree] = useState('');
   const [wordCount, setWordCount] = useState(0);
   const [calories, setCalories] = useState('');
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const maxWords = 20;
 
@@ -99,33 +102,48 @@ function App() {
 
     const formData = new FormData();
     formData.append('name', inputValue);
+    // Include description
+    formData.append('description', inputTwo);
+
+    // Include calories
+    formData.append('calories', calories);
 
     // Include image if provided
     if (fileInputRef.current && fileInputRef.current.files[0]) {
       formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
     }
 
-    // Include description
-    formData.append('description', inputTwo);
-
-    // Include calories
-    formData.append('calories', calories);
-    
-
-   // try {
-      // Replace 'your-server-endpoint' with your actual endpoint URL
-  //    const response = await fetch('your-server-endpoint', {
-    //    method: 'POST',
-      //  body: formData,
-     // });
-//      const result = await response.json();
-  //    console.log(result);
-      // Handle success
-   // } catch (error) {
-     // console.error('Error submitting form:', error);
-      // Handle error
-    //}
+    // Get decoded token
+  const authToken = localStorage.getItem('authToken');
+  let decodedToken;
+  if (authToken) {
+    decodedToken = jwtDecode(authToken);
   }
+
+  // Post food data
+  if (fileInputRef.current.files[0] !== undefined) {
+    try {
+      const response = await fetch('http://localhost:8080/posts/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Authorization': `Bearer ${authToken}`,
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        navigate('/home')
+        console.log(data);
+
+      } else {
+        console.error('Failed to create post:', response.statusText);
+
+        } 
+      } catch (error) {
+      console.error('Error:', error);
+    }
+  }}
 
 
   return (

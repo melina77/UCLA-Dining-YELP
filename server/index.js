@@ -13,9 +13,9 @@ app.use("/", userRouter);
 const commentRouter = require("./routes/comments");
 app.use("/c", commentRouter);
 const foodRouter = require("./routes/food");
-app.use("/f", foodRouter);
+app.use("/posts", foodRouter);
 const calRouter = require("./routes/calcounter");
-app.use("/count", calRouter);
+app.use("/calorie-counter", calRouter);
 const likeRouter = require("./routes/likes");
 app.use("/l", likeRouter);
 

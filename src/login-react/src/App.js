@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import './App.css'; // Assuming your CSS file is named style.css and is located in the same directory
+import { jwtDecode } from 'jwt-decode';
 
 function LoginPage() {
   const [formToShow, setFormToShow] = useState('login-form'); // Default to showing the login form
@@ -19,6 +20,7 @@ function LoginPage() {
   const handleToggleChange = () => {
     //update toggle value
     setToggleValue(toggleValue === 'student' ? 'dining hall' : 'student');
+    // set local
   };
 
   const handleLoginSubmit = (e) => {
@@ -50,7 +52,6 @@ function LoginPage() {
     })
     .then(data => {
       localStorage.setItem('authToken', data.token);
-      console.log(data.token);
 
       console.log('Authentication successful:', data.token);
       navigate('/home')
@@ -94,7 +95,9 @@ function LoginPage() {
       })
       .then(response => {
         if(response.ok){
+          localStorage.setItem('authToken', response.token);
           console.log('Student registration successful');
+          navigate('/home')
         }
         else{
           alert('Student registration failed');
@@ -115,7 +118,9 @@ function LoginPage() {
       })
       .then(response => {
         if(response.ok){
+          localStorage.setItem('authToken', response.token);
           console.log('Dining Hall registration successful');
+          navigate('/home')
         }
         else{
           alert('Dining hall registration failed');

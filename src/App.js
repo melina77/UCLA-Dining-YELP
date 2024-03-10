@@ -24,7 +24,6 @@ function PageRoutes() {
     if (token) {
       decodedToken = jwtDecode(token);
     }
-    console.log(decodedToken);
     const currentTime = Math.floor(Date.now() / 1000);
     
     // Check if token is present
@@ -33,11 +32,12 @@ function PageRoutes() {
     }
 
     // Check if token is expired 
-    // else if (decodedToken.exp < currentTime && location.pathname !== '/') {
-    //   // Remove token and navigate back to login page
-    //   localStorage.removeItem('authToken');
-    //   Navigate('/');
-    // }
+    
+    else if (decodedToken !== undefined && decodedToken.exp < currentTime && location.pathname !== '/') {
+      // Remove token and navigate back to login page
+      localStorage.removeItem('authToken');
+      Navigate('/');
+    }
   };
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function PageRoutes() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/calorie-counter" element={<CalorieCounter />} />
         <Route path="/comments" element={<CommentsPage />} /> 
-        <Route path="/post" element={<PostPage />} /> 
+        <Route path="/posts" element={<PostPage />} /> 
       </Routes>
     </div>
   );

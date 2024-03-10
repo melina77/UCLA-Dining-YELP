@@ -18,11 +18,12 @@ const upload = multer({ storage: storage });
 router.post("/", validate, upload.single('image'), async (req, res) =>{
     const user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
     if(user){
+        console.log(req.file);
         await food.create({
             poster: req.user.name,
             name: req.body.name,
             description: req.body.description,
-            image: req.file.filename,
+            image: req.file.image,
             calories: req.body.calories,
             diningId: req.user.id,
         });

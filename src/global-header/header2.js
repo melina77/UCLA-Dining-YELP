@@ -2,7 +2,7 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import './header.css';
 import './nav.css';
 
-function Header() {
+function Header_Dining() {
     const handleLogout = () => {
       localStorage.removeItem('authToken');
       Navigate('/');
@@ -17,7 +17,6 @@ function Header() {
           <nav>
             {/* <button onClick={handleLogout}>Remove Token</button> */}
             <Link to="/home" className="nav-link">Home</Link>
-            <Link to="/posts" className="nav-link">Post</Link>
             <Link to="/calorie-counter" className="nav-link">Calorie Counter</Link>
             <Link to="/" className="nav-link" onClick={handleLogout}>Logout</Link>
           </nav>
@@ -26,4 +25,4 @@ function Header() {
     )
   }
 
-  export default Header;
+  export default Header_Dining;

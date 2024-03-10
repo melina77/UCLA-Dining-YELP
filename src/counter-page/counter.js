@@ -13,9 +13,9 @@ function CalorieCounter() {
     let decodedToken;
     if (authToken) {
       decodedToken = jwtDecode(authToken);
-      console.log(decodedToken.id);
     }
     
+    // Get total food and calories
     useEffect(() => {
       fetch(`http://localhost:8080/calorie-counter/${decodedToken.id}`, {
         method: 'GET',
@@ -30,16 +30,30 @@ function CalorieCounter() {
         let totalCalories = 0;
     
         data.result.forEach(food => {
-          totalFood += 1;
-          totalCalories += parseInt(food.calorie);
+          // Check if there is a calorie value for each value
+          if (food.calorie == undefined) {
+            totalFood -= 1;
+          }
+          else {
+            totalFood += 1;
+            totalCalories += parseInt(food.calorie);
+          }
+          
         });
-    
+        if (totalFood < 0) {
+          totalFood = 0;
+        }
         setTotalFoodConsumed(totalFood);
         setTotalCalories(totalCalories);
       })
       .catch(error => console.error('Error fetching data:', error));
     }, [foods]);
   
+
+    // Get individual food and calorie values
+
+    
+
     // const newFood = { food: inputValue, calorie: calories };
     // setFoods([...foods, newFood]);
 

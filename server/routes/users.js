@@ -32,7 +32,7 @@ router.post("/dining-register", async (req, res) =>{
         if(!acc){
             bcrypt.hash(req.body.password, 10).then((hash) =>{
                 dining.create({
-                    name: req.body.name,
+                    name: req.body.dining_hall_name,
                     email: req.body.email,
                     password: hash,
                 }).then(user =>{
