@@ -58,7 +58,7 @@ router.post("/student-login", async (req, res) => {
             if(!match){
                 res.status(401).res.json({ message: 'Password does not match'})
             }
-            const token = jwt.sign({ id: user.id, username: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
+            const token = jwt.sign({ id: user.id, name: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
             res.json({ token })
         });
     }
