@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { students, calcounter, food } = require("../models");
+const { students, calcounter } = require("../models");
 const sequelize = require("sequelize");
 const { validate } = require("./auth");
 
 router.post("/", validate, async (req, res) =>{
     const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
     if(user){
-        console.log("user:", user);
         const result = await calcounter.findOne({
             where: { foodId: req.body.foodId, studentId: req.user.id },
         });
