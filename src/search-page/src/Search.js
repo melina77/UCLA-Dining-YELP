@@ -46,7 +46,6 @@ const Search = ({ searchTerm, setSearchTerm }) => {
                             description={card.description}
                             calories={card.calories}
                             dining_name={card.dining_name}
-                            path='/services'
                         />
                     ))}
                 </div>
