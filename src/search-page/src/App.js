@@ -9,21 +9,10 @@ const HomePage = () => {
         setSearchTerm(value);
     };
 
-    // const handleAddCalories = (calories) => {
-    //     // Add logic to handle adding calories
-    //     console.log("Adding calories:", calories);
-    // };
-
-    // const handleOpenComments = (itemId) => {
-    //     // Add logic to handle opening comments
-    //     console.log("Opening comments for item:", itemId);
-    // };
-
     return (
         <div>
             <Search onSearch={handleSearch} />
-            <Cards searchTerm={searchTerm} />
-            {/* <Cards searchTerm={searchTerm} onAddCalories={handleAddCalories} onOpenComments={handleOpenComments} /> */}
+            <Cards searchTerm={searchTerm}/>
         </div>
     );
 };
