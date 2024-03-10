@@ -44,11 +44,13 @@ function LoginPage() {
       if (response.ok) {
         return response.json();
       } else {
+        alert('Login failed, please try again!');
         throw new Error('Authentication failed');
       }
     })
     .then(data => {
       localStorage.setItem('authToken', data.token);
+      console.log(data.token);
 
       console.log('Authentication successful:', data.token);
       navigate('/home')
@@ -95,6 +97,7 @@ function LoginPage() {
           console.log('Student registration successful');
         }
         else{
+          alert('Student registration failed');
           console.error('Student registration failed');
         }
       })
@@ -115,10 +118,12 @@ function LoginPage() {
           console.log('Dining Hall registration successful');
         }
         else{
+          alert('Dining hall registration failed');
           console.error('Dining hall registration failed');
         }
       })
       .catch(error => {
+        alert('Network error! Is your password at least 8 characters?', error);
         console.error('Network error: ', error);
       });
     }
@@ -142,7 +147,7 @@ function LoginPage() {
               <div style={{padding: '5px', fontSize: '36px'}}></div>
             </p>
             <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" placeholder="Password (at least 8 characters)" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <button>create</button>
             <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
@@ -159,7 +164,7 @@ function LoginPage() {
               <div style={{padding: '5px'}}></div>
             </p>
             <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" placeholder="Password (at least 8 characters)" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <button>create</button>
             <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
           </form>
