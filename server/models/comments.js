@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) =>{
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
+        poster: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         body: {
             type: DataTypes.STRING,
             allowNull: false,

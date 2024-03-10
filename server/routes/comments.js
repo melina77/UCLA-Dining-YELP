@@ -20,6 +20,7 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
     if(user){
         await comments.create({
             body: req.body.body,
+            poster: req.user.username,
             image: req.file.filename,
             foodId: req.params.postId,
             studentId: req.user.id
