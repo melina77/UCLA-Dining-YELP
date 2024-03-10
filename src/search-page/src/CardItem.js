@@ -1,15 +1,15 @@
 // import React from 'react';
 // import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import LikeButton from '../likes/LikeButton';
+import LikeButton from './LikeButton';
 
 function CardItem(props) {
 
     // Example handleAddFoodClick implementation
     const handleAddFoodClick = () => {
-        // const caloriesFromFood = 100; // Placeholder value
-        // props.onAddCalories(caloriesFromFood); // onAddCalories would be a function passed as a prop from the parent component
-        props.onAddCalories();
+        // Assuming you have a way to determine the calorie count of this item
+        const caloriesFromFood = 100; // Placeholder value
+        props.onAddCalories(caloriesFromFood); // onAddCalories would be a function passed as a prop from the parent component
     };
     
     // Example handleOpenCommentsClick implementation
@@ -21,11 +21,12 @@ function CardItem(props) {
     return (
         <>
         <li className='cards__item'>
-            <div className='cards__item__link'>
+            <div className='cards__item__link' to={props.path}>
             <figure className='cards__item__wrap-dining_name' data-category={props.dining_name}>
                 <img
                 className='cards__item__img'
-                src={`http://localhost:8080/images/${props.src}`}
+                alt='Travel Image'
+                src={props.src}
                 />
             </figure>
             <div className='cards__item__caption'>

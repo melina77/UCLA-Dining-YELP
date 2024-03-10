@@ -50,6 +50,7 @@ function LoginPage() {
     })
     .then(data => {
       localStorage.setItem('authToken', data.token);
+      console.log(data.token);
 
       console.log('Authentication successful:', data.token);
       navigate('/home')

@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "jwt-decode": "^4.0.0",
+    "concurrently": "^8.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.2",
@@ -14,6 +15,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "server": "node ./server/index.js",
+    "login-react": "npm start --prefix login-react",
+    "dev": "concurrently \"npm run server\" \"npm run login-react\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
