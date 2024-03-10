@@ -28,13 +28,14 @@ function ImageUpload({fileInputRef}) {
         ref={fileInputRef}
       />
       <div>
-      {image && <img src={image} alt="Uploaded" style={{ width: '70%', marginTop: '20px' }} />}
+      {image && <img src={image} alt="Uploaded" style={{ width: '30%', marginTop: '20px' }} />}
       </div>
     </div>
   );
 }
 
 function Comment() {
+  const token = localStorage.getItem('authToken');
   const [inputValue, setInputValue] = useState('');
   const fileInputRef = useRef(null);
   
@@ -52,14 +53,16 @@ function Comment() {
     if (fileInputRef.current && fileInputRef.current.files[0]) {
       formData.append('image', fileInputRef.current.files[0]);
     }
-    // Append the caption or description text to the FormData object
-    formData.append('caption', inputValue);
+    
+    formData.append('body', inputValue);
 
-    // Replace 'https://your-backend.com/api/posts' with your actual API endpoint
-    fetch('https://localhost:8080/c/', {
+    fetch('http://localhost:8080/home/a9ff0392-3fa3-4b7d-8e1e-fb05b66e4f50', {
       method: 'POST',
-      body: formData,
-      // Omit Content-Type header, let the browser set it with the correct boundary for multipart/form-data
+      body: JSON.stringify({body: inputValue}),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
     })
     .then(response => response.json())
     .then(data => console.log(data))
@@ -69,17 +72,15 @@ function Comment() {
 
   const CommentDisplay = () => {
     const [posts, setPosts] = useState([
-      {
-      id: 1,
-      imageURL: './images/logo512.png',
-      caption: 'This burger was so good. 10/10 would come here again. De Neve is the best dining hall.',
-      username: 'happybruin',
-      timestamp: '2:00 PM'
-      }
     ]);
 
   useEffect(() => {
-      fetch('https://localhost:8080/c/')
+      fetch('http://localhost:8080/home/a9ff0392-3fa3-4b7d-8e1e-fb05b66e4f50', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -100,7 +101,7 @@ function Comment() {
             {post.imageURL && <img src={post.imageURL} alt={post.caption} style={{ width: '20%', marginTop: '10px' }} />}
             <div style={{flex:1}}>
               <div>
-            <p style={{ fontFamily: 'monospace' }}>@{post.username}: <span style={{ color: '#888888', fontSize: '0.8em' }}>{post.timestamp}</span></p>
+            <p style={{ fontFamily: 'monospace' }}>@{post.username}: <span className = "timestamp">{post.timestamp}</span></p>
             </div>
             <p style={{ fontFamily: 'monospace' }}>{post.caption}</p>
             </div>
@@ -124,10 +125,11 @@ function Comment() {
       <CommentDisplay />
       <p></p>
       <CommentDisplay />
+      <p />
       <div className="App-header">
       <div className = "box-border">
       <form id="postForm" onSubmit={handleSubmit}>
-      <textarea
+      <textarea classname= "add-comment"
             placeholder = "Add a comment..."
             value={inputValue}
             onChange={(e) =>{
@@ -155,7 +157,6 @@ function Comment() {
 function App() {
   return (
     <>
-    <Nav />
     <div>
       <Comment />
     </div>

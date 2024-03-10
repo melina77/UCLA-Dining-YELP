@@ -187,7 +187,7 @@ button {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: flex-end;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -211,7 +211,7 @@ button {
 .box-border{
   background: #f7e94f;
   min-width: 10vh;
-  max-width: 600 px;
+  max-width: 60%;
   padding-top: 8%;
   padding-bottom: 8%;
   padding-left: 8%;
@@ -285,6 +285,16 @@ button {
   font-family: monospace;
 }
 
-.image_button{
-  background-color: #f7e94f;
+.timestamp {
+  color: #888888;
+  font-size: 0.8em 
+}
+
+.add-comment{
+    overflow-y: hidden;
+    width: 500px;
+    height: 55px;
+    resize: none;
+    font-family: monospace;
+
 }

@@ -35,7 +35,7 @@ router.post("/:postId", validate, async (req, res) =>{
     if(user){
         await comments.create({
             body: req.body.body,
-            image: req.body.image,
+            // image: req.body.image,
             foodId: req.params.postId,
             studentId: req.user.id
         });
