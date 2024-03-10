@@ -20,7 +20,7 @@ router.post("/student-register", async (req, res) =>{
                 })
             });
         } else {
-            res.json({ message: 'Username or email already taken' });
+            res.status(401).json({ message: 'Username or email already taken' });
         }
     });
 });
@@ -41,7 +41,7 @@ router.post("/dining-register", async (req, res) =>{
                 })
             });
         } else {
-            res.json({ message: 'Email already taken' });
+            res.status(401).json({ message: 'Email already taken' });
         }
     });
 });
@@ -69,7 +69,7 @@ router.post("/dining-login", async (req, res) => {
         where: {email: req.body.email}
     });
     if(!user){
-        res.json({ message: 'Email does not exist'})
+        res.status(401).json({ message: 'Email does not exist'})
     }
     else {
         await bcrypt.compare(req.body.password, user.password).then(match =>{
