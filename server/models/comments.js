@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) =>{
             allowNull: false,
         },
         image: {
-            type: DataTypes.BLOB('long'),
+            type: DataTypes.STRING,
         },
     });
     return comments;
