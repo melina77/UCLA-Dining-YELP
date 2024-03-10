@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
-import Cards from './Cards';
-import Search from './Search';
+import { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-const HomePage = ({onSearch}) => {
-    const [searchTerm, setSearchTerm] = useState('');
+import PageRoutes from '../../App.js';
 
-    const handleSearch = (value) => {
-        setSearchTerm(value);
-        onSearch(value);
-    };
+function App() {
+  const [searchTerm, setSearchTerm] = useState('');
 
-    return (
-        <div>
-            <Search onSearch={handleSearch} />
-            <Cards searchTerm={searchTerm}/>
-        </div>
-    );
-};
+  return (
+    <Router>
+      <PageRoutes searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      {/* Got rid of <PageRoutes cards={searchTerm} might need this */}
+    </Router>
+  );
+}
 
-export default HomePage;
+export default App;

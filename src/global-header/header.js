@@ -1,12 +1,13 @@
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import './header.css';
-import './nav.css';
 import Search from '../search-page/src/Search.js';
 
-function Header({ handleSearch }) {
+
+function Header({ handleSearch, searchTerm, setSearchTerm }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // const navigate = useNavigate();
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -14,7 +15,7 @@ function Header({ handleSearch }) {
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    Navigate('/');
+    Navigate('/'); // Use navigate to redirect to '/'
   }
 
   return (
@@ -25,7 +26,7 @@ function Header({ handleSearch }) {
         </div>
         {/* Conditionally render search component based on state */}
         {isSearchOpen ? (
-          <Search onSearch={handleSearch} />
+          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}  />
         ) : (
           <input
             type="text"
@@ -46,3 +47,4 @@ function Header({ handleSearch }) {
 }
 
 export default Header;
+
