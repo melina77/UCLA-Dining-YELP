@@ -79,4 +79,21 @@ router.get("/:time", async (req, res) =>{
     }
 });
 
+router.get("/search/:search", async (req, res) =>{
+    try {
+        const searchQuery = req.params.search;
+        const result = await food.findAll({
+            where: {
+                [sequelize.Op.or]: [
+                    {name: { [sequelize.Op.like]: `%${searchQuery}%` }},
+                    {description: { [sequelize.Op.like]: `%${searchQuery}%` }}
+                ]
+            }
+        });
+        res.json(result);
+    } catch (error){
+        res.json({ message: "Failed to search" });
+    }
+});
+
 module.exports = router;
