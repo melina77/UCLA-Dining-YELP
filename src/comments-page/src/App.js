@@ -1,7 +1,7 @@
 import './App.css';
 import Nav from './nav.js';
-import {useState} from 'react';
-import {useRef} from 'react';
+import {useState, useRef} from 'react';
+import { useEffect } from 'react';
 
 function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
@@ -18,7 +18,7 @@ function ImageUpload({fileInputRef}) {
   };
 
   return (
-    <div className="App">
+    <div className="image-button">
       <button className="pics" onClick={handleButtonClick} style={{fontFamily: 'monospace'}}>Upload an image</button>
       <input
         type="file"
@@ -78,7 +78,7 @@ function Comment() {
       }
     ]);
 
-  /*useEffect(() => {
+  useEffect(() => {
       fetch('https://localhost:8080/c/')
         .then(response => {
           if (!response.ok) {
@@ -90,12 +90,7 @@ function Comment() {
         .catch(error => console.error('Error fetching data:', error));
         
     }, []); // Empty dependency array means this effect runs once on component mount
-  */
-
-    /*      {diningHalls.map(diningHall => (
-      <DiningHallCard key={diningHall.id} diningHall={diningHall} />
-      ))}
-      */
+  
 
     return (
       <div className = "comment-box">
@@ -115,35 +110,6 @@ function Comment() {
       </div>
     );
   }
-  const CommentNoImage = () => {
-    const [posts, setPosts] = useState([
-    {
-    id: 1,
-    imageURL: './images/logo512.png',
-    caption: 'This burger was so good. 10/10 would come here again. De Neve is the best dining hall.',
-    username: 'happybruin',
-    timestamp: '2:00 PM'
-    }
-  ]);
-
-  return (
-    <div className = "comment-box">
-      <div className = "text-box">
-      {posts.map(post => (
-        <div key={post.id} className = "comment2" style={{ marginBottom: '20px' }}>
-          <div style={{flex:1}}>
-            <div>
-          <p style={{ fontFamily: 'monospace' }}>@{post.username}: <span style={{ color: '#888888', fontSize: 'em' }}>{post.timestamp}</span></p>
-          </div>
-          <p >{post.caption}</p>
-          </div>
-        </div>
-      ))}
-      </div>
-    </div>
-  );
-
-  }
 
   
 
@@ -157,7 +123,7 @@ function Comment() {
       <h1> ~ Here is the comment section! ~ </h1>
       <CommentDisplay />
       <p></p>
-      <CommentNoImage />
+      <CommentDisplay />
       <div className="App-header">
       <div className = "box-border">
       <form id="postForm" onSubmit={handleSubmit}>

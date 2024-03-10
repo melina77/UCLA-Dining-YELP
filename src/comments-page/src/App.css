@@ -1,6 +1,5 @@
 /* .App {
   text-align: center;
-  background-color: #c5d3fc;
 }
 
 .App-divider{
@@ -101,7 +100,7 @@
 body {
   font-family: monospace;
   /* webpage background color */
-  background-color: #8fabff;
+  background-color: #718bd9;
 }
 
 .styled-hr {
@@ -280,4 +279,12 @@ button {
   margin-bottom: 20px; 
   font-size: larger;
   font-family: monospace;
+  margin-bottom: 20px
+}
+.username_time{
+  font-family: monospace;
+}
+
+.image_button{
+  background-color: #f7e94f;
 }
