@@ -106,15 +106,6 @@ function Cards() {
         fetchCardsData();
     }, []);
 
-    // const [totalCalories, setTotalCalories] = useState(0);
-
-    // const onAddCalories = (calories) => {
-    //     setTotalCalories(totalCalories + calories);
-    //     console.log("clicked the add food button! that's it sorry :(, calorie count: ", calories);
-    // };
-    // Pass onAddCalories down to each CardItem, where it's invoked with specific calorie values
-
-    // Example state and modal opening function in a parent component
     const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
     const [selectedItemId, setSelectedItemId] = useState(null);
 
@@ -124,43 +115,33 @@ function Cards() {
         console.log("clicked the comments button! that's it sorry :(");
         // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
     };
-    // In your render method, conditionally render a comments modal based on isCommentsModalOpen
 
-    // const onAddCalories = (cardId, caloriesToAdd) => {
-    //     // Your implementation here
-    //     console.log("clicked the add food's calories to your calorie count button!");
-    //     fetch('http://localhost:8080/count/', { //replace with URL of backend endpoint
-    //     method: 'POST',
-    //     body: ,
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     }
-    //     })
-    //     .then(response => {
-    //     if(response.ok){
-    //         console.log('Calories added successfully!');
-    //         return response.json();
-    //     }
-    //     else{
-    //         alert('Add Calories failed')
-    //         console.error('Add Calories failed');
-    //     }
-    //     })
-    //     .catch(error => {
-    //     console.error('Network error: ', error);
-    //     });
-    // };
+    const getUserIdFromToken = () => {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            // Decode the token to extract user information
+            const decodedToken = jwtDecode(token);
+            // Extract the userID from the decoded token
+            return decodedToken.id; // Adjust the property name as per your JWT payload
+        }
+        alert("Unable to get this user's authToken");
+        return null; // Token not found or invalid
+    };
 
-    const onAddCalories = async (foodId) => {
+    const onAddCalories = async (foodId, card_calories) => {
+        const token = localStorage.getItem('authToken');
+        const studentID = getUserIdFromToken();
+        console.log("I got the studentID! ", {studentID});
         const response = await fetch('http://localhost:8080/count/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 // Add any additional headers you need, such as authorization headers
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                foodId: foodId,
-                // calories: calories
+                foodId: foodId, 
+                calories: card_calories
             })
         });
         const data = await response.json();
@@ -171,7 +152,7 @@ function Cards() {
     // Render the cards dynamically
     return (
         <div className='cards'>
-            <h1> ~ Check out the top Dining Hall Menu Items! ~ </h1>
+            <h1> ⭐️ Check out the top Dining Hall Menu Items! ⭐️ </h1>
             <div className='cards__container'>
                 <div className='cards__wrapper'>
                     <ul className='cards__items'>
@@ -183,7 +164,7 @@ function Cards() {
                                 description={card.description}
                                 calories={card.calories}
                                 dining_name={card.poster}
-                                onAddCalories={() => onAddCalories(card.id)} // Pass card.id to onAddCalories // Assuming onAddCalories function is defined
+                                onAddCalories={() => onAddCalories(card.id, card.calories)} // Pass card.id to onAddCalories // Assuming onAddCalories function is defined
                                 onOpenComments={onOpenComments} // Assuming onOpenComments function is defined
                             />
                         ))}
