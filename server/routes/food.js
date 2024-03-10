@@ -89,7 +89,9 @@ router.get("/search/:search", async (req, res) =>{
                     {description: { [sequelize.Op.like]: `%${searchQuery}%` }},
                     {poster: { [sequelize.Op.like]: `%${searchQuery}%`}}
                 ]
-            }
+            },
+            include: [likes],
+            order: [['createdAt', 'DESC']],
         });
         res.json(result);
     } catch (error){
