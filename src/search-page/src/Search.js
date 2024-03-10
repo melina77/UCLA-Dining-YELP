@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './search.css';
+import ReactDOM from 'react-dom';
 import CardItem from './CardItem'; // Import the CardItem component
 
 const Search = ({ searchTerm, setSearchTerm }) => {
@@ -26,9 +27,9 @@ const Search = ({ searchTerm, setSearchTerm }) => {
     return (
         <div className="app">
             <header className="header">
-                <div className="logo-container">
+                {/* <div className="logo-container">
                     <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
-                </div>
+                </div> */}
                 <input
                     type="text"
                     placeholder="Search cards"

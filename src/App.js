@@ -10,6 +10,7 @@ import PostPage from './post-page/src/App.js';
 import SearchPage from './search-page/src/App.js';
 
 
+
 function PageRoutes() {
   const location = useLocation();
   const hideHeader = location.pathname === '/';
@@ -33,9 +34,9 @@ function PageRoutes() {
 
   return (
     <div>
-      {!hideHeader && <Header />}
+      {<Header />}
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/calorie-counter" element={<CalorieCounter />} />
