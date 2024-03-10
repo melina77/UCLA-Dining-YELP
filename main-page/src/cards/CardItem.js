@@ -7,9 +7,9 @@ function CardItem(props) {
 
     // Example handleAddFoodClick implementation
     const handleAddFoodClick = () => {
-        // Assuming you have a way to determine the calorie count of this item
-        const caloriesFromFood = 100; // Placeholder value
-        props.onAddCalories(caloriesFromFood); // onAddCalories would be a function passed as a prop from the parent component
+        // const caloriesFromFood = 100; // Placeholder value
+        // props.onAddCalories(caloriesFromFood); // onAddCalories would be a function passed as a prop from the parent component
+        props.onAddCalories();
     };
     
     // Example handleOpenCommentsClick implementation

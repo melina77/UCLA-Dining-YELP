@@ -105,14 +105,12 @@ function Cards() {
         fetchCardsData();
     }, []);
 
-    // Example state and function in a parent component (e.g., Cards.js or App.js)
+    // const [totalCalories, setTotalCalories] = useState(0);
 
-    const [totalCalories, setTotalCalories] = useState(0);
-
-    const onAddCalories = (calories) => {
-        setTotalCalories(totalCalories + calories);
-        console.log("clicked the add food button! that's it sorry :(, calorie count: ", calories);
-    };
+    // const onAddCalories = (calories) => {
+    //     setTotalCalories(totalCalories + calories);
+    //     console.log("clicked the add food button! that's it sorry :(, calorie count: ", calories);
+    // };
     // Pass onAddCalories down to each CardItem, where it's invoked with specific calorie values
 
     // Example state and modal opening function in a parent component
@@ -126,7 +124,48 @@ function Cards() {
         // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
     };
     // In your render method, conditionally render a comments modal based on isCommentsModalOpen
-    
+
+    // const onAddCalories = (cardId, caloriesToAdd) => {
+    //     // Your implementation here
+    //     console.log("clicked the add food's calories to your calorie count button!");
+    //     fetch('http://localhost:8080/count/', { //replace with URL of backend endpoint
+    //     method: 'POST',
+    //     body: ,
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     }
+    //     })
+    //     .then(response => {
+    //     if(response.ok){
+    //         console.log('Calories added successfully!');
+    //         return response.json();
+    //     }
+    //     else{
+    //         alert('Add Calories failed')
+    //         console.error('Add Calories failed');
+    //     }
+    //     })
+    //     .catch(error => {
+    //     console.error('Network error: ', error);
+    //     });
+    // };
+
+    const onAddCalories = async (foodId) => {
+        const response = await fetch('http://localhost:8080/count/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers you need, such as authorization headers
+            },
+            body: JSON.stringify({
+                foodId: foodId,
+                // calories: calories
+            })
+        });
+        const data = await response.json();
+        return data;
+    };
+
 
     // Render the cards dynamically
     return (
@@ -142,8 +181,8 @@ function Cards() {
                                 name={card.name}
                                 description={card.description}
                                 calories={card.calories}
-                                dining_name={card.poster} // 🍅🍅🍅: How do you get the dining ID name?
-                                onAddCalories={onAddCalories} // Assuming onAddCalories function is defined
+                                dining_name={card.poster}
+                                onAddCalories={() => onAddCalories(card.id)} // Pass card.id to onAddCalories // Assuming onAddCalories function is defined
                                 onOpenComments={onOpenComments} // Assuming onOpenComments function is defined
                             />
                         ))}
