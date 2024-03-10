@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from
 import Header from './global-header/header.js';
 import CalorieCounter from './counter-page/counter.js';
 import HomePage from './main-page/src/App.js';
-import LoginPage from './login-react/src/App.js';
 import CommentsPage from './comments-page/src/App.js';
 import PostPage from './post-page/src/App.js';
 import SearchPage from './search-page/src/App.js';
