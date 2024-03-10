@@ -86,7 +86,8 @@ router.get("/search/:search", async (req, res) =>{
             where: {
                 [sequelize.Op.or]: [
                     {name: { [sequelize.Op.like]: `%${searchQuery}%` }},
-                    {description: { [sequelize.Op.like]: `%${searchQuery}%` }}
+                    {description: { [sequelize.Op.like]: `%${searchQuery}%` }},
+                    {poster: { [sequelize.Op.like]: `%${searchQuery}%`}}
                 ]
             }
         });
