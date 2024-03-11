@@ -22,4 +22,21 @@ router.post("/", validate, async (req, res) => {
     }
 })
 
+router.get("/:foodId", validate, async (req, res) => {
+    const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
+    if(user){
+        const result = await likes.findOne({
+            where: { foodId: req.params.foodId, studentId: req.user.id },
+        });
+        if(result){
+            res.json({ liked: true });
+        }
+        else {
+            res.json({ liked: false });
+        }
+    }else {
+        res.json({ liked: false });
+    }
+})
+
 module.exports = router;
