@@ -2,7 +2,8 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Cards from './cards/Cards';
 
-function HomePage() {
+
+function App() {
   return (
     <>
     <div>
@@ -12,4 +13,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default App;

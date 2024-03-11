@@ -1,18 +1,12 @@
 const express = require('express')
-const cors = require('cors');
 const app = express();
 const db = require('./models');
 require('dotenv').config();
 
 app.use(cors());
+app.use('/images', express.static('post_photos'));
 
 app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'], 
-    allowedHeaders: ['Authorization', 'Content-Type'],
-  }));
-
 const userRouter = require("./routes/users");
 app.use("/", userRouter);
 const commentRouter = require("./routes/comments");

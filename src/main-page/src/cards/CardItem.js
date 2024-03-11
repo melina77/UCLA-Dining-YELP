@@ -7,9 +7,9 @@ function CardItem(props) {
 
     // Example handleAddFoodClick implementation
     const handleAddFoodClick = () => {
-        // Assuming you have a way to determine the calorie count of this item
-        const caloriesFromFood = 100; // Placeholder value
-        props.onAddCalories(caloriesFromFood); // onAddCalories would be a function passed as a prop from the parent component
+        // const caloriesFromFood = 100; // Placeholder value
+        // props.onAddCalories(caloriesFromFood); // onAddCalories would be a function passed as a prop from the parent component
+        props.onAddCalories();
     };
     
     // Example handleOpenCommentsClick implementation
@@ -21,22 +21,22 @@ function CardItem(props) {
     return (
         <>
         <li className='cards__item'>
-            <div className='cards__item__link' to={props.path}>
+            <div className='cards__item__link'>
             <figure className='cards__item__wrap-dining_name' data-category={props.dining_name}>
                 <img
                 className='cards__item__img'
-                alt='Travel Image'
-                src={props.src}
+                src={`http://localhost:8080/images/${props.src}`}
                 />
             </figure>
             <div className='cards__item__caption'>
                 <h5 className='cards__item__caption_text'>Name: {props.name}</h5>
                 <h5 className='cards__item__caption_text'>Description: {props.description}</h5>
                 <h5 className='cards__item__caption_text'>Calorie Count: {props.calories}</h5>
+                {/* <h5 className='cards__item__caption_text'>TESTING postId: {props.food_id}</h5> */}
                 <div className='cards__item__buttons'>
                     <button onClick={handleAddFoodClick}>Add Food to Calories</button>
                     <button onClick={handleOpenCommentsClick}>Open or Add Comments</button>
-                    <LikeButton />
+                    <LikeButton postId={props.food_id} initialLikes={props.likes_array} />
                 </div>
             </div>
             </div>
