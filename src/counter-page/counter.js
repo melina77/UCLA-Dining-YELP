@@ -15,7 +15,7 @@ function CalorieCounter() {
       decodedToken = jwtDecode(authToken);
     }
     
-    // Get total food and calories
+    // Get total food and calories and put them in the table
     useEffect(() => {
       fetch(`http://localhost:8080/calorie-counter/${decodedToken.id}`, {
         method: 'GET',
@@ -28,18 +28,25 @@ function CalorieCounter() {
       .then(data => {
         let totalFood = 0;
         let totalCalories = 0;
-    
+        const foodList = [];
+        
         data.result.forEach(food => {
           // Check if there is a calorie value for each value
-          if (food.calorie == undefined) {
+          if (food.calories == undefined) {
             totalFood -= 1;
           }
           else {
             totalFood += 1;
-            totalCalories += parseInt(food.calorie);
+            totalCalories += parseInt(food.calories);
+            
+            // Set food and calories to array
+            foodList.push(food);
           }
-          
         });
+
+        
+        setFoods(foodList);
+
         if (totalFood < 0) {
           totalFood = 0;
         }
@@ -47,17 +54,9 @@ function CalorieCounter() {
         setTotalCalories(totalCalories);
       })
       .catch(error => console.error('Error fetching data:', error));
-    }, [foods]);
+    }, []);
   
 
-    // Get individual food and calorie values
-
-    
-
-    // const newFood = { food: inputValue, calorie: calories };
-    // setFoods([...foods, newFood]);
-
-  
     return (
       <main>
         <div className='main-container'>
@@ -79,12 +78,12 @@ function CalorieCounter() {
               <div className='counter-list-container'>
                 <div className='food-list-container'>
                   {foods.map((food, index) => (
-                    <div key={index}>{food.food}</div>
+                    <div key={index}>{food.foodName}</div>
                   ))}
                 </div>
                 <div className='calories-list-container'>
                   {foods.map((food, index) => (
-                    <div key={index}>{food.calorie}</div>
+                    <div key={index}>{food.calories}</div>
                   ))}
                 </div>
               </div>
