@@ -149,14 +149,30 @@ function Cards() {
         return data;
     };
 
+    // 🌼 SEARCH BAR 🌼
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Filter cardsData based on search term
+    const filteredCards = cardsData.filter(card =>
+        card.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // const functionSetSearchTerm = (inputVal) => {
+    //     setSearchTerm(inputVal);
+    // };
     // Render the cards dynamically
     return (
         <div className='cards'>
             <h1> ⭐️ Check out the recent Dining Hall Menu Items! ⭐️ </h1>
+            <input
+                type="text"
+                placeholder="Search by description..."
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <div className='cards__container'>
                 <div className='cards__wrapper'>
                     <ul className='cards__items'>
-                        {cardsData.map((card, index) => (
+                        {/* {cardsData.map((card, index) => (
                             <CardItem
                                 key={index}
                                 src={card.image}
@@ -168,6 +184,24 @@ function Cards() {
                                 // onOpenComments={onOpenComments} // 🍅🍅 I still need to implement smh
                                 food_id={card.id}
                                 likes_array={card.likes.length}
+                            />
+                        ))} */}
+                        {/* {filteredItems.map((item) => (
+                            // Render your item component here, passing the item as a prop
+                        ))} */}
+
+                        {/* Now map over filteredCards instead of cardsData */}
+                        {filteredCards.map((card, index) => (
+                            <CardItem
+                            key={index}
+                            src={card.image}
+                            name={card.name}
+                            description={card.description}
+                            calories={card.calories}
+                            dining_name={card.poster}
+                            onAddCalories={() => onAddCalories(card.id, card.calories)}
+                            food_id={card.id}
+                            likes_array={card.likes.length}
                             />
                         ))}
                     </ul>
