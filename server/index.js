@@ -1,10 +1,11 @@
-const express = require('express')
+const express = require('express');
+const cors = require('cors');
 const app = express();
 const db = require('./models');
-const cors = require('cors');
 require('dotenv').config();
 
 app.use(cors());
+
 app.use('/images', express.static('post_photos'));
 
 app.use(express.json());

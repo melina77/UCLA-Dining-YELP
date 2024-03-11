@@ -1,43 +1,94 @@
-import React, { useState, useEffect } from 'react';
+import './Cards.css';
+import './CardButton.css';
 import CardItem from './CardItem';
+import React, { useState, useEffect } from 'react';
+import {jwtDecode} from 'jwt-decode';
 
-function Cards({ searchTerm, onAddCalories, onOpenComments }) {
-    const [foodItems, setFoodItems] = useState([]);
+function Cards({searchTerm}) {
+    // State to store fetched card data
+    const [cardsData, setCardsData] = useState([]);
 
+    // Fetch card data from the backend API
     useEffect(() => {
-        const fetchFoodItems = async () => {
+        const fetchCardsData = async () => {
             try {
-                const response = await fetch(`YOUR_BACKEND_API_ENDPOINT?search=${searchTerm}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch food items');
-                }
+                // const response = await fetch(`YOUR_BACKEND_API_ENDPOINT?search=${searchTerm}`);
+                const response = await fetch(`http://localhost:8080/f/?search=${searchTerm}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
                 const data = await response.json();
-                setFoodItems(data);
+                setCardsData(data);
             } catch (error) {
-                console.error('Error fetching food items:', error);
+                console.error("Failed to fetch cards data:", error);
             }
         };
 
-        fetchFoodItems();
+        fetchCardsData();
     }, [searchTerm]);
 
+    const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
+    const [selectedItemId, setSelectedItemId] = useState(null);
+
+    const onOpenComments = (itemId) => {
+        setSelectedItemId(itemId);
+        setCommentsModalOpen(true);
+        console.log("clicked the comments button! that's it sorry :(");
+        // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
+    };
+
+    const getUserIdFromToken = () => {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            // Decode the token to extract user information
+            const decodedToken = jwtDecode(token);
+            // Extract the userID from the decoded token
+            return decodedToken.id; // Adjust the property name as per your JWT payload
+        }
+        alert("Unable to get this user's authToken");
+        return null; // Token not found or invalid
+    };
+
+    const onAddCalories = async (foodId, card_calories) => {
+        const token = localStorage.getItem('authToken');
+        const studentID = getUserIdFromToken();
+        console.log("I got the studentID! ", {studentID});
+        const response = await fetch('http://localhost:8080/count/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any additional headers you need, such as authorization headers
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                foodId: foodId, 
+                calories: card_calories
+            })
+        });
+        const data = await response.json();
+        return data;
+    };
+
+
+    // Render the cards dynamically
     return (
         <div className='cards'>
-            <h1>Check out the top Dining Hall Menu Items!</h1>
+            <h1> ⭐️ Check out the top Dining Hall Menu Items! ⭐️ </h1>
             <div className='cards__container'>
                 <div className='cards__wrapper'>
                     <ul className='cards__items'>
-                        {foodItems.map(item => (
+                        {cardsData.map((card, index) => (
                             <CardItem
-                                key={item.id}
-                                src={item.imageURL}
-                                name={item.name}
-                                description={item.description}
-                                calories={item.calories}
-                                dining_name={item.dining_name}
-                                path='/services'
-                                onAddCalories={onAddCalories} // Pass onAddCalories as prop
-                                onOpenComments={onOpenComments} // Pass onOpenComments as prop
+                                key={index}
+                                src={card.image}
+                                name={card.name}
+                                description={card.description}
+                                calories={card.calories}
+                                dining_name={card.poster}
+                                onAddCalories={() => onAddCalories(card.id, card.calories)} // Pass card.id to onAddCalories // Assuming onAddCalories function is defined
+                                onOpenComments={onOpenComments} // Assuming onOpenComments function is defined
                             />
                         ))}
                     </ul>
@@ -48,8 +99,6 @@ function Cards({ searchTerm, onAddCalories, onOpenComments }) {
 }
 
 export default Cards;
-
-
 
 // return (
 //             <div className='cards'>

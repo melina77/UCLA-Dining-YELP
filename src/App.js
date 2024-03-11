@@ -2,12 +2,11 @@ import { useEffect, useState, Navigate } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 
-
+import LoginPage from './login-react/src/App.js';
 import Header from './global-header/header.js';
 import Header_Dining from './global-header/header2.js';
 import CalorieCounter from './counter-page/counter.js';
 import HomePage from './main-page/src/App.js';
-import LoginPage from './login-react/src/App.js';
 import CommentsPage from './comments-page/src/App.js';
 import PostPage from './post-page-new/src/App.js';
 import SearchPage from './search-page/src/App.js';
@@ -61,13 +60,8 @@ function PageRoutes({userType}) {
     }
   };
 
-  useEffect(() => {
-    checkAuthToken(); // Check authentication token on initial render
+    checkAuthToken({
   }, []);
-
-  useEffect(() => {
-    checkAuthToken(); 
-  }, [location]); // Check authentication token whenever location changes (Clicking on nav)
 
   return (
     <div>

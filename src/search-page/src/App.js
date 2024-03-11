@@ -1,30 +1,17 @@
-import React, { useState } from 'react';
-import Cards from './Cards';
-import Search from './Search';
+import { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-const HomePage = () => {
-    const [searchTerm, setSearchTerm] = useState('');
+import PageRoutes from '../../App.js';
 
-    const handleSearch = (value) => {
-        setSearchTerm(value);
-    };
+function App() {
+  const [searchTerm, setSearchTerm] = useState('');
 
-    const handleAddCalories = (calories) => {
-        // Add logic to handle adding calories
-        console.log("Adding calories:", calories);
-    };
+  return (
+    <Router>
+      <PageRoutes searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      {/* Got rid of <PageRoutes cards={searchTerm} might need this */}
+    </Router>
+  );
+}
 
-    const handleOpenComments = (itemId) => {
-        // Add logic to handle opening comments
-        console.log("Opening comments for item:", itemId);
-    };
-
-    return (
-        <div>
-            <Search onSearch={handleSearch} />
-            <Cards searchTerm={searchTerm} onAddCalories={handleAddCalories} onOpenComments={handleOpenComments} />
-        </div>
-    );
-};
-
-export default HomePage;
+export default App;
