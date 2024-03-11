@@ -109,13 +109,15 @@ function Cards() {
     const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
     const [selectedItemId, setSelectedItemId] = useState(null);
 
-    const onOpenComments = (itemId) => {
-        setSelectedItemId(itemId);
-        setCommentsModalOpen(true);
-        console.log("clicked the comments button! that's it sorry :(");
-        // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
-    };
+    // comments button
+    // const onOpenComments = (itemId) => {
+    //     setSelectedItemId(itemId);
+    //     setCommentsModalOpen(true);
+    //     console.log("clicked the comments button! that's it sorry :(");
+    //     // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
+    // };
 
+    // get userID from local token
     const getUserIdFromToken = () => {
         const token = localStorage.getItem('authToken');
         if (token) {
@@ -128,6 +130,7 @@ function Cards() {
         return null; // Token not found or invalid
     };
 
+    // Add post to calories button!
     const onAddCalories = async (foodId, card_calories) => {
         const token = localStorage.getItem('authToken');
         const response = await fetch('http://localhost:8080/count/', {
@@ -149,7 +152,7 @@ function Cards() {
     // Render the cards dynamically
     return (
         <div className='cards'>
-            <h1> ⭐️ Check out the top Dining Hall Menu Items! ⭐️ </h1>
+            <h1> ⭐️ Check out the recent Dining Hall Menu Items! ⭐️ </h1>
             <div className='cards__container'>
                 <div className='cards__wrapper'>
                     <ul className='cards__items'>
@@ -162,10 +165,9 @@ function Cards() {
                                 calories={card.calories}
                                 dining_name={card.poster}
                                 onAddCalories={() => onAddCalories(card.id, card.calories)} // Pass card.id to onAddCalories
-                                onOpenComments={onOpenComments} // 🍅🍅 I still need to implement smh
+                                // onOpenComments={onOpenComments} // 🍅🍅 I still need to implement smh
                                 food_id={card.id}
                                 likes_array={card.likes.length}
-
                             />
                         ))}
                     </ul>

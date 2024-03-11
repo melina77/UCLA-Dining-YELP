@@ -2,6 +2,7 @@
 // import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import LikeButton from '../likes/LikeButton';
+import { Link } from 'react-router-dom';
 
 function CardItem(props) {
 
@@ -12,11 +13,11 @@ function CardItem(props) {
         props.onAddCalories();
     };
     
-    // Example handleOpenCommentsClick implementation
-    const handleOpenCommentsClick = () => {
-        // Assuming you manage the comments visibility and possibly the current item ID in a parent component
-        props.onOpenComments(true, props.itemId); 
-    };
+    // // Example handleOpenCommentsClick implementation
+    // const handleOpenCommentsClick = () => {
+    //     // Assuming you manage the comments visibility and possibly the current item ID in a parent component
+    //     props.onOpenComments(true, props.itemId); 
+    // };
   
     return (
         <>
@@ -35,7 +36,9 @@ function CardItem(props) {
                 {/* <h5 className='cards__item__caption_text'>TESTING postId: {props.food_id}</h5> */}
                 <div className='cards__item__buttons'>
                     <button onClick={handleAddFoodClick}>Add Food to Calories</button>
-                    <button onClick={handleOpenCommentsClick}>Open or Add Comments</button>
+                    <Link to={`/post/${props.id}/comments`}>
+                        <button>💬</button>
+                    </Link>
                     <LikeButton postId={props.food_id} initialLikes={props.likes_array} />
                 </div>
             </div>
