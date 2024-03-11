@@ -31,7 +31,7 @@ const { validate } = require("./auth");
 // });
 
 router.post("/:postId", validate, async (req, res) =>{
-    const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
+    const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     if(user){
         await comments.create({
             body: req.body.body,

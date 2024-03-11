@@ -4,7 +4,7 @@ const { students, likes } = require("../models");
 const { validate } = require("./auth");
 
 router.post("/", validate, async (req, res) => {
-    const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
+    const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     if(user){
         const result = await likes.findOne({
             where: { foodId: req.body.foodId, studentId: req.user.id },
