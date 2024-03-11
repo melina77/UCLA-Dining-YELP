@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import './App.css'; // Assuming your CSS file is named style.css and is located in the same directory
 import { jwtDecode } from 'jwt-decode';
 
-function LoginPage() {
+function LoginPage({setUserType}) {
   const [formToShow, setFormToShow] = useState('login-form'); // Default to showing the login form
   const [toggleValue, setToggleValue] = useState('student');
   const [username, setUsername] = useState('');
@@ -52,7 +52,7 @@ function LoginPage() {
     })
     .then(data => {
       localStorage.setItem('authToken', data.token);
-
+      setUserType(toggleValue);
       console.log('Authentication successful:', data.token);
       navigate('/home')
     })
@@ -94,16 +94,18 @@ function LoginPage() {
         }
       })
       .then(response => {
-        if(response.ok){
-          localStorage.setItem('authToken', response.token);
-          console.log('Student registration successful');
-          navigate('/home')
-        }
-        else{
-          alert('Student registration failed');
-          console.error('Student registration failed');
+        if (response.ok) {
+          return response.json();
+        } else{
+            alert('Student registration failed');
         }
       })
+      .then(res => {
+          localStorage.setItem('authToken', res.token);
+          setUserType('student');
+          console.log('Student registration successful');
+          navigate('/home')
+        })
       .catch(error => {
         console.error('Network error: ', error);
       });
@@ -117,15 +119,17 @@ function LoginPage() {
         }
       })
       .then(response => {
-        if(response.ok){
-          localStorage.setItem('authToken', response.token);
-          console.log('Dining Hall registration successful');
-          navigate('/home')
+        if (response.ok) {
+          return response.json();
+        } else{
+            console.error('Dining hall registration failed');
         }
-        else{
-          alert('Dining hall registration failed');
-          console.error('Dining hall registration failed');
-        }
+      })
+      .then(res => {
+        localStorage.setItem('authToken', res.token);
+        setUserType('dining hall');
+        console.log('Dining Hall registration successful');
+        navigate('/home')
       })
       .catch(error => {
         alert('Network error! Is your password at least 8 characters?', error);

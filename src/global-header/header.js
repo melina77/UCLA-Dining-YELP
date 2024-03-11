@@ -17,7 +17,6 @@ function Header() {
           <nav>
             {/* <button onClick={handleLogout}>Remove Token</button> */}
             <Link to="/home" className="nav-link">Home</Link>
-            <Link to="/posts" className="nav-link">Post</Link>
             <Link to="/calorie-counter" className="nav-link">Calorie Counter</Link>
             <Link to="/" className="nav-link" onClick={handleLogout}>Logout</Link>
           </nav>
