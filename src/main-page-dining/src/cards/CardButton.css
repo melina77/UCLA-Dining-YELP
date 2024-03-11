@@ -1,0 +1,51 @@
+.cards__item__buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 3%;
+    margin-bottom: 3%;
+  }
+  
+.cards__item__buttons button {
+  margin-right: 5px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: #8fabff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.invisible-button {
+  margin-right: 5px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f7ee8b;
+  color: #f7ee8b;
+}
+.invisible-button:hover {
+  cursor: default;
+}
+
+.cards__item__buttons button:hover {
+  background-color: #718bd9;
+}
+
+.cards__item__buttons button:active {
+  background-color: #325ecf;
+}
+
+/* liked button */
+
+.cards__item__buttons button.liked {
+  background-color: #f5a9d6;
+ }
+ 
+.cards__item__buttons button.liked:hover {
+background-color: #eb86c2;
+}
+
+.cards__item__buttons button.liked:active {
+background-color: #c95199;
+}
