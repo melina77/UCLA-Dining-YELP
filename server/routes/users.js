@@ -15,7 +15,7 @@ router.post("/student-register", async (req, res) =>{
                     email: req.body.email,
                     password: hash,
                 }).then(user =>{
-                    const token = jwt.sign({ id: user.id, name: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
+                    const token = jwt.sign({ id: user.id, username: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
                     res.json({ token });
                 })
             });
@@ -51,16 +51,15 @@ router.post("/student-login", async (req, res) => {
         where: {username: req.body.username, email: req.body.email}
     });
     if(!user){
-        res.status(401).json({ message: 'Username or email does not exist'})
-    }
-    else{
-        await bcrypt.compare(req.body.password, user.password).then(match =>{
-            if(!match){
-                res.status(401).res.json({ message: 'Password does not match'})
-            }
+        res.status(401).json({ message: 'Username or email does not exist'});
+    } else {
+        const match = await bcrypt.compare(req.body.password, user.password);
+        if (!match) {
+            res.status(401).json({ message: 'Password does not match'});
+        } else {
             const token = jwt.sign({ id: user.id, username: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
-            res.json({ token })
-        });
+            res.json({ token });
+        }
     }
 });
 
@@ -74,10 +73,11 @@ router.post("/dining-login", async (req, res) => {
     else {
         await bcrypt.compare(req.body.password, user.password).then(match =>{
             if(!match){
-                res.status(401).res.json({ message: 'Password does not match'})
-            }
-            const token = jwt.sign({ id: user.id, name: user.name }, process.env.SECRET_KEY , { expiresIn: '2h' });
-            res.json({ token })
+                res.status(401).json({ message: 'Password does not match'})
+            } else {
+                const token = jwt.sign({ id: user.id, name: user.name }, process.env.SECRET_KEY , { expiresIn: '2h' });
+                res.json({ token })
+                }
         });
     }
 });
