@@ -5,7 +5,8 @@ const sequelize = require("sequelize");
 const { validate } = require("./auth");
 
 router.post("/", validate, async (req, res) =>{
-    const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
+    console.log(req.user);
+    const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     if(user){
         console.log("user:", user);
         const result = await calcounter.findOne({
@@ -27,13 +28,34 @@ router.post("/", validate, async (req, res) =>{
 router.get("/:studentId", validate, async (req, res) =>{
     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     if(user && req.params.studentId == req.user.id){
+
+        // Get foodId and calories from calcounter table
         const result = await calcounter.findAll({
-            attributes: [
-                [sequelize.fn('SUM', sequelize.col('calories')), 'totalCalories'],
-            ],
+            attributes: ['foodId', 'calories'],
             where: { studentId: req.params.studentId },
         });
-        res.json({ result });
+
+        // Extract foodId from data
+        const foodIds = result.map(item => item.foodId);
+
+        // Query food table for food names using foodIds
+        const foodNames = await food.findAll({
+            attributes: ['id', 'name'],
+            where: { id: foodIds },
+        });
+
+        // Map foodIds to names
+        const foodMap = {};
+        foodNames.forEach(item => {
+            foodMap[item.id] = item.name;
+        });
+
+        const finalResult = result.map(item => ({
+            foodName: foodMap[item.foodId],
+            calories: item.calories
+        }));
+
+        res.json({ result: finalResult });
     }else {
         res.status(401).json({message: "You do not have access to this page"})
     }
