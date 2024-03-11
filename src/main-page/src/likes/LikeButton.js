@@ -1,37 +1,5 @@
-// import React, { useState } from "react";
-// import './LikeButton.js';
-
-// function LikeButton() {
-//     const [likes, setLikes] = useState(0);
-//     const [liked, setLiked] = useState(false);
-
-//     const toggleLike = () => {
-//         if (liked) {
-//             // If already liked, decrement likes and set liked to false
-//             setLikes(likes - 1);
-//             setLiked(false);
-//         } else {
-//             // If not liked yet, increment likes and set liked to true
-//             setLikes(likes + 1);
-//             setLiked(true);
-//         }
-//     };
-
-//     return (
-//         <button
-//             className={`like-button ${liked ? 'liked' : ''}`}
-//             onClick={toggleLike}
-//         >
-//             {likes} Likes
-//         </button>
-//     );
-// }
-
-// export default LikeButton;
-
 // 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸 WITH FETCH API 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
 import React, { useState, useEffect } from "react";
-import './LikeButton.js';
 
 function LikeButton({ initialLikes, postId }) {
     const [likes, setLikes] = useState(initialLikes);
