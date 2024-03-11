@@ -37,6 +37,7 @@ function ImageUpload({fileInputRef}) {
 function Comment() {
   const token = localStorage.getItem('authToken');
   const [inputValue, setInputValue] = useState('');
+  const [posts, setPosts] = useState([]);
   const fileInputRef = useRef(null);
   
   const adjustHeight = (event) => {
@@ -45,6 +46,7 @@ function Comment() {
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
   const handleSubmit = (e) => {
+    console.log('submitted data')
     e.preventDefault();
 
     // Create FormData object to hold the data to submit
@@ -59,6 +61,7 @@ function Comment() {
     fetch('http://localhost:8080/home/a9ff0392-3fa3-4b7d-8e1e-fb05b66e4f50', {
       method: 'POST',
       body: JSON.stringify({body: inputValue}),
+      imageURL: ({image: fileInputRef.current.files[0]}),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -68,13 +71,11 @@ function Comment() {
     .then(data => console.log(data))
     .catch(error => console.error('Error:', error));
   };
-
-
   const CommentDisplay = () => {
-    const [posts, setPosts] = useState([
-    ]);
 
+  console.log ('before loop');
   useEffect(() => {
+    console.log('infinite loop');
       fetch('http://localhost:8080/home/a9ff0392-3fa3-4b7d-8e1e-fb05b66e4f50', {
         method: 'GET',
         headers: {
@@ -87,27 +88,33 @@ function Comment() {
           }
           return response.json();
         })
-        .then(data => setPosts(data))
+        .then(data => {
+          console.log(data);
+          setPosts(data);
+        })        
         .catch(error => console.error('Error fetching data:', error));
         
     }, []); // Empty dependency array means this effect runs once on component mount
-  
+
 
     return (
-      <div className = "comment-box">
-        <div className = "text-box">
+      <div>
         {posts.map(post => (
+          <div className = "comment-box">
+          <div className = "text-box">
           <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
-            {post.imageURL && <img src={post.imageURL} alt={post.caption} style={{ width: '20%', marginTop: '10px' }} />}
+            {post.imageURL && <img src={post.imageURL} alt={post.body} style={{ width: '20%', marginTop: '10px' }} />}
             <div style={{flex:1}}>
-              <div>
-            <p style={{ fontFamily: 'monospace' }}>@{post.username}: <span className = "timestamp">{post.timestamp}</span></p>
+             <div>
+              <p style={{ fontFamily: 'monospace' }}>@{post.studentId}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
             </div>
-            <p style={{ fontFamily: 'monospace' }}>{post.caption}</p>
+            <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
             </div>
           </div>
+          </div>
+          </div>
         ))}
-        </div>
+
       </div>
     );
   }
@@ -122,14 +129,13 @@ function Comment() {
         </div>
         <hr /> */}
       <h1> ~ Here is the comment section! ~ </h1>
-      <CommentDisplay />
       <p></p>
-      <CommentDisplay />
+          <CommentDisplay />
       <p />
       <div className="App-header">
       <div className = "box-border">
       <form id="postForm" onSubmit={handleSubmit}>
-      <textarea classname= "add-comment"
+      <textarea classname
             placeholder = "Add a comment..."
             value={inputValue}
             onChange={(e) =>{

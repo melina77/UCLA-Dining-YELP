@@ -6,6 +6,7 @@ require('dotenv').config();
 
 app.use(cors());
 app.use('/images', express.static('post_photos'));
+app.use('/comimages', express.static('comment_photos'));
 
 app.use(express.json());
 const userRouter = require("./routes/users");

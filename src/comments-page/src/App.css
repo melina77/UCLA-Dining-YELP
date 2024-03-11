@@ -226,7 +226,7 @@ button {
 
 .comment-box{
   background: #f7e94f;
-  min-width: 80%;
+  min-width: 75%;
   max-height: 5vh;
   max-width: 50%;
   margin: auto;
@@ -237,6 +237,7 @@ button {
   justify-content: center;
   border-radius: 10px;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 .text-box{
     background: white;
@@ -270,6 +271,7 @@ button {
   justify-content: flex-start;
   gap: 30px;
   margin-bottom: 20px; 
+
 }
 .comment2 p {
   display: flex;
@@ -288,13 +290,4 @@ button {
 .timestamp {
   color: #888888;
   font-size: 0.8em 
-}
-
-.add-comment{
-    overflow-y: hidden;
-    width: 500px;
-    height: 55px;
-    resize: none;
-    font-family: monospace;
-
 }

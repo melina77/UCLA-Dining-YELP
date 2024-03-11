@@ -20,7 +20,7 @@ router.post("/student-register", async (req, res) =>{
                 })
             });
         } else {
-            res.status(401).json({ message: 'Username or email already taken' });
+            res.json({ message: 'Username or email already taken' });
         }
     });
 });
@@ -56,7 +56,7 @@ router.post("/student-login", async (req, res) => {
     else{
         await bcrypt.compare(req.body.password, user.password).then(match =>{
             if(!match){
-                res.status(401).res.json({ message: 'Password does not match'})
+                res.status(401).json({ message: 'Password does not match'})
             }
             const token = jwt.sign({ id: user.id, name: user.username }, process.env.SECRET_KEY , { expiresIn: '2h' });
             res.json({ token })
@@ -74,7 +74,7 @@ router.post("/dining-login", async (req, res) => {
     else {
         await bcrypt.compare(req.body.password, user.password).then(match =>{
             if(!match){
-                res.status(401).res.json({ message: 'Password does not match'})
+                res.status(401).json({ message: 'Password does not match'})
             }
             const token = jwt.sign({ id: user.id, name: user.name }, process.env.SECRET_KEY , { expiresIn: '2h' });
             res.json({ token })
