@@ -39,13 +39,18 @@ function PageRoutes() {
     // }
   };
 
-    checkAuthToken();
+  useEffect(() => {
+    checkAuthToken(); // Check authentication token on initial render
   }, []);
+
+  useEffect(() => {
+    checkAuthToken(); 
+  }, [location]); // Check authentication token whenever location changes (Clicking on nav)
 
   return (
     <Router> {/* Wrap content with Router component */}
       <div>
-        <Header setSearchTerm={setSearchTerm} />
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage searchTerm={searchTerm} setSearchTerm={setSearchTerm} />} />

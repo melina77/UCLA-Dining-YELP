@@ -4,9 +4,17 @@ import Cards from './cards/Cards';
 
 
 function App() {
+
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
     <>
     <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />  
       <Cards />
     </div>
     </>
