@@ -110,6 +110,7 @@ function App() {
 
     // Include image if provided
     if (fileInputRef.current && fileInputRef.current.files[0]) {
+      console.log(fileInputRef.current.files[0]);
       formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
     }
 

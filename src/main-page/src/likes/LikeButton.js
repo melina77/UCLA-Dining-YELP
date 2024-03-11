@@ -1,5 +1,6 @@
 // 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸 WITH FETCH API 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
 import React, { useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 function LikeButton({ initialLikes, postId }) {
     const [likes, setLikes] = useState(initialLikes);
@@ -44,6 +45,15 @@ function LikeButton({ initialLikes, postId }) {
 
         // get token to get user.id and name
         const token = localStorage.getItem('authToken');
+        let decodedToken;
+        if (token) {
+            decodedToken = jwtDecode(token);
+        }
+
+        if (decodedToken.name) {
+            alert("You are not allowed to like posts");
+            return;
+        }
 
         // when clicking the like button
         fetch('http://localhost:8080/l/', {

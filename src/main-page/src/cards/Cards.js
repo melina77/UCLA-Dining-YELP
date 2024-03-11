@@ -85,18 +85,25 @@ import {jwtDecode} from 'jwt-decode';
 function Cards() {
     // State to store fetched card data
     const [cardsData, setCardsData] = useState([]);
+    let decodedToken;
+    const token = localStorage.getItem('authToken');
+        if (token) {
+            // Decode the token to extract user information
+            decodedToken = jwtDecode(token);
+        }
 
     // Fetch card data from the backend API
     useEffect(() => {
         const fetchCardsData = async () => {
             try {
-                const response = await fetch('http://localhost:8080/f/', {
+                const response = await fetch('http://localhost:8080/home/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
                 const data = await response.json();
+                console.log("this is data: ", data);
                 setCardsData(data);
             } catch (error) {
                 console.error("Failed to fetch cards data:", error);
@@ -129,8 +136,12 @@ function Cards() {
     };
 
     const onAddCalories = async (foodId, card_calories) => {
+        if (decodedToken.name) {
+            alert("You do not have access to calorie counter");
+            return;
+        }
         const token = localStorage.getItem('authToken');
-        const response = await fetch('http://localhost:8080/count/', {
+        const response = await fetch('http://localhost:8080/calorie-counter/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

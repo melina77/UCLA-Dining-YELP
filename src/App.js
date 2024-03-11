@@ -10,6 +10,7 @@ import HomePage from './main-page/src/App.js';
 import CommentsPage from './comments-page/src/App.js';
 import PostPage from './post-page-new/src/App.js';
 import SearchPage from './search-page/src/App.js';
+import HomePage_Dining from './main-page-dining/src/App.js';
 
 export default function App() {
   const [userType, setUserType] = useState(null);
@@ -78,7 +79,7 @@ function PageRoutes({userType}) {
         {userType === 'dining hall' && (
           <>
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/home" element={<HomePage_Dining />} />
             <Route path="/calorie-counter" element={<CalorieCounter />} />
             <Route path="/comments" element={<CommentsPage />} />
             <Route path="/posts" element={<PostPage />} />
