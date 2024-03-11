@@ -3,80 +3,56 @@ import Nav from './nav.js';
 import {useState, useRef} from 'react';
 import { useEffect } from 'react';
 
-function ImageUpload({fileInputRef}) {
-  const [image, setImage] = useState(null);
-  // Function to handle the image selection
-  const handleImageChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      const imageUrl = URL.createObjectURL(selectedFile);
-      setImage(imageUrl);
-    }
-  };
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
-  };
 
-  return (
-    <div className="image-button">
-      <button className="pics" onClick={handleButtonClick} style={{fontFamily: 'monospace'}}>Upload an image</button>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-        style={{ display: 'none' }} // Hide the file input
-        ref={fileInputRef}
-      />
-      <div>
-      {image && <img src={image} alt="Uploaded" style={{ width: '30%', marginTop: '20px' }} />}
-      </div>
-    </div>
-  );
-}
+    function CommentDisplay({posts, setPosts})  {
+          return(      
+          <div>
+            {posts.map(post => (
+              <div className = "comment-box">
+              <div className = "text-box">
+              <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
+                {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '150px', height: '150px' }} />}
+                <div style={{flex:1}}>
+                 <div>
+                  <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
+                </div>
+                <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
+                </div>
+              </div>
+              </div>
+              </div>
+            ))}
+    
+          </div>
+          );
+       }
 
 function Comment() {
   const token = localStorage.getItem('authToken');
   const [inputValue, setInputValue] = useState('');
+  const [image, setImage] = useState(null);
   const [posts, setPosts] = useState([]);
   const fileInputRef = useRef(null);
-  
+
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const adjustHeight = (event) => {
     const element = event.target;
     element.style.height = 'auto'; // Reset height to recalculate
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
-  const handleSubmit = (e) => {
-    console.log('submitted data')
-    e.preventDefault();
-
-    // Create FormData object to hold the data to submit
-    const formData = new FormData();
-    // Append the selected file to the FormData object. Ensure that `fileInputRef.current.files[0]` exists
-    if (fileInputRef.current && fileInputRef.current.files[0]) {
-      formData.append('image', fileInputRef.current.files[0]);
-    }
-    
-    formData.append('body', inputValue);
-
-    fetch('http://localhost:8080/home/a9ff0392-3fa3-4b7d-8e1e-fb05b66e4f50', {
-      method: 'POST',
-      body: JSON.stringify({body: inputValue}),
-      imageURL: ({image: fileInputRef.current.files[0]}),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-  };
-  const CommentDisplay = () => {
-
-  console.log ('before loop');
-  useEffect(() => {
-    console.log('infinite loop');
-      fetch('http://localhost:8080/home/a9ff0392-3fa3-4b7d-8e1e-fb05b66e4f50', {
+  const fetchComments = ()=> {
+    fetch('http://localhost:8080/home/6b7a12df-de10-4bb1-93d1-f7fbfd8b66a3', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -93,33 +69,46 @@ function Comment() {
           setPosts(data);
         })        
         .catch(error => console.error('Error fetching data:', error));
-        
-    }, []); // Empty dependency array means this effect runs once on component mount
+  }
+  const handleSubmit = async (e) => {
+    console.log('submmiting data');
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('body', inputValue);
+    if (fileInputRef.current && fileInputRef.current.files[0]) {
+      formData.append('image', fileInputRef.current.files[0]);
+    }    
+    try {
+      const response = await fetch('http://localhost:8080/home/6b7a12df-de10-4bb1-93d1-f7fbfd8b66a3', {
+        method: 'POST',
+        body: formData,
 
-
-    return (
-      <div>
-        {posts.map(post => (
-          <div className = "comment-box">
-          <div className = "text-box">
-          <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
-            {post.imageURL && <img src={post.imageURL} alt={post.body} style={{ width: '20%', marginTop: '10px' }} />}
-            <div style={{flex:1}}>
-             <div>
-              <p style={{ fontFamily: 'monospace' }}>@{post.studentId}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
-            </div>
-            <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
-            </div>
-          </div>
-          </div>
-          </div>
-        ))}
-
-      </div>
-    );
+        headers: {
+         'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Success:', data);
+      setInputValue('');
+      setImage(null);
+      fileInputRef.current.value = null;
+      fetchComments();
+      CommentDisplay(posts,setPosts);
+      fetchComments();
+       
+    } 
+    catch (error) {
+      console.error('Error:', error);
+    }
   }
 
-  
+   useEffect(() => {
+      fetchComments()
+        
+    }, []);
 
   
   return (
@@ -130,29 +119,54 @@ function Comment() {
         <hr /> */}
       <h1> ~ Here is the comment section! ~ </h1>
       <p></p>
-          <CommentDisplay />
+       <CommentDisplay posts={posts} setPosts={setPosts} />
+           <div>
+
+      </div>
       <p />
       <div className="App-header">
       <div className = "box-border">
       <form id="postForm" onSubmit={handleSubmit}>
-      <textarea classname
-            placeholder = "Add a comment..."
-            value={inputValue}
-            onChange={(e) =>{
-              setInputValue(e.target.value);
-              adjustHeight(e);
-            }}
-            style={{ 
+          <textarea 
+          type = "text"
+          maxLength={300}
+          placeholder='Add a comment'
+          size = "30"
+          value = {inputValue}
+          onChange={(e) =>{
+            setInputValue(e.target.value);
+            adjustHeight(e)
+          }}
+          style={{ 
               overflowY: 'hidden',
               width: '500px',
               height: '55px',
               resize: 'none',
               fontFamily: 'monospace'
+          }}
+          
+          />
+      <p/>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        ref={fileInputRef}
+        style={{ 
+          padding: '10px 20px',
+          cursor: 'pointer',
+          fontFamily: 'monospace',
+          background: '#8FaBFF',
+          
+        }}
+      />
 
-            }}
-        />
-        <ImageUpload fileInputRef={fileInputRef}/> 
-        <button className="submit" style={{fontFamily: 'monospace'}}>Save & Post</button>
+      <p/>
+      {image && <img src={image} alt="Uploaded" style={{ width: '200px', height: '200px' }} />}
+
+      <p>
+      <button className="submit" style={{fontFamily: 'monospace'}}>Save & Post</button>
+      </p>
         </form>
         </div>
       </div>

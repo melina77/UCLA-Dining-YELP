@@ -54,7 +54,7 @@ function PageRoutes() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/home" element={<CommentsPage />} />
         <Route path="/calorie-counter" element={<CalorieCounter />} />
         <Route path="/comments" element={<CommentsPage />} /> 
         <Route path="/post" element={<PostPage />} /> 

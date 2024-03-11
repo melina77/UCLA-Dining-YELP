@@ -16,9 +16,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
-    const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
+    const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
     if(user){
         await comments.create({
+            poster: req.user.name,
             body: req.body.body,
             image: req.file.filename,
             foodId: req.params.postId,

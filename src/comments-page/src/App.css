@@ -156,6 +156,7 @@ textarea {
   border: none; /* delete border of input box */
   border-radius: 5px;
   font-family: monospace;
+  size-adjust: none;
 }
 
 button {
@@ -273,16 +274,7 @@ button {
   margin-bottom: 20px; 
 
 }
-.comment2 p {
-  display: flex;
-  align-items: flex-start; 
-  justify-content: flex-start;
-  gap: 30px; 
-  margin-bottom: 20px; 
-  font-size: larger;
-  font-family: monospace;
-  margin-bottom: 20px
-}
+
 .username_time{
   font-family: monospace;
 }
@@ -290,4 +282,18 @@ button {
 .timestamp {
   color: #888888;
   font-size: 0.8em 
+}
+html, body {
+  height: 100%;
+  min-height: 100%;
+}
+
+.image-button .pics {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  border: 1px solid green; /* Green border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Larger text size */
 }
