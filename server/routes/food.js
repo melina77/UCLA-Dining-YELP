@@ -28,8 +28,8 @@ router.post("/", validate, upload.single('image'), async (req, res) =>{
             diningId: req.user.id,
         });
         res.json({ "message": "Post created" });
-    }else{
-        res.json({"message": "Not a dining hall user"});
+    } else{
+        res.status(401).json({"message": "Not a dining hall user"});
     }
 });
 

@@ -25,7 +25,6 @@ router.post("/", validate, async (req, res) =>{
 });
 
 router.get("/:studentId", validate, async (req, res) =>{
-    console.log('username: ', req.user.username);
     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     if(user && req.params.studentId == req.user.id){
         const result = await calcounter.findAll({
