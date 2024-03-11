@@ -1,6 +1,5 @@
 /* .App {
   text-align: center;
-  background-color: #c5d3fc;
 }
 
 .App-divider{
@@ -157,6 +156,7 @@ textarea {
   border: none; /* delete border of input box */
   border-radius: 5px;
   font-family: monospace;
+  size-adjust: none;
 }
 
 button {
@@ -188,10 +188,11 @@ button {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: flex-end;
   font-size: calc(10px + 2vmin);
   color: white;
+  background-color: #c5d3fc;;
 }
 
 .BG-header{
@@ -211,7 +212,7 @@ button {
 .box-border{
   background: #f7e94f;
   min-width: 10vh;
-  max-width: 600 px;
+  max-width: 60%;
   padding-top: 8%;
   padding-bottom: 8%;
   padding-left: 8%;
@@ -226,7 +227,7 @@ button {
 
 .comment-box{
   background: #f7e94f;
-  min-width: 80%;
+  min-width: 75%;
   max-height: 5vh;
   max-width: 50%;
   margin: auto;
@@ -237,24 +238,62 @@ button {
   justify-content: center;
   border-radius: 10px;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 .text-box{
-    display: grid;
-    align-items: center; 
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5px;
     background: white;
     min-width: 95%;
     max-width: 100%;
     max-height: 5vh;
-    padding-top: 8%;
-    padding-bottom: 8%;
-    padding-left: 8%;
-    padding-right: 8%;
+    padding: 8%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     border-radius: 10px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.comment {
+  display: flex;
+  align-items: center; 
+  justify-content: flex-start;
+  gap: 40px; 
+  margin-bottom: 20px; 
+}
+
+.comment img {
+  width: 40%; 
+  border-radius: 10px; 
+}
+.comment p{
+  display: flex;
+  align-items: flex-start; 
+  justify-content: flex-start;
+  gap: 30px;
+  margin-bottom: 20px; 
+
+}
+
+.username_time{
+  font-family: monospace;
+}
+
+.timestamp {
+  color: #888888;
+  font-size: 0.8em 
+}
+html, body {
+  height: 100%;
+  min-height: 100%;
+}
+
+.image-button .pics {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  border: 1px solid green; /* Green border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Larger text size */
 }
