@@ -154,6 +154,8 @@ function Cards() {
 
     // Filter cardsData based on search term
     const filteredCards = cardsData.filter(card =>
+        card.poster.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        card.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         card.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -166,7 +168,7 @@ function Cards() {
             <h1> ⭐️ Check out the recent Dining Hall Menu Items! ⭐️ </h1>
             <input
                 type="text"
-                placeholder="Search by description..."
+                placeholder="🔍 Search by dining hall, food, or description..."
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
             <div className='cards__container'>
