@@ -22,7 +22,6 @@
 }
 .like-button.liked {
    color: #ff69b4;
-   border-color: #ff69b4;
 }
 /* For mobile screens */
 @media (max-width: 768px) {

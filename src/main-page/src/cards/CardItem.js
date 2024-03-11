@@ -32,10 +32,11 @@ function CardItem(props) {
                 <h5 className='cards__item__caption_text'>Name: {props.name}</h5>
                 <h5 className='cards__item__caption_text'>Description: {props.description}</h5>
                 <h5 className='cards__item__caption_text'>Calorie Count: {props.calories}</h5>
+                {/* <h5 className='cards__item__caption_text'>TESTING postId: {props.food_id}</h5> */}
                 <div className='cards__item__buttons'>
                     <button onClick={handleAddFoodClick}>Add Food to Calories</button>
                     <button onClick={handleOpenCommentsClick}>Open or Add Comments</button>
-                    <LikeButton />
+                    <LikeButton postId={props.food_id} initialLikes={props.likes_array} />
                 </div>
             </div>
             </div>

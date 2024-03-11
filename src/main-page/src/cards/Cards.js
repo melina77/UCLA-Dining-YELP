@@ -1,9 +1,3 @@
-// import React from 'react';
-import './Cards.css';
-import './CardButton.css';
-import CardItem from './CardItem';
-import React, { useState, useEffect } from 'react';
-import {jwtDecode} from 'jwt-decode';
 
 // function Cards() {
 
@@ -82,6 +76,12 @@ import {jwtDecode} from 'jwt-decode';
 
 // 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸 DYNAMIC 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
 
+import './Cards.css';
+import './CardButton.css';
+import CardItem from './CardItem';
+import React, { useState, useEffect } from 'react';
+import {jwtDecode} from 'jwt-decode';
+
 function Cards() {
     // State to store fetched card data
     const [cardsData, setCardsData] = useState([]);
@@ -130,8 +130,6 @@ function Cards() {
 
     const onAddCalories = async (foodId, card_calories) => {
         const token = localStorage.getItem('authToken');
-        const studentID = getUserIdFromToken();
-        console.log("I got the studentID! ", {studentID});
         const response = await fetch('http://localhost:8080/count/', {
             method: 'POST',
             headers: {
@@ -148,7 +146,6 @@ function Cards() {
         return data;
     };
 
-
     // Render the cards dynamically
     return (
         <div className='cards'>
@@ -164,8 +161,11 @@ function Cards() {
                                 description={card.description}
                                 calories={card.calories}
                                 dining_name={card.poster}
-                                onAddCalories={() => onAddCalories(card.id, card.calories)} // Pass card.id to onAddCalories // Assuming onAddCalories function is defined
-                                onOpenComments={onOpenComments} // Assuming onOpenComments function is defined
+                                onAddCalories={() => onAddCalories(card.id, card.calories)} // Pass card.id to onAddCalories
+                                onOpenComments={onOpenComments} // 🍅🍅 I still need to implement smh
+                                food_id={card.id}
+                                likes_array={card.likes.length}
+
                             />
                         ))}
                     </ul>
