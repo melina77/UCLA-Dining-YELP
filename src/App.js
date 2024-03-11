@@ -13,7 +13,7 @@ function PageRoutes({ searchTerm, setSearchTerm }) {
     const checkAuthToken = () => {
       const token = localStorage.getItem('authToken');
       if (!token && window.location.pathname !== '/') {
-        window.location.href('/');
+        window.location.href = '/';
       }
     };
 
