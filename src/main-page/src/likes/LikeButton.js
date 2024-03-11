@@ -71,7 +71,6 @@ function LikeButton({ initialLikes, postId }) {
 
     // when like is clicked
     const toggleLike = () => {
-        console.log("This is calling toggleLike!");
         // const action = liked ? 'unlike' : 'like';
         // // const url = `/api/likes/${postId}/${action}`;
 
@@ -93,7 +92,8 @@ function LikeButton({ initialLikes, postId }) {
         .then(response => response.json())
         .then(data => {
             setLiked(data.liked);
-            // 🍅 ADJUSTED: had to manually update likes bc:
+            console.log("LIKED STATUS: ", liked);
+            // ADJUSTED: had to manually update likes bc:
                 // the totalLikes wasn't updating bc it called toggleLike and fetchTotalLikes at the same time, so that’s why it doesnt update until the next time you click it
             if (liked){
                 setLikes(likes - 1);
@@ -107,7 +107,6 @@ function LikeButton({ initialLikes, postId }) {
         });
 
         // FETCH TOTAL LIKES WITHIN TOGGLE LIKE 🐙
-        console.log("called totalLikes INSIDE toggleLike")
         fetch('http://localhost:8080/f/', {
             method: 'GET',
             headers: {
@@ -138,7 +137,6 @@ function LikeButton({ initialLikes, postId }) {
     // get the Total Likes from the food router
     // useEffect(() => {
     const fetchTotalLikes = async () => { // deleted async
-        console.log("This is calling the fetchTotalLikes!");
         try {
             // fetch all food items with their associated likes
             const response = await fetch('http://localhost:8080/f/', { // deleted await
@@ -167,48 +165,30 @@ function LikeButton({ initialLikes, postId }) {
 
     //     fetchTotalLikes();
     // }, []);
-
-    // 🐥🐥🐥🐥🐥 without async
-    // const fetchTotalLikes = () => {
-    //     return fetch('http://localhost:8080/f/', {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch food items');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(foodItems => {
-    //         console.log("foodItems are: ", foodItems);    
-    //         // Filter the likes based on the food ID
-    //         const food = foodItems.find(foodItem => foodItem.id === postId);
-    //         if (!food) {
-    //             console.error('Food item not found');
-    //             throw new Error('Food item not found');
-    //         }
-    //         console.log('Food likes:', food.likes);
-    //         setLikes(food.likes.length)
-    //     })
-    //     .catch(error => {
-    //         console.error('Error fetching food likes:', error.message);
-    //     });
-    // };
     
     return (
-        <button
-            className={`like-button ${liked ? '' : 'liked'}`}
+        <div className='like-button'>
+            <button
+            className={`${liked ? 'liked' : ''}`}
             onClick={() => {
                 // fetchTotalLikes();
                 toggleLike();
                 fetchTotalLikes();
             }}
-        >
+            >
             ❤️ {likes}
-        </button>
+            </button>
+        </div>
+        // <button
+        //     className={`like-button ${liked ? '' : 'liked'}`}
+        //     onClick={() => {
+        //         // fetchTotalLikes();
+        //         toggleLike();
+        //         fetchTotalLikes();
+        //     }}
+        // >
+        //     ❤️ {likes}
+        // </button>
     );
 }
 

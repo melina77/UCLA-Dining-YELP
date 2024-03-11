@@ -1,4 +1,4 @@
-.like-button-container {
+/* .like-button-container {
    display: flex;
    justify-content: center;
    align-items: center;
@@ -22,9 +22,9 @@
 }
 .like-button.liked {
    color: #ff69b4;
-}
+} */
 /* For mobile screens */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
    .like-button-container {
       flex-direction: column;
    }
@@ -34,4 +34,42 @@
       padding: 8px 16px;
       border-width: 1px;
    }
+} */
+
+.cards__item__buttons like-button {
+   display: flex;
+   justify-content: flex-start;
+   margin-top: 3%;
+   margin-bottom: 3%;
+ }
+ 
+.cards__item__buttons like-button button {
+ margin-right: 5px;
+ padding: 8px 16px;
+ border: none;
+ border-radius: 4px;
+ background-color: #8fabff;
+ color: white;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
 }
+
+.cards__item__buttons like-button button:hover {
+ background-color: #718bd9;
+}
+
+.cards__item__buttons like-button button:active {
+ background-color: #325ecf;
+}
+
+/* .cards__item__buttons button.liked {
+   background-color: #f5a9d6;
+  }
+  
+.cards__item__buttons button.liked:hover {
+background-color: #eb86c2;
+}
+
+.cards__item__buttons button.liked:active {
+background-color: #c95199;
+} */
