@@ -16,14 +16,21 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/", validate, upload.single('image'), async (req, res) =>{
-    const user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
+    let user;
+
+    if (req.user.name) {
+        user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
+    } else {
+        user = await dining.findOne({ where: {name: req.user.username, id: req.user.id}});
+    }
+
     if(user){
         console.log(req.file);
         await food.create({
             poster: req.user.name,
             name: req.body.name,
             description: req.body.description,
-            image: req.file.image,
+            image: req.file.filename,
             calories: req.body.calories,
             diningId: req.user.id,
         });

@@ -18,9 +18,11 @@ app.use("/c", commentRouter);
 const foodRouter = require("./routes/food");
 app.use("/posts", foodRouter);
 app.use("/f", foodRouter);
+app.use("/home", foodRouter);
 
 const calRouter = require("./routes/calcounter");
 app.use("/calorie-counter", calRouter);
+
 const likeRouter = require("./routes/likes");
 app.use("/l", likeRouter);
 

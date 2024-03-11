@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { students, likes } = require("../models");
+const { students, likes, dining } = require("../models");
 const { validate } = require("./auth");
 
 router.post("/", validate, async (req, res) => {
     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
+    
     if(user){
         const result = await likes.findOne({
             where: { foodId: req.body.foodId, studentId: req.user.id },
@@ -23,7 +24,9 @@ router.post("/", validate, async (req, res) => {
 })
 
 router.get("/:foodId", validate, async (req, res) => {
-    const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
+
+    const user = await students.findOne({ where: {id: req.user.id}});
+    
     if(user){
         const result = await likes.findOne({
             where: { foodId: req.params.foodId, studentId: req.user.id },
