@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) =>{
         dining.hasMany(models.food, {
             onDelete: "cascade",
         })
+        dining.hasMany(models.comments, {
+            onDelete: "cascade",
+        })
     }
     return dining;
 }

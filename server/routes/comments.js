@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { students, comments } = require("../models");
+const { students, comments, dining } = require("../models");
 const multer = require("multer");
 const sequelize = require("sequelize");
 const { validate } = require("./auth");
@@ -31,19 +31,39 @@ const upload = multer({ storage: storage });
 // });
 
 router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
-    
-    const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
-    if(user){
-        await comments.create({
-            poster: req.user.username,
-            body: req.body.body,
-            image: req.file.filename,
-            foodId: req.params.postId,
-            studentId: req.user.id
-        });
-        res.json({ "message": "Comment created" });
-    }else{
-        res.json({ "message": "Not a student user"});
+    try {
+        let user;
+
+        if (req.user.username) {
+            user = await students.findOne({ where: { username: req.user.username, id: req.user.id } });
+        } else {
+            user = await dining.findOne({ where: { name: req.user.name, id: req.user.id } });
+        }
+
+        if (user && req.user.username) {
+            await comments.create({
+                poster: req.user.username,
+                body: req.body.body,
+                image: req.file.filename,
+                foodId: req.params.postId,
+                studentId: req.user.id
+            });
+            res.json({ "message": "Comment created" });
+        } else if (user && req.user.name) {
+            await comments.create({
+                poster: req.user.name,
+                body: req.body.body,
+                image: req.file.filename,
+                foodId: req.params.postId,
+                studentId: req.user.diningId
+            });
+            res.json({ "message": "Comment created" });
+        } else {
+            res.json({ "message": "Not a student user" });
+        }
+    } catch (error) {
+        console.error('Error creating comment:', error);
+        res.status(500).json({ "error": "Internal server error" });
     }
 });
 
