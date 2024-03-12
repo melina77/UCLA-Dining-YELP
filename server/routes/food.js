@@ -5,10 +5,13 @@ const multer = require("multer");
 const sequelize = require("sequelize");
 const { validate } = require("./auth")
 
+//handles uploading images
 const storage = multer.diskStorage({
+    //sends uploaded images to external file called post_photos in backend
     destination: (req, file, cb) => {
       cb(null, 'post_photos/');
     },
+    //sets filename and makes it unique by prepending Date.now() to the original file name
     filename: (req, file, cb) => {
       cb(null, Date.now() + '-' + file.originalname);
     },
@@ -18,12 +21,13 @@ const upload = multer({ storage: storage });
 router.post("/", validate, upload.single('image'), async (req, res) =>{
     let user;
 
+    //checks if a user is currently signed in through validation middleware
+    //finds the user in both the
     if (req.user.name) {
         user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
-    } else {
-        user = await dining.findOne({ where: {name: req.user.username, id: req.user.id}});
     }
 
+    //if a user exists, create a new food item
     if(user){
         await food.create({
             poster: req.user.name,
@@ -39,6 +43,7 @@ router.post("/", validate, upload.single('image'), async (req, res) =>{
     }
 });
 
+//gets all the food items and sorts it by the time it was posted
 router.get("/", async (req, res) =>{
     const startOfDay = new Date();
     const endOfDay = new Date();
@@ -49,6 +54,7 @@ router.get("/", async (req, res) =>{
     res.json(result);
 });
 
+//able to search through food items created at a certain time
 router.get("/:time", async (req, res) =>{
     const startOfDay = new Date();
     const endOfDay = new Date();

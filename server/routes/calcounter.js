@@ -1,17 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const { students, calcounter, food } = require("../models");
-const sequelize = require("sequelize");
 const { validate } = require("./auth");
 
+//router that handles post requests to localhost:8080/calorie-counter/
 router.post("/", validate, async (req, res) =>{
     console.log(req.user);
+    //searches database for a student user
     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
+    //if a user exists, then either create or destroy an entry in the database
     if(user){
         console.log("user:", user);
+        //checks calorie counter database table to see if an entry of a student adding the same food item to calorie counter exists
         const result = await calcounter.findOne({
             where: { foodId: req.body.foodId, studentId: req.user.id },
         });
+        //if there is no duplicate entry, then create a new calorie counter entry. otherwise, delete the old entry
         if(!result){
             await calcounter.create({ foodId: req.body.foodId, studentId: req.user.id, calories: req.body.calories });
             res.json({ added: true });
@@ -25,6 +29,7 @@ router.post("/", validate, async (req, res) =>{
     }
 });
 
+//router that handles get requests to localhost:8080/calorie-couter/:studentId
 router.get("/:studentId", validate, async (req, res) =>{
     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     if(user && req.params.studentId == req.user.id){

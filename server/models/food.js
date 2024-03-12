@@ -1,3 +1,5 @@
+//creates database table for food items, with columns corresponding to the poster, name of food, description, calories, and an image
+//each food item is associated with comments, likes, and a calorie counter
 module.exports = (sequelize, DataTypes) =>{
     const food = sequelize.define("food", {
         id: {
