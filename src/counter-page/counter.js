@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 function CalorieCounter() {
     // List to manage list of foods
     const [foods, setFoods] = useState([]);
-    const [calories, setCalories] = useState('')
+    const [reloadPage, setReloadPage] = useState(false);
     const [totalFoodConsumed, setTotalFoodConsumed]  = useState(0);
     const [totalCalories, setTotalCalories] = useState(0);
     const authToken = localStorage.getItem('authToken');
@@ -14,7 +14,7 @@ function CalorieCounter() {
     if (authToken) {
       decodedToken = jwtDecode(authToken);
     }
-    
+
     // Get total food and calories and put them in the table
     useEffect(() => {
       fetch(`http://localhost:8080/calorie-counter/${decodedToken.id}`, {
@@ -29,8 +29,9 @@ function CalorieCounter() {
         let totalFood = 0;
         let totalCalories = 0;
         const foodList = [];
-        
+    
         data.result.forEach(food => {
+          console.log(food);
           // Check if there is a calorie value for each value
           if (food.calories == undefined) {
             totalFood -= 1;
@@ -38,12 +39,11 @@ function CalorieCounter() {
           else {
             totalFood += 1;
             totalCalories += parseInt(food.calories);
-            
+            console.log(food);
             // Set food and calories to array
             foodList.push(food);
           }
         });
-
         
         setFoods(foodList);
 
@@ -54,7 +54,27 @@ function CalorieCounter() {
         setTotalCalories(totalCalories);
       })
       .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [reloadPage]);
+
+
+    const handleRemoval = async (id, food_calories) => {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch('http://localhost:8080/calorie-counter/', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              // Add any additional headers you need, such as authorization headers
+              'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+              foodId: id, 
+              calories: food_calories,
+          })
+      });
+      const data = await response.json();
+      setReloadPage(prevState => !prevState);
+      
+    };
   
 
     return (
@@ -78,7 +98,12 @@ function CalorieCounter() {
               <div className='counter-list-container'>
                 <div className='food-list-container'>
                   {foods.map((food, index) => (
-                    <div key={index}>{food.foodName}</div>
+                    <div className='individual-food-items' key={index}>
+                      {food.foodName}
+                      <button className='button-container' onClick={handleRemoval.bind(null, food.foodId, food.calories)}>
+                        <img src="xbutton.png" alt="Remove Food" className='remove-food-button'/>
+                      </button>
+                    </div>
                   ))}
                 </div>
                 <div className='calories-list-container'>
