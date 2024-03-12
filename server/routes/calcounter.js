@@ -51,6 +51,7 @@ router.get("/:studentId", validate, async (req, res) =>{
         });
 
         const finalResult = result.map(item => ({
+            foodId: item.foodId,
             foodName: foodMap[item.foodId],
             calories: item.calories
         }));
