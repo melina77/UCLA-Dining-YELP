@@ -65,7 +65,7 @@ function CommentDisplay({posts, setPosts})  {
 function Comment() {
   const navigate = useNavigate();
   const { postId } = useParams();
-  console.log(postId);
+  console.log("postid", postId);
   const token = localStorage.getItem('authToken');
   const [inputValue, setInputValue] = useState('');
   const [image, setImage] = useState(null);
@@ -85,13 +85,13 @@ function Comment() {
         }
       })
         .then(response => {
+          console.log(response);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
           return response.json();
         })
         .then(data => {
-          
           setPosts(data);
         })        
         .catch(error => console.error('Error fetching data:', error));

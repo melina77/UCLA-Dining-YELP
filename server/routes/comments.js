@@ -32,7 +32,6 @@ const upload = multer({ storage: storage });
 
 router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
     
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++", req.file);
     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     if(user){
         await comments.create({
@@ -64,6 +63,7 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
 // });
 
 router.get("/:postId", async (req, res) =>{
+    console.log(req.params.postId);
     const result = await comments.findAll({ 
         where: {foodId: req.params.postId}, order: [['createdAt', 'DESC']]
     });

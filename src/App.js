@@ -81,7 +81,7 @@ function PageRoutes({userType}) {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/home" element={<HomePage_Dining />} />
             <Route path="/calorie-counter" element={<CalorieCounter />} />
-            <Route path="/posts/:postid/comments" element={<CommentsPage />} />
+            <Route path="/posts/:postId/comments" element={<CommentsPage />} />
             <Route path="/posts" element={<PostPage />} />
           </>
         )}
