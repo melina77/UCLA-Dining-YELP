@@ -54,7 +54,7 @@ function Comment() {
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
   const fetchComments = ()=> {
-    fetch(`http://localhost:8080//post/${postId}/comments`, {
+    fetch(`http://localhost:8080/post/${postId}/comments`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ function Comment() {
       formData.append('image', fileInputRef.current.files[0]);
     }    
     try {
-      const response = await fetch(`http://localhost:8080//post/${postId}/comments`, {
+      const response = await fetch(`http://localhost:8080/post/${postId}/comments`, {
         method: 'POST',
         body: formData,
 
