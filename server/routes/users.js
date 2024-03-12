@@ -20,7 +20,7 @@ router.post("/student-register", async (req, res) =>{
                 })
             });
         } else {
-            res.status(401).json({ message: 'Username or email already taken' });
+            res.json({ message: 'Username or email already taken' });
         }
     });
 });

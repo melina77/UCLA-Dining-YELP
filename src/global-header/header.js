@@ -24,16 +24,6 @@ function Header({ handleSearch, searchTerm, setSearchTerm }) {
         <div className="logo-container">
           <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
         </div>
-        {/* Conditionally render search component based on state */}
-        {isSearchOpen ? (
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}  />
-        ) : (
-          <input
-            type="text"
-            placeholder="Search cards"
-            onClick={toggleSearch} // Open search on click
-          />
-        )}
         <nav>
           {/* <button onClick={handleLogout}>Remove Token</button> */}
           <Link to="/home" className="nav-link">Home</Link>
