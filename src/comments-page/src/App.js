@@ -77,6 +77,7 @@ function Comment() {
     element.style.height = 'auto'; // Reset height to recalculate
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
+  //get comments from backend for display
   const fetchComments = ()=> {
     fetch(`http://localhost:8080/c/${postId}`, {
         method: 'GET',
@@ -96,7 +97,7 @@ function Comment() {
         })        
         .catch(error => console.error('Error fetching data:', error));
   }
-
+  //send information to store in backend
   const handleSubmit = async (e) => {
     console.log('submmiting data');
     e.preventDefault();
@@ -128,6 +129,7 @@ function Comment() {
       setInputValue('');
       setImage(null);
       fileInputRef.current.value = null;
+      //refresh page with new comment
       fetchComments();
       CommentDisplay(posts,setPosts);
       fetchComments(); 
@@ -140,8 +142,7 @@ function Comment() {
   }
 
    useEffect(() => {
-      fetchComments()
-        
+      fetchComments()    
     }, []);
 
   

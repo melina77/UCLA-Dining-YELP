@@ -53,6 +53,7 @@ function ImageUpload({fileInputRef}) {
         style={{ display: 'none' }} // Hide the file input
         ref={fileInputRef}
       />
+      <p/>
       {image && <img src={image} alt="Uploaded" style={{ width: '75%', marginTop: '20px' }} />}
     </div>
   );
