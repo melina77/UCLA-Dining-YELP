@@ -107,9 +107,9 @@ import SearchPage from './search-page/src/App.js';
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/home" element={<CommentsPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/calorie-counter" element={<CalorieCounter />} />
-        <Route path="/comments" element={<CommentsPage />} /> 
+        <Route path="/post/:id/comments" element={<CommentsPage />} />
         <Route path="/post" element={<PostPage />} /> 
       </Routes>
     </div>

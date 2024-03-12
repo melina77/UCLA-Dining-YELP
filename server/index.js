@@ -12,6 +12,7 @@ app.use(express.json());
 const userRouter = require("./routes/users");
 app.use("/", userRouter);
 const commentRouter = require("./routes/comments");
+app.use("/c", commentRouter);
 app.use("/home", commentRouter);
 const foodRouter = require("./routes/food");
 app.use("/f", foodRouter);
