@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Cards from './cards/Cards';
 
 
-function App() {
+function HomePage_Dining() {
   return (
     <>
     <div>
@@ -13,4 +13,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage_Dining;

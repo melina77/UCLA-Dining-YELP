@@ -116,13 +116,15 @@ function Cards() {
     const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
     const [selectedItemId, setSelectedItemId] = useState(null);
 
-    const onOpenComments = (itemId) => {
-        setSelectedItemId(itemId);
-        setCommentsModalOpen(true);
-        console.log("clicked the comments button! that's it sorry :(");
-        // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
-    };
+    // comments button
+    // const onOpenComments = (itemId) => {
+    //     setSelectedItemId(itemId);
+    //     setCommentsModalOpen(true);
+    //     console.log("clicked the comments button! that's it sorry :(");
+    //     // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
+    // };
 
+    // get userID from local token
     const getUserIdFromToken = () => {
         const token = localStorage.getItem('authToken');
         if (token) {
@@ -135,6 +137,7 @@ function Cards() {
         return null; // Token not found or invalid
     };
 
+    // Add post to calories button!
     const onAddCalories = async (foodId, card_calories) => {
         if (decodedToken.name) {
             alert("You do not have access to calorie counter");
@@ -157,14 +160,32 @@ function Cards() {
         return data;
     };
 
+    // 🌼 SEARCH BAR 🌼
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Filter cardsData based on search term
+    const filteredCards = cardsData.filter(card =>
+        card.poster.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        card.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        card.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // const functionSetSearchTerm = (inputVal) => {
+    //     setSearchTerm(inputVal);
+    // };
     // Render the cards dynamically
     return (
         <div className='cards'>
-            <h1> ⭐️ Check out the top Dining Hall Menu Items! ⭐️ </h1>
+            <h1> ⭐️ Check out the recent Dining Hall Menu Items! ⭐️ </h1>
+            <input
+                type="text"
+                placeholder="🔍 Search by dining hall, food, or description..."
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <div className='cards__container'>
                 <div className='cards__wrapper'>
                     <ul className='cards__items'>
-                        {cardsData.map((card, index) => (
+                        {/* {cardsData.map((card, index) => (
                             <CardItem
                                 key={index}
                                 src={card.image}
@@ -173,10 +194,27 @@ function Cards() {
                                 calories={card.calories}
                                 dining_name={card.poster}
                                 onAddCalories={() => onAddCalories(card.id, card.calories)} // Pass card.id to onAddCalories
-                                onOpenComments={onOpenComments} // 🍅🍅 I still need to implement smh
+                                // onOpenComments={onOpenComments} // 🍅🍅 I still need to implement smh
                                 food_id={card.id}
                                 likes_array={card.likes.length}
+                            />
+                        ))} */}
+                        {/* {filteredItems.map((item) => (
+                            // Render your item component here, passing the item as a prop
+                        ))} */}
 
+                        {/* Now map over filteredCards instead of cardsData */}
+                        {filteredCards.map((card, index) => (
+                            <CardItem
+                            key={index}
+                            src={card.image}
+                            name={card.name}
+                            description={card.description}
+                            calories={card.calories}
+                            dining_name={card.poster}
+                            onAddCalories={() => onAddCalories(card.id, card.calories)}
+                            food_id={card.id}
+                            likes_array={card.likes.length}
                             />
                         ))}
                     </ul>
