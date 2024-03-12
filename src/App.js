@@ -1,6 +1,6 @@
-import { useEffect, useState, Navigate } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode';
+import React, { useState, useEffect, Navigate } from 'react'; 
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate} from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 import LoginPage from './login-react/src/App.js';
 import Header from './global-header/header.js';
@@ -73,7 +73,7 @@ function PageRoutes({userType}) {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/calorie-counter" element={<CalorieCounter />} />
-            <Route path="/comments" element={<CommentsPage />} />
+            <Route path="/posts/:postId/comments" element={<CommentsPage />} />
           </>
         )}
         {userType === 'dining hall' && (
@@ -81,7 +81,7 @@ function PageRoutes({userType}) {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/home" element={<HomePage_Dining />} />
             <Route path="/calorie-counter" element={<CalorieCounter />} />
-            <Route path="/comments" element={<CommentsPage />} />
+            <Route path="/posts/:postid/comments" element={<CommentsPage />} />
             <Route path="/posts" element={<PostPage />} />
           </>
         )}

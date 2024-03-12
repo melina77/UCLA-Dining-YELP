@@ -36,7 +36,7 @@ function CardItem(props) {
                 {/* <h5 className='cards__item__caption_text'>TESTING postId: {props.food_id}</h5> */}
                 <div className='cards__item__buttons'>
                     <button onClick={handleAddFoodClick}>Add Food to Calories</button>
-                    <Link to={`/post/${props.id}/comments`}>
+                    <Link to={`/posts/${props.food_id}/comments`}>
                         <button>💬</button>
                     </Link>
                     <LikeButton postId={props.food_id} initialLikes={props.likes_array} />

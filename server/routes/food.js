@@ -25,7 +25,6 @@ router.post("/", validate, upload.single('image'), async (req, res) =>{
     }
 
     if(user){
-        console.log(req.file);
         await food.create({
             poster: req.user.name,
             name: req.body.name,

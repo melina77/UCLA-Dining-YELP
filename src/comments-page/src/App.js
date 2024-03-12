@@ -1,50 +1,76 @@
 import './App.css';
 import Nav from './nav.js';
-import {useState, useRef} from 'react';
-import { useEffect } from 'react';
+import {useState, useRef, useEffect, Navigate} from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
-    function CommentDisplay({posts, setPosts})  {
-          return(      
-          <div>
-            {posts.map(post => (
-              <div className = "comment-box">
-              <div className = "text-box">
-              <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
-                {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '150px', height: '150px' }} />}
-                <div style={{flex:1}}>
-                 <div>
-                  <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
-                </div>
-                <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
-                </div>
-              </div>
-              </div>
-              </div>
-            ))}
-    
+function ImageUpload({fileInputRef}) {
+  const [image, setImage] = useState(null);
+
+  // Function to handle the image selection
+  const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setImage(imageUrl);
+    }
+  };
+
+  // Function to trigger file input on button click
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  return (
+    <div className="App">
+      <button className="pics" onClick={handleButtonClick}>Add an image</button>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        style={{ display: 'none' }} // Hide the file input
+        ref={fileInputRef}
+      />
+      {image && <img src={image} alt="Uploaded" style={{ width: '75%', marginTop: '20px' }} />}
+    </div>
+  );
+}
+
+function CommentDisplay({posts, setPosts})  {
+      return(      
+      <div>
+        {posts.map(post => (
+          <div className = "comment-box">
+          <div className = "text-box">
+          <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
+            {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '150px', height: '150px' }} />}
+            <div style={{flex:1}}>
+              <div>
+              <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
+            </div>
+            <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
+            </div>
           </div>
-          );
-       }
+          </div>
+          </div>
+        ))}
 
+      </div>
+      );
+    }
+
+
+
+    
 function Comment() {
+  const navigate = useNavigate();
+  const { postId } = useParams();
+  console.log(postId);
   const token = localStorage.getItem('authToken');
   const [inputValue, setInputValue] = useState('');
   const [image, setImage] = useState(null);
   const [posts, setPosts] = useState([]);
   const fileInputRef = useRef(null);
-
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const adjustHeight = (event) => {
     const element = event.target;
@@ -52,7 +78,7 @@ function Comment() {
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
   const fetchComments = ()=> {
-    fetch('http://localhost:8080/home/6b7a12df-de10-4bb1-93d1-f7fbfd8b66a3', {
+    fetch(`http://localhost:8080/c/${postId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -65,31 +91,38 @@ function Comment() {
           return response.json();
         })
         .then(data => {
-          console.log(data);
+          
           setPosts(data);
         })        
         .catch(error => console.error('Error fetching data:', error));
   }
+
   const handleSubmit = async (e) => {
     console.log('submmiting data');
     e.preventDefault();
     const formData = new FormData();
     formData.append('body', inputValue);
+    
     if (fileInputRef.current && fileInputRef.current.files[0]) {
-      formData.append('image', fileInputRef.current.files[0]);
-    }    
-    try {
-      const response = await fetch('http://localhost:8080/home/6b7a12df-de10-4bb1-93d1-f7fbfd8b66a3', {
-        method: 'POST',
-        body: formData,
+      formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
+    } 
+    if (fileInputRef.current.files[0] !== undefined) {  
+      try {
+        const response = await fetch(`http://localhost:8080/c/${postId}`, {
+          method: 'POST',
+          body: formData,
+          headers: {
+          'Authorization': `Bearer ${token}`
+          }
+        });
 
-        headers: {
-         'Authorization': `Bearer ${token}`
+        if (response.ok) {
+          const data = await response.json();
+          navigate('/home');
+        } else {
+          console.error('Failed to create comment:', response.statusText);
         }
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+
       const data = await response.json();
       console.log('Success:', data);
       setInputValue('');
@@ -97,12 +130,13 @@ function Comment() {
       fileInputRef.current.value = null;
       fetchComments();
       CommentDisplay(posts,setPosts);
-      fetchComments();
-       
+      fetchComments(); 
+      Navigate('/home');
     } 
     catch (error) {
       console.error('Error:', error);
     }
+  }
   }
 
    useEffect(() => {
@@ -147,20 +181,7 @@ function Comment() {
           
           />
       <p/>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-        ref={fileInputRef}
-        style={{ 
-          padding: '10px 20px',
-          cursor: 'pointer',
-          fontFamily: 'monospace',
-          background: '#8FaBFF',
-          
-        }}
-      />
-
+        <ImageUpload fileInputRef={fileInputRef}/>
       <p/>
       {image && <img src={image} alt="Uploaded" style={{ width: '200px', height: '200px' }} />}
 
