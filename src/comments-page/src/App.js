@@ -2,6 +2,7 @@ import './App.css';
 import Nav from './nav.js';
 import {useState, useRef} from 'react';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 
     function CommentDisplay({posts, setPosts})  {
@@ -28,6 +29,7 @@ import { useEffect } from 'react';
        }
 
 function Comment() {
+  const { postId } = useParams();
   const token = localStorage.getItem('authToken');
   const [inputValue, setInputValue] = useState('');
   const [image, setImage] = useState(null);
@@ -52,7 +54,7 @@ function Comment() {
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
   const fetchComments = ()=> {
-    fetch('http://localhost:8080/home/6b7a12df-de10-4bb1-93d1-f7fbfd8b66a3', {
+    fetch(`http://localhost:8080//post/${postId}/comments`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -79,7 +81,7 @@ function Comment() {
       formData.append('image', fileInputRef.current.files[0]);
     }    
     try {
-      const response = await fetch('http://localhost:8080/home/6b7a12df-de10-4bb1-93d1-f7fbfd8b66a3', {
+      const response = await fetch(`http://localhost:8080//post/${postId}/comments`, {
         method: 'POST',
         body: formData,
 

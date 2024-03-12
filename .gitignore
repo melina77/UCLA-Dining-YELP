@@ -30,10 +30,4 @@ Used Packages:
 sequelize
 bcrypt
 dotenv
-jsonwebtoken<<<<<<< HEAD
-node_modules
-=======
-node_modules
->>>>>>> 613d7e3d915f68436d5003882763af972d19e02b
-
 jsonwebtoken
