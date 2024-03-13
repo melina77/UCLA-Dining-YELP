@@ -4,7 +4,7 @@ import './App.css';
 import { jwtDecode } from 'jwt-decode';
 
 function LoginPage({setUserType}) {
-  const [formToShow, setFormToShow] = useState('login-form'); // Default to showing the login form
+  const [formToShow, setFormToShow] = useState('login-form'); // default to showing the login form
   const [toggleValue, setToggleValue] = useState('student');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -79,7 +79,7 @@ function LoginPage({setUserType}) {
     
     // if user clicked the student registration form:
     if (formToShow === 'register-form-student') {
-      // Post request to send student registration data to the student registration endpoint
+      // post request to send student registration data to the student registration endpoint
       fetch('http://localhost:8080/student-register', {
         method: 'POST',
         body: JSON.stringify(userData),
@@ -106,15 +106,15 @@ function LoginPage({setUserType}) {
       .catch(error => {
         console.error('Network error: ', error);
       });
-      // If user clicked it the dining registration form
+      // if user clicked it the dining registration form
     } else if (formToShow === 'register-form-dining-hall') {
-      // Check if password length is greater than 8 on submission
+      // check if password length is greater than 8 on submission
       if (password.length < 8) {
         alert('Network error! Is your password at least 8 characters?');
         return console.error("Input Error: Password is not more than 8 characters");
       }
       
-      // Post request to send dining hall registration data to the dining hall registration endpoint
+      // post request to send dining hall registration data to the dining hall registration endpoint
       fetch('http://localhost:8080/dining-register', {
         method: 'POST',
         body: JSON.stringify(userData),
@@ -122,7 +122,7 @@ function LoginPage({setUserType}) {
           'Content-Type': 'application/json'
         }
       })
-      // Check if the registration failed: email already exists
+      // check if the registration failed: email already exists
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -131,7 +131,7 @@ function LoginPage({setUserType}) {
             console.error('Dining hall registration failed');
         }
       })
-      // If successful, store authentication token locally, and navigate to home
+      // if successful, store authentication token locally, and navigate to home
       .then(res => {
         localStorage.setItem('authToken', res.token);
         setUserType('dining hall');

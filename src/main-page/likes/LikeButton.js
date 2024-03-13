@@ -1,36 +1,32 @@
-// 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸 WITH FETCH API 🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
 import React, { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 
+// Like Button on the food post cards
 function LikeButton({ initialLikes, postId }) {
+    // to display the total likes and indivate if the button is already liked by user
     const [likes, setLikes] = useState(initialLikes);
     const [liked, setLiked] = useState();
-    // const [totalLikes, setTotalLikes] = useState(0); // Define totalLikes state
 
     // SET INITIALLY LIKED OR NOT
     useEffect(() => {
         const initiallyLiked = () => {
-            // const action = liked ? 'unlike' : 'like';
-            // // const url = `/api/likes/${postId}/${action}`;
-
             // get token to get user.id and name
             const token = localStorage.getItem('authToken');
 
+            // get fetch request to get the likes associated with a certain postId
             fetch(`http://localhost:8080/l/${postId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Include any other headers your API requires
                     'Authorization': `Bearer ${token}`
                 },
             })
             .then(response => response.json())
+            // set if the post is already liked by user
             .then(data => {
-                // 🍅 ADJUST: this assumes the response includes the updated like count
-                // setLikes(data.updatedLikes);
                 setLiked(data.liked);
-                console.log("Calling Initially Liked: ", liked);
             })
+            // catch any errors durign the get fetch request
             .catch(error => {
                 console.error('Error:', error);
             });
@@ -40,16 +36,14 @@ function LikeButton({ initialLikes, postId }) {
 
     // when like is clicked
     const toggleLike = () => {
-        // const action = liked ? 'unlike' : 'like';
-        // // const url = `/api/likes/${postId}/${action}`;
-
         // get token to get user.id and name
         const token = localStorage.getItem('authToken');
         let decodedToken;
+        // if token exists, decode it
         if (token) {
             decodedToken = jwtDecode(token);
         }
-
+        // if user has "name", that means they are a dining user (dining users are not allowed to like posts)
         if (decodedToken.name) {
             alert("You are not allowed to like posts");
             return;
@@ -63,16 +57,14 @@ function LikeButton({ initialLikes, postId }) {
             }),
             headers: {
                 'Content-Type': 'application/json',
-                // Include any other headers your API requires
                 'Authorization': `Bearer ${token}`
             },
         })
         .then(response => response.json())
         .then(data => {
             setLiked(data.liked);
-            console.log("LIKED STATUS: ", liked);
-            // ADJUSTED: had to manually update likes bc:
-                // the totalLikes wasn't updating bc it called toggleLike and fetchTotalLikes at the same time, so that’s why it doesnt update until the next time you click it
+            // manually update likes:
+            // the totalLikes wasn't updating bc it called toggleLike and fetchTotalLikes at the same time, so that’s why it doesnt update until the next time you click it
             if (liked){
                 setLikes(likes - 1);
             }
@@ -81,10 +73,10 @@ function LikeButton({ initialLikes, postId }) {
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Error: ', error);
         });
 
-        // FETCH TOTAL LIKES WITHIN TOGGLE LIKE 🐙
+        // fetch total likes by fetching for food items (within the toogleLike function)
         fetch('http://localhost:8080/f/', {
             method: 'GET',
             headers: {
@@ -98,13 +90,14 @@ function LikeButton({ initialLikes, postId }) {
             return response.json();
         })
         .then(foodItems => {
-            // Filter the likes based on the food ID
+            // filter the likes based on the food ID
             const food = foodItems.find(foodItem => foodItem.id === postId);
+            // if can't find the foodID
             if (!food) {
                 console.error('Food item not found');
                 throw new Error('Food item not found');
             }
-            console.log('totalLikes INSIDE toggleLike:  Food likes:', food.likes.length);
+            // get the total like count by getting the length of the likes array
             setLikes(food.likes.length)
         })
         .catch(error => {
@@ -112,12 +105,11 @@ function LikeButton({ initialLikes, postId }) {
         });
     };
 
-    // get the Total Likes from the food router
-    // useEffect(() => {
+    // get the Total Likes from the food router (outside of toogleLike function)
     const fetchTotalLikes = async () => { // deleted async
         try {
             // fetch all food items with their associated likes
-            const response = await fetch('http://localhost:8080/f/', { // deleted await
+            const response = await fetch('http://localhost:8080/f/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -126,23 +118,21 @@ function LikeButton({ initialLikes, postId }) {
             if (!response.ok) {
                 throw new Error('Failed to fetch food items');
             }
-            const foodItems = await response.json(); // deleted await
+            const foodItems = await response.json();
 
-            // Filter the likes based on the food ID
+            // filter the likes based on the food ID
             const food = foodItems.find(foodItem => foodItem.id === postId);
+            // if cannot find the foodId
             if (!food) {
                 console.error('Food item not found');
                 throw new Error('Food item not found');
             }
-            console.log('fetchTotalLikes: Food likes length:', food.likes.length);
+            // set total likes by using the length of the likes array
             setLikes(food.likes.length)
         } catch (error) {
             console.error('Error fetching food likes:', error.message);
         }
     };
-
-    //     fetchTotalLikes();
-    // }, []);
     
     return (
         <div className='like-button'>
@@ -157,16 +147,6 @@ function LikeButton({ initialLikes, postId }) {
             ❤️ {likes}
             </button>
         </div>
-        // <button
-        //     className={`like-button ${liked ? '' : 'liked'}`}
-        //     onClick={() => {
-        //         // fetchTotalLikes();
-        //         toggleLike();
-        //         fetchTotalLikes();
-        //     }}
-        // >
-        //     ❤️ {likes}
-        // </button>
     );
 }
 

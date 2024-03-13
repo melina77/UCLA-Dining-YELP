@@ -4,21 +4,24 @@ import CardItem from './CardItem';
 import React, { useState, useEffect } from 'react';
 import {jwtDecode} from 'jwt-decode';
 
-
+// displaying the posts on the main-page consecutively vertical
 function Cards() {
-    // State to store fetched card data
+    // state to store fetched card data
     const [cardsData, setCardsData] = useState([]);
     let decodedToken;
+    // get the local authentication token
     const token = localStorage.getItem('authToken');
+        // if the token exists
         if (token) {
-            // Decode the token to extract user information
+            // decode the token to extract user information (which will be used for liking, calorie counter, etc.)
             decodedToken = jwtDecode(token);
         }
 
-    // Fetch card data from the backend API
+    // fetch card data from the backend API
     useEffect(() => {
         const fetchCardsData = async () => {
             try {
+                // get request to store the food data to display in cards
                 const response = await fetch('http://localhost:8080/f/', {
                     method: 'GET',
                     headers: {
@@ -26,7 +29,9 @@ function Cards() {
                     }
                 });
                 const data = await response.json();
+                // storing the 
                 setCardsData(data);
+            // catch errors
             } catch (error) {
                 console.error("Failed to fetch cards data:", error);
             }
@@ -34,12 +39,6 @@ function Cards() {
 
         fetchCardsData();
     }, []);
-
-    
-
-    // Example state and modal opening function in a parent component
-    const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
-    const [selectedItemId, setSelectedItemId] = useState(null);
 
     // get userID from local token
     const getUserIdFromToken = () => {
@@ -54,12 +53,14 @@ function Cards() {
         return null; // Token not found or invalid
     };
 
-    // Add post to calories button!
+    // add post to calories button!
     const onAddCalories = async (foodId, card_calories) => {
+        // check if the user has a "name" (which means that they are a dining user and do not have access to the calorie counter)
         if (decodedToken.name) {
             alert("You do not have access to calorie counter");
             return;
         }
+        // get the authentication token
         const token = localStorage.getItem('authToken');
         const response = await fetch('http://localhost:8080/calorie-counter/', {
             method: 'POST',
@@ -68,6 +69,7 @@ function Cards() {
                 // Add any additional headers you need, such as authorization headers
                 'Authorization': `Bearer ${token}`
             },
+            // store foodId and calories for when adding to calories and commenting
             body: JSON.stringify({
                 foodId: foodId, 
                 calories: card_calories
@@ -80,7 +82,7 @@ function Cards() {
     // SEARCH BAR 
     const [searchTerm, setSearchTerm] = useState('');
 
-    // Filter cardsData based on search term
+    // filter cardsData based on search term
     const filteredCards = cardsData.filter(card =>
         card.poster.toLowerCase().includes(searchTerm.toLowerCase()) ||
         card.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -99,7 +101,7 @@ function Cards() {
             <div className='cards__container'>
                 <div className='cards__wrapper'>
                     <ul className='cards__items'>
-                        {/* Now map over filteredCards instead of cardsData */}
+                        {/* map over filteredCards (from search) instead of cardsData */}
                         {filteredCards.map((card, index) => (
                             <CardItem
                             key={index}
