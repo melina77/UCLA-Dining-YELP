@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import './App.css'; // Assuming your CSS file is named style.css and is located in the same directory
+import './App.css';
 import { jwtDecode } from 'jwt-decode';
 
 function LoginPage({setUserType}) {
@@ -13,19 +13,22 @@ function LoginPage({setUserType}) {
 
   const navigate = useNavigate();
 
+  // depending on the toggle, decides which user login form to show
   const toggleForm = (newForm) => {
     setFormToShow(newForm);
   };
 
+  // change the toggle on the login to determine the endpoint and form to use
   const handleToggleChange = () => {
     //update toggle value
     setToggleValue(toggleValue === 'student' ? 'dining hall' : 'student');
-    // set local
   };
 
+  // called on submit for the login form
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
+    // define the inputed data (dining hall or username depneding on the type of user)
     const userData = {
       username: (toggleValue === 'dining hall' ? '' : username),
       password: password,
@@ -35,6 +38,7 @@ function LoginPage({setUserType}) {
 
     const endpoint = toggleValue === 'dining hall' ? '/dining-login' : '/student-login';
     
+    // fetch post request to login a student or dining user
     fetch("http://localhost:8080" + endpoint, {
       method: 'POST',
       body: JSON.stringify(userData),
@@ -42,6 +46,7 @@ function LoginPage({setUserType}) {
         'Content-Type': 'application/json'
       }
     })
+    // alert users if the login failed
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -50,6 +55,7 @@ function LoginPage({setUserType}) {
         throw new Error('Authentication failed');
       }
     })
+    // if login is successful: store authentication token and navigate to home page
     .then(data => {
       localStorage.setItem('authToken', data.token);
       setUserType(toggleValue);
@@ -61,6 +67,7 @@ function LoginPage({setUserType}) {
     });
   };
 
+  // called on click of 'create' button
   const handleRegistrationSubmit = (e) => {
     e.preventDefault();
     const userData = {
@@ -70,15 +77,17 @@ function LoginPage({setUserType}) {
       dining_hall_name: dining_hall_name
     };
     
+    // if user clicked the student registration form:
     if (formToShow === 'register-form-student') {
-      // Send student registration data to the student registration endpoint
-      fetch('http://localhost:8080/student-register', {//replace with URL of backend endpoint
+      // Post request to send student registration data to the student registration endpoint
+      fetch('http://localhost:8080/student-register', {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
           'Content-Type': 'application/json'
         }
       })
+      // check if the registration failed and alert the users
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -86,31 +95,34 @@ function LoginPage({setUserType}) {
             alert('Student registration failed');
         }
       })
+      // if successful, store the authentication token locally, navigate to home
       .then(res => {
           localStorage.setItem('authToken', res.token);
           setUserType('student');
           console.log('Student registration successful');
           navigate('/home')
         })
+        //  catch network error
       .catch(error => {
         console.error('Network error: ', error);
       });
-
+      // If user clicked it the dining registration form
     } else if (formToShow === 'register-form-dining-hall') {
       // Check if password length is greater than 8 on submission
       if (password.length < 8) {
         alert('Network error! Is your password at least 8 characters?');
         return console.error("Input Error: Password is not more than 8 characters");
       }
-      // Send dining hall registration data to the dining hall registration endpoint
-
-      fetch('http://localhost:8080/dining-register', {//replace with URL of backend endpoint
+      
+      // Post request to send dining hall registration data to the dining hall registration endpoint
+      fetch('http://localhost:8080/dining-register', {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
           'Content-Type': 'application/json'
         }
       })
+      // Check if the registration failed: email already exists
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -119,30 +131,30 @@ function LoginPage({setUserType}) {
             console.error('Dining hall registration failed');
         }
       })
+      // If successful, store authentication token locally, and navigate to home
       .then(res => {
         localStorage.setItem('authToken', res.token);
         setUserType('dining hall');
         console.log('Dining Hall registration successful');
         navigate('/home')
       })
+      // catch network errors
       .catch(error => {
         console.error('Network error: ', error);
       });
     }
   };
   
-  
   return (
     <div className = "app">
       <header className="header">
-      {/* Apply CSS styles to make the header have a different background color */}
         <div className="logo-container">
-          {/* Apply CSS styles to align the logo left */}
           <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
         </div>
       </header>
       <div className="login-page">
         <div className="form">
+          {/* STUDENT REGISTRATION FORM */}
           <form className="register-form-student" onSubmit={handleRegistrationSubmit} style={{ display: formToShow === 'register-form-student' ? 'block' : 'none' }}>
             <p className="message">
               <large>Student Registration</large>
@@ -155,6 +167,7 @@ function LoginPage({setUserType}) {
             <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
           </form>
 
+          {/* DINING REGISTRATION FORM */}
           <form className="register-form-dining-hall" onSubmit={handleRegistrationSubmit} style={{ display: formToShow === 'register-form-dining-hall' ? 'block' : 'none' }}>
             <p className="message">
               <large>Dining Hall Registration</large>
@@ -171,16 +184,18 @@ function LoginPage({setUserType}) {
             <p className="message">Already registered? <span className="toggle-form" onClick={() => toggleForm('login-form')} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>Sign In</span></p>
           </form>
 
+          {/* GENERAL LOGIN FORM */}
           <form className="login-form" onSubmit={handleLoginSubmit} style={{ display: formToShow === 'login-form' ? 'block' : 'none' }}>
             <input type="text" placeholder= {toggleValue === 'dining hall' ? 'Dining Hall Name' : 'Username'} value={toggleValue === 'dining hall' ? dining_hall_name : username} onChange={(e) => toggleValue === 'dining hall' ? set_dining_hall_name(e.target.value) : setUsername(e.target.value)}/>
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <input type="text" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            {/* TOGGLE BETWEEN STUDENT AND DINING LOGIN */}
             <label className="toggle">
               <input 
                 className="toggle-input" 
                 type="checkbox" 
-                checked={toggleValue === 'dining hall'}//check based on toggleValue
-                onChange={handleToggleChange}//handle toggle change
+                checked={toggleValue === 'dining hall'} //check based on toggleValue
+                onChange={handleToggleChange} //handle toggle change
               />
               <span className="toggle-label" data-off="Student" data-on="Dining"></span>
               <span className="toggle-handle"></span>
@@ -196,8 +211,3 @@ function LoginPage({setUserType}) {
 }
 
 export default LoginPage;
-
-
-/*$('.message a').click(function(){
-    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
- }); */
