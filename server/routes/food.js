@@ -25,6 +25,8 @@ router.post("/", validate, upload.single('image'), async (req, res) =>{
     //finds the user in both the
     if (req.user.name) {
         user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
+    } else {
+        user = await dining.findOne({where: {name: req.user.username, id: req.user.id}});
     }
 
     //if a user exists, create a new food item
