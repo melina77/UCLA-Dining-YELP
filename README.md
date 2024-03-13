@@ -9,30 +9,30 @@ BruinGrub is a full stack web application that allows UCLA students to see what 
 ## Components
 ### Backend: Node.js, Express.js
 * Our backend handles requests for user authentication, dining hall information, food details, comments and calorie tracking. Some of the key APIs are listed in the following:
-  * User Authentication: allows user registration and login to ensure secure access.
-  * Dining hall and food truck uploading: only dining hall users and food trucks are able to upload food items and calorie information to the database.
-  * Calorie tracker: users can add food items to their daily calorie count to keep track of the total intake throughout the course of the day.
+  * User Authentication: Allows user registration and login to ensure secure access.
+  * Dining hall and food truck uploading: Only dining hall users are able to upload food items and calorie information as posts to the database.
+  * Calorie tracker: Only student users can add food items to their daily calorie count to keep track of the total intake throughout the course of the day. They can also remove food items from their calorie counter.
     
 ### Frontend: React.js, CSS
 * Our frontend offers a dynamic and user-friendly interface featuring a multitude of pages that the user can switch between including:
   * The main page, where food is displayed in chronological order from the most recent to oldest posts.
-  * All users can search through posts on the main page.
-  * The calorie-counter page, which allows student users to add and remove food from their calorie counter, displaying their total calorie intake.
+  * All users have access to the search bar, they can search through posts on the main page.
+  * The calorie-counter page allows student users to add and remove food from their calorie counter, displaying their total calorie intake.
     * Dining hall users do not have access to this page.
   * The comments page, which can be reached by clicking on the comments button under each post.
-    * Only student users can comment on posts, they can add images to their comment as well
-  * The posting page is for dining hall users to post, where they can upload an image, title, and a description for each post. 
+    * All users can comment on posts, and they have the option to add images to their text comment as well.
+  * The posting page is only accessible by dining hall users, allowing them to create a post where they can upload an image, title, and description.
     * Students do not have access to this page.
       
 ### Datastore: mySQL
 * We chose mySQL for the datastore because a lot of our features require us to handle various data types and relationships, especially regarding the users, dining options, comments, and calorie count. Along with allowing us to provide comprehensive security features and easy scaling, mySQL supports the complex queries and transactions that are constantly being called on both our calorie tracker and user comments page. Since we wanted to create an interactive and user-focused dining review platform for UCLA students, mySQL offered the best features in achieving this goal.
 ## Features:
 * ### Dining hall/Food Trucks as users: 
-  * As a user, dining halls and food trucks will be able to upload dishes from their menu along with the calorie count for each dish. On the browser for dining hall users, the add to calorie counter button will not show up. The calorie counter will not show up in the navigation bar.  
+  * As a user, dining halls and food trucks will be able to upload dishes from their menu along with the calorie count for each dish. They are not able to access features that are meant only for students such as the CalorieCounter and liking posts. On the browser for dining hall users, the add to calorie counter button will not show up and the calorie counter page will not show up in the navigation bar.  
 * ### Students as users:
-  * Students are able to like posts (which are the specific dishes) of dinings halls/food trucks and can leave a review on each food. Additionally, students can keep track of their calories with calorie counter. In place of posting ability in the navigation bar, students will have a link to the table of calories.  
+  * Students are able to like posts from dinings halls/food trucks and leave a comments on each post. Their comments can optionally contain an image. Additionally, students can keep track of their calories using the calorie counter page. Student do not have access to the posting page in the navigation bar, and they instead students have access to the calorie counter page.
 * ### Calorie counter/tracker:
-  * Students will be able to keep track of how many calories they have consumed with the calorie counter by simply adding the food of choice to their tracker with the button found underneath the food item. After adding the food from the main page, when students go into calorie-counter, they can check their total number of calories consumed during the day as well as how many different foods were eaten. In the actual calorie counter page, students can choose whether or not they want to keep or delete the food item.  
+  * Students will be able to keep track of how many calories they have consumed with the calorie counter by simply adding food from a post to their tracker by pressing the button found underneath the post. After adding the food from the main page, students can navigate to the calorie-counter to view their total calorie intake as well as the number of foods they are consuming. In the calorie counter page, students also have the option to delete food items by pressing a button.
 ## Setup
 To run a local instance of BruinGrub, first clone or download a copy of this repository. Follow the commands below to initialize a local instance of each part of the application.
 ## Commands
