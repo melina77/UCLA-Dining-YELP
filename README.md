@@ -49,7 +49,7 @@ To begin running backend, run:
 cd backend  
 npm start
 ```
-The backend server will be available on http://localhost:8080.
+The backend server will be available on http://localhost:8080.  
 **Frontend**
 To setup the dependencies for the frontend application, run:  
 ```
