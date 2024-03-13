@@ -79,7 +79,9 @@ function ImageUpload({fileInputRef, reloadPage}) {
         style={{ display: 'none' }} //hide the file input
         ref={fileInputRef}
       />
+      <p />
       {image && <img src={image} alt="Uploaded" style={{ width: '75%', marginTop: '20px' }} />}
+      <p />
     </div>
   );
 }
@@ -195,9 +197,9 @@ function Comment() {
           />
       <p/>
         <ImageUpload fileInputRef={fileInputRef} key={reloadPage}/>
-      <p/>
+      <p />
       {image && <img src={image} alt="Uploaded" style={{ width: '200px', height: '200px' }} />}
-
+      <p /> 
       <p>
       <button className="submit" style={{fontFamily: 'monospace'}}>Save & Post</button>
       </p>
