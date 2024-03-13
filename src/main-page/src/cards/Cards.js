@@ -19,7 +19,7 @@ function Cards() {
     useEffect(() => {
         const fetchCardsData = async () => {
             try {
-                const response = await fetch('http://localhost:8080/home/', {
+                const response = await fetch('http://localhost:8080/f/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

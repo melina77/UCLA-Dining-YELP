@@ -1,3 +1,5 @@
+//create database table for dining hall users with columns corresponding to the dining hall name, email, and password
+//each dining hall is associated with food posts and comments
 module.exports = (sequelize, DataTypes) =>{
     const dining = sequelize.define("dining", {
         id: {
