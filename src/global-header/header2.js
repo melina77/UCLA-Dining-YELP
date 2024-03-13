@@ -13,6 +13,7 @@ function Header_Dining() {
     <div className='header-container'>
       <header>
         <div className="logo-container">
+          {/* Logo links to homepage */}
           <Link to='/home'>
             <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
           </Link>

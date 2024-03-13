@@ -64,7 +64,6 @@ function CalorieCounter() {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
-              // Add any additional headers you need, such as authorization headers
               'Authorization': `Bearer ${authToken}`
           },
           body: JSON.stringify({
@@ -79,12 +78,13 @@ function CalorieCounter() {
 
     return (
       <main>
+        {/* Container for entire page after header */}
         <div className='main-container'>
           <div className='counter-container'>
             <div className='counter-title'>
               <h2>Calorie Counter</h2>
             </div>
-  
+            {/* Container for food and calories header */}
             <div className='food-calorie-title-container'>
               <div className='food-title'>
                 <h3>Foods</h3>
@@ -94,9 +94,11 @@ function CalorieCounter() {
                 <h3>Calories</h3>
               </div>
             </div>
+            {/* Container for the calorie and food list */}
             <div className='counter-list-container-wrapper'>
               <div className='counter-list-container'>
                 <div className='food-list-container'>
+                  {/* Get individual food items by index */}
                   {foods.map((food, index) => (
                     <div className='individual-food-items' key={index}>
                       {food.foodName}
@@ -107,11 +109,13 @@ function CalorieCounter() {
                   ))}
                 </div>
                 <div className='calories-list-container'>
+                  {/* Get individual food calories by index */}
                   {foods.map((food, index) => (
                     <div key={index}>{food.calories}</div>
                   ))}
                 </div>
               </div>
+              {/* Container for total food and calories consumed */}
               <div className='total-container'>
                 <div className='food-total-container'>
                   <p>Total Food Consumed Today: {totalFoodConsumed}</p>

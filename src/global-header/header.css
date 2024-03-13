@@ -1,3 +1,4 @@
+/* Entire page */
 body {
     font-family: monospace;
     background-color: #8fabff;
@@ -5,6 +6,18 @@ body {
     padding: 0;
 }
 
+/* Header logo */
+.logo {
+    width: 200px; /* Adjust the size of the logo as needed */
+    height: auto;
+    display: block; 
+  }
+
+.logo-container {
+    display: inline-block;  /*align the contents left*/
+  }
+
+/* Header styling */
 header {
     display: flex;
     color: white;
@@ -19,20 +32,13 @@ header {
     width: 100%;
 }
 
+/* Header separator line */
 .styled-hr {
     height: 2px;
     background-color: #718bd9;
 }
-.logo {
-    width: 200px; /* Adjust the size of the logo as needed */
-    height: auto;
-    display: block; 
-  }
 
-.logo-container {
-    display: inline-block;  /*align the contents left*/
-  }
-
+/* Header title styling */
 #title {
     margin-left: 30px;
     text-shadow: 5px 2px 2px pink;

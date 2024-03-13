@@ -1,3 +1,4 @@
+/* Navigation button styling */
 nav{
     height: 100%;
     display: flex;
@@ -25,6 +26,8 @@ nav a:active {
     color: white;
   }
 
+
+/* Make logout button look like nav bar buttons */
 #logout-button {
   background-color: #718bd9;
   color: white;

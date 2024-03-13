@@ -15,6 +15,7 @@ function Header({ handleSearch, searchTerm, setSearchTerm }) {
     <div className='header-container'>
       <header>
         <div className="logo-container">
+          {/* Logo links to home page */}
           <Link to='/home'>
             <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
           </Link>
