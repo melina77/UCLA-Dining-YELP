@@ -106,7 +106,7 @@ function LikeButton({ initialLikes, postId }) {
     };
 
     // get the Total Likes from the food router (outside of toogleLike function)
-    const fetchTotalLikes = async () => { // deleted async
+    const fetchTotalLikes = async () => {
         try {
             // fetch all food items with their associated likes
             const response = await fetch('http://localhost:8080/f/', {

@@ -29,7 +29,7 @@ function Cards() {
                     }
                 });
                 const data = await response.json();
-                // storing the 
+                // storing the cards data from the request
                 setCardsData(data);
             // catch errors
             } catch (error) {
@@ -44,10 +44,10 @@ function Cards() {
     const getUserIdFromToken = () => {
         const token = localStorage.getItem('authToken');
         if (token) {
-            // Decode the token to extract user information
+            // decode the token to extract user information
             const decodedToken = jwtDecode(token);
-            // Extract the userID from the decoded token
-            return decodedToken.id; // Adjust the property name as per your JWT payload
+            // extract the userID from the decoded token
+            return decodedToken.id;
         }
         alert("Unable to get this user's authToken");
         return null; // Token not found or invalid
@@ -66,7 +66,6 @@ function Cards() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Add any additional headers you need, such as authorization headers
                 'Authorization': `Bearer ${token}`
             },
             // store foodId and calories for when adding to calories and commenting
