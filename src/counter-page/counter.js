@@ -4,15 +4,15 @@ import "./counter.css"
 import { jwtDecode } from 'jwt-decode';
 
 function CalorieCounter() {
-    // List to manage list of foods
-    const [foods, setFoods] = useState([]);
-    const [reloadPage, setReloadPage] = useState(false);
-    const [totalFoodConsumed, setTotalFoodConsumed]  = useState(0);
-    const [totalCalories, setTotalCalories] = useState(0);
-    const authToken = localStorage.getItem('authToken');
+    const [foods, setFoods] = useState([]); // List to manage list of foods
+    const [reloadPage, setReloadPage] = useState(false);  // Reload page after food list changes
+    const [totalFoodConsumed, setTotalFoodConsumed]  = useState(0); // Store total food in calorie list
+    const [totalCalories, setTotalCalories] = useState(0);  // Store total calories in calorie list
+
+    const authToken = localStorage.getItem('authToken');  // Store the authentication token
     let decodedToken;
     if (authToken) {
-      decodedToken = jwtDecode(authToken);
+      decodedToken = jwtDecode(authToken);  // Decode the token to get user information
     }
 
     // Get total food and calories and put them in the table
@@ -31,7 +31,6 @@ function CalorieCounter() {
         const foodList = [];
     
         data.result.forEach(food => {
-          console.log(food);
           // Check if there is a calorie value for each value
           if (food.calories == undefined) {
             totalFood -= 1;
@@ -50,21 +49,22 @@ function CalorieCounter() {
         if (totalFood < 0) {
           totalFood = 0;
         }
+
+        // Set total food and total calories
         setTotalFoodConsumed(totalFood);
         setTotalCalories(totalCalories);
       })
       .catch(error => console.error('Error fetching data:', error));
     }, [reloadPage]);
 
-
+    // Handle food removal
     const handleRemoval = async (id, food_calories) => {
-      const token = localStorage.getItem('authToken');
       const response = await fetch('http://localhost:8080/calorie-counter/', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
               // Add any additional headers you need, such as authorization headers
-              'Authorization': `Bearer ${token}`
+              'Authorization': `Bearer ${authToken}`
           },
           body: JSON.stringify({
               foodId: id, 
@@ -72,8 +72,7 @@ function CalorieCounter() {
           })
       });
       const data = await response.json();
-      setReloadPage(prevState => !prevState);
-      
+      setReloadPage(prevState => !prevState); // Update variable each time removal button is pressed to rerender page
     };
   
 
