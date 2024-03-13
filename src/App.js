@@ -2,15 +2,15 @@ import React, { useState, useEffect, Navigate } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
-import LoginPage from './login-react/src/App.js';
+import LoginPage from './login-react/App.js';
 import Header from './global-header/header.js';
 import Header_Dining from './global-header/header2.js';
 import CalorieCounter from './counter-page/counter.js';
-import HomePage from './main-page/src/App.js';
+import HomePage from './main-page/App.js';
 import CommentsPage from './comments-page/src/App.js';
-import PostPage from './post-page-new/src/App.js';
-import SearchPage from './search-page/src/App.js';
-import HomePage_Dining from './main-page-dining/src/App.js';
+import PostPage from './post-page-new/App.js';
+import SearchPage from './search-page/App.js';
+import HomePage_Dining from './main-page-dining/App.js';
 
 export default function App() {
   const [userType, setUserType] = useState(null);
@@ -44,8 +44,8 @@ function PageRoutes({userType, setUserType}) {
 
     if (token) {
       decodedToken = jwtDecode(token);
-      console.log(decodedToken)
     }
+    // Get current time
     const currentTime = Math.floor(Date.now() / 1000);
     
     // Check if token is present

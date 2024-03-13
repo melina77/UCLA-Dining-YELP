@@ -25,13 +25,9 @@ function CommentDisplay({posts, setPosts})  {
   );
 }
 
-<<<<<<< HEAD
 function ImageUpload({fileInputRef, reloadPage}) {
   const [image, setImage] = useState(null);
   // Function to handle the image selection
-=======
-  //function to handle the image selection
->>>>>>> origin/fullstack
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -40,14 +36,9 @@ function ImageUpload({fileInputRef, reloadPage}) {
     }
   };
 
-<<<<<<< HEAD
   // Function to trigger file input on button click
   const handleButtonClick = (e) => {
     e.preventDefault();
-=======
-  //function to trigger file input on button click
-  const handleButtonClick = () => {
->>>>>>> origin/fullstack
     fileInputRef.current.click();
   };
 
@@ -85,12 +76,8 @@ function Comment() {
     element.style.height = 'auto'; // Reset height to recalculate
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
-<<<<<<< HEAD
 
   // Fetch comments for specific post
-=======
-  //get comments from backend for display
->>>>>>> origin/fullstack
   const fetchComments = ()=> {
     fetch(`http://localhost:8080/c/${postId}`, {
         method: 'GET',
@@ -109,12 +96,8 @@ function Comment() {
         })        
         .catch(error => console.error('Error fetching data:', error));
   }
-<<<<<<< HEAD
 
   // Send submitted comments to the database
-=======
-  //send information to store in backend
->>>>>>> origin/fullstack
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -145,13 +128,7 @@ function Comment() {
 
       setInputValue('');
       fileInputRef.current.value = null;
-<<<<<<< HEAD
       CommentDisplay(posts, setPosts);
-=======
-      //refresh page with new comment
-      fetchComments();
-      CommentDisplay(posts,setPosts);
->>>>>>> origin/fullstack
       fetchComments(); 
     } 
     catch (error) {
@@ -160,14 +137,8 @@ function Comment() {
 }
 
    useEffect(() => {
-<<<<<<< HEAD
       fetchComments()
     }, [reloadPage]);
-=======
-      fetchComments()    
-    }, []);
-
->>>>>>> origin/fullstack
   
   return (
     <div className="App">

@@ -17,6 +17,9 @@ function CalorieCounter() {
 
     // Get total food and calories and put them in the table
     useEffect(() => {
+      if (!authToken) {
+        return;
+      }
       fetch(`http://localhost:8080/calorie-counter/${decodedToken.id}`, {
         method: 'GET',
         headers: {

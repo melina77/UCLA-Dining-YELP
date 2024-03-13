@@ -3,28 +3,7 @@ import {useRef} from 'react';
 import { useNavigate } from 'react-router-dom'
 
 import './App.css';
-import './nav.css';
-import './header.css';
 import { jwtDecode } from 'jwt-decode';
-
-// function Header() {
-
-//   return (
-//     <div>
-//       <header>
-//         <div className="logo-container">
-//           <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
-//         </div>
-//         <nav>
-//           <a className="active" href="#home">Home</a>
-//           <a className="active" href="#calorie-counter">Calorie Counter</a>
-//           <a className="active" href="#contact">Contact</a>
-//           <a className="active" href="#logout">Logout</a>
-//         </nav>
-//       </header>
-//     </div>
-//   )
-// }
 
 function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
@@ -53,23 +32,19 @@ function ImageUpload({fileInputRef}) {
         style={{ display: 'none' }} // Hide the file input
         ref={fileInputRef}
       />
-      <p/>
       {image && <img src={image} alt="Uploaded" style={{ width: '75%', marginTop: '20px' }} />}
-    </div>
+    </div>  
   );
 }
 
-
-
 function App() {
-  const [inputValue, setInputValue] = useState('');
-  const [inputTwo, setInputTwo] = useState('');
-  const [inputThree, setInputThree] = useState('');
-  const [wordCount, setWordCount] = useState(0);
-  const [calories, setCalories] = useState('');
-  const navigate = useNavigate();
-  const fileInputRef = useRef(null);
-  const maxWords = 20;
+  const [inputValue, setInputValue] = useState(''); // Store food name
+  const [inputTwo, setInputTwo] = useState(''); // Store description input
+  const [wordCount, setWordCount] = useState(0);  // Store word count of description box
+  const [calories, setCalories] = useState(''); // Store calorie values
+  const navigate = useNavigate(); // Initiate to be able to use navigate
+  const fileInputRef = useRef(null);  // Store image
+  const maxWords = 20;  // Set max words
 
   // Function to update the state with the input's current value
   const adjustHeight = (event) => {
@@ -101,31 +76,26 @@ function App() {
   const handleSubmit = async(e) => {
     e.preventDefault();
 
+    // Initiate a form data to send to backend
     const formData = new FormData();
     formData.append('name', inputValue);
     // Include description
     formData.append('description', inputTwo);
-
     // Include calories
     formData.append('calories', calories);
-
     // Include image if provided
     if (fileInputRef.current && fileInputRef.current.files[0]) {
-      console.log(fileInputRef.current.files[0]);
-      console.log(fileInputRef.current.files);
-      console.log(fileInputRef.current.files[0]);
       formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
-      console.log(formData);
     }
 
-    // Get decoded token
+  // Get decoded token
   const authToken = localStorage.getItem('authToken');
   let decodedToken;
   if (authToken) {
-    decodedToken = jwtDecode(authToken);
+    decodedToken = jwtDecode(authToken);  // Get data from decoded token
   }
 
-  // Post food data
+  // Send food data to database
   if (fileInputRef.current.files[0] !== undefined) {
     try {
       const response = await fetch('http://localhost:8080/posts/', {
@@ -136,19 +106,19 @@ function App() {
         }
       });
 
+      // If posted successfully navigate back to home page
       if (response.ok) {
         const data = await response.json();
         navigate('/home')
 
       } else {
         console.error('Failed to create post:', response.statusText);
-
         } 
+
       } catch (error) {
       console.error('Error:', error);
     }
   }}
-
 
   return (
       <div className="App">
@@ -181,7 +151,6 @@ function App() {
                 adjustHeight(e);
               }}
               style={{ 
-                // overflowY: 'hidden',
                 width: '500px',
                 height: '50px',
                 resize: 'none',
@@ -211,7 +180,6 @@ function App() {
 export default function PostPage(){
   return(
     <div>
-      {/* <Header /> */}
       <App />
     </div>
   )
