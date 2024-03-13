@@ -31,9 +31,9 @@ const upload = multer({ storage: storage });
 // });
 
 router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
+    console.log("i am dining and i don't want an image: ", req.file);
     try {
         let user;
-
         if (req.user.username) {
             user = await students.findOne({ where: { username: req.user.username, id: req.user.id } });
         } else {
@@ -41,22 +41,42 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
         }
 
         if (user && req.user.username) {
-            await comments.create({
-                poster: req.user.username,
-                body: req.body.body,
-                image: req.file.filename,
-                foodId: req.params.postId,
-                studentId: req.user.id
-            });
+            if (req.file) {
+                await comments.create({
+                    poster: req.user.username,
+                    body: req.body.body,
+                    image: req.file.filename,
+                    foodId: req.params.postId,
+                    studentId: req.user.id
+                });
+            } else {
+                await comments.create({
+                    poster: req.user.username,
+                    body: req.body.body,
+                    image: null,
+                    foodId: req.params.postId,
+                    studentId: req.user.id
+                });
+            }
             res.json({ "message": "Comment created" });
         } else if (user && req.user.name) {
-            await comments.create({
-                poster: req.user.name,
-                body: req.body.body,
-                image: req.file.filename,
-                foodId: req.params.postId,
-                studentId: req.user.diningId
-            });
+            if (req.file) {
+                await comments.create({
+                    poster: req.user.name,
+                    body: req.body.body,
+                    image: req.file.filename,
+                    foodId: req.params.postId,
+                    studentId: req.user.diningId
+                });
+            } else {
+                await comments.create({
+                    poster: req.user.username,
+                    body: req.body.body,
+                    image: null,
+                    foodId: req.params.postId,
+                    studentId: req.user.id
+                });
+            }
             res.json({ "message": "Comment created" });
         } else {
             res.json({ "message": "Not a student user" });

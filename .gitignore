@@ -3,6 +3,7 @@
 
 # dependencies
 server/node_modules/
+server/comment_photos/
 /node_modules
 /.pnp
 .pnp.js

@@ -1,12 +1,32 @@
 import './App.css';
-import Nav from './nav.js';
-import {useState, useRef, useEffect, Navigate} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 
-function ImageUpload({fileInputRef}) {
-  const [image, setImage] = useState(null);
+function CommentDisplay({posts, setPosts})  {
+  return(      
+  <div>
+    {posts.map(post => (
+      <div className = "comment-box">
+      <div className = "text-box">
+      <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
+        {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '150px', height: '150px' }} />}
+        <div style={{flex:1}}>
+          <div>
+          <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
+        </div>
+        <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
+        </div>
+      </div>
+      </div>
+      </div>
+    ))}
+  </div>
+  );
+}
 
+function ImageUpload({fileInputRef, reloadPage}) {
+  const [image, setImage] = useState(null);
   // Function to handle the image selection
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -17,9 +37,15 @@ function ImageUpload({fileInputRef}) {
   };
 
   // Function to trigger file input on button click
-  const handleButtonClick = () => {
+  const handleButtonClick = (e) => {
+    e.preventDefault();
     fileInputRef.current.click();
   };
+
+  useEffect(() => {
+    // Reset image when key changes
+    setImage(null);
+  }, [reloadPage]);
 
   return (
     <div className="App">
@@ -35,38 +61,11 @@ function ImageUpload({fileInputRef}) {
     </div>
   );
 }
-
-function CommentDisplay({posts, setPosts})  {
-      return(      
-      <div>
-        {posts.map(post => (
-          <div className = "comment-box">
-          <div className = "text-box">
-          <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
-            {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '150px', height: '150px' }} />}
-            <div style={{flex:1}}>
-              <div>
-              <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
-            </div>
-            <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
-            </div>
-          </div>
-          </div>
-          </div>
-        ))}
-
-      </div>
-      );
-    }
-
-
-
     
 function Comment() {
-  const navigate = useNavigate();
   const { postId } = useParams();
-  console.log("postid", postId);
   const token = localStorage.getItem('authToken');
+  const [reloadPage, setReloadPage] = useState(true);
   const [inputValue, setInputValue] = useState('');
   const [image, setImage] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -77,6 +76,8 @@ function Comment() {
     element.style.height = 'auto'; // Reset height to recalculate
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
+
+  // Fetch comments for specific post
   const fetchComments = ()=> {
     fetch(`http://localhost:8080/c/${postId}`, {
         method: 'GET',
@@ -85,7 +86,6 @@ function Comment() {
         }
       })
         .then(response => {
-          console.log(response);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
@@ -97,60 +97,51 @@ function Comment() {
         .catch(error => console.error('Error fetching data:', error));
   }
 
+  // Send submitted comments to the database
   const handleSubmit = async (e) => {
-    console.log('submmiting data');
     e.preventDefault();
     const formData = new FormData();
     formData.append('body', inputValue);
     
     if (fileInputRef.current && fileInputRef.current.files[0]) {
       formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
-    } 
-    if (fileInputRef.current.files[0] !== undefined) {  
-      try {
-        const response = await fetch(`http://localhost:8080/c/${postId}`, {
-          method: 'POST',
-          body: formData,
-          headers: {
-          'Authorization': `Bearer ${token}`
-          }
-        });
+    } else {
+      formData.append('image', null);
+    }
 
-        if (response.ok) {
-          const data = await response.json();
-          navigate('/home');
-        } else {
-          console.error('Failed to create comment:', response.statusText);
+    try {
+      const response = await fetch(`http://localhost:8080/c/${postId}`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+        'Authorization': `Bearer ${token}`
         }
+      });
 
-      const data = await response.json();
-      console.log('Success:', data);
+      if (response.ok) {
+        setReloadPage(reloadPage => !reloadPage);
+        setImage(null);
+        
+      } else {
+        console.error('Failed to create comment:', response.statusText);
+      }
+
       setInputValue('');
-      setImage(null);
       fileInputRef.current.value = null;
-      fetchComments();
-      CommentDisplay(posts,setPosts);
+      CommentDisplay(posts, setPosts);
       fetchComments(); 
-      Navigate('/home');
     } 
     catch (error) {
       console.error('Error:', error);
-    }
   }
-  }
+}
 
    useEffect(() => {
       fetchComments()
-        
-    }, []);
-
+    }, [reloadPage]);
   
   return (
     <div className="App">
-      {/* <div className="BG-header">
-          BruinGrub  
-        </div>
-        <hr /> */}
       <h1> ~ Here is the comment section! ~ </h1>
       <p></p>
        <CommentDisplay posts={posts} setPosts={setPosts} />
@@ -181,7 +172,7 @@ function Comment() {
           
           />
       <p/>
-        <ImageUpload fileInputRef={fileInputRef}/>
+        <ImageUpload fileInputRef={fileInputRef} key={reloadPage}/>
       <p/>
       {image && <img src={image} alt="Uploaded" style={{ width: '200px', height: '200px' }} />}
 
