@@ -44,11 +44,30 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
         }
 
         //checks if a student user exists and if the middleware validated and creates a comment
-        if (user && req.user.username) {
+        if(user && req.user.username && req.file){
             await comments.create({
                 poster: req.user.username,
                 body: req.body.body,
                 image: req.file.filename,
+                foodId: req.params.postId,
+                studentId: req.user.id
+            });
+            res.json({ "message": "Comment created" });
+        }
+        else if(user && req.user.name && req.file){
+            await comments.create({
+                poster: req.user.name,
+                body: req.body.body,
+                image: req.file.filename,
+                foodId: req.params.postId,
+                studentId: req.user.diningId
+            });
+            res.json({ "message": "Comment created" });
+        }
+        else if (user && req.user.username) {
+            await comments.create({
+                poster: req.user.username,
+                body: req.body.body,
                 foodId: req.params.postId,
                 studentId: req.user.id
             });
@@ -58,7 +77,6 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
             await comments.create({
                 poster: req.user.name,
                 body: req.body.body,
-                image: req.file.filename,
                 foodId: req.params.postId,
                 studentId: req.user.diningId
             });

@@ -81,7 +81,7 @@ router.post("/student-login", async (req, res) => {
 router.post("/dining-login", async (req, res) => {
     //checks if a dining hall user exists
     const user = await dining.findOne({
-        where: {email: req.body.email, name: req.body.name}
+        where: {email: req.body.email, name: req.body.dining_hall_name}
     });
     if(!user){
         res.status(401).json({ message: 'Email does not exist'})
