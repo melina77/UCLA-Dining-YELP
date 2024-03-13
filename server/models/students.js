@@ -1,3 +1,5 @@
+//makes a database table for student users with columns corresponding to username, email, and password
+//each student user is associated with comments, a calorie counter, and likes
 module.exports = (sequelize, DataTypes) =>{
     const students = sequelize.define("students", {
         id: {

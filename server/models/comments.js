@@ -1,3 +1,4 @@
+//create comments database table with columns corresponding to the poster, body, and image of the comment
 module.exports = (sequelize, DataTypes) =>{
     const comments = sequelize.define("comments", {
         id: {
