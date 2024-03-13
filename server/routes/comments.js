@@ -17,21 +17,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
-//     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
-//     if(user){
-//         await comments.create({
-//             body: req.body.body,
-//             image: req.file.filename,
-//             foodId: req.params.postId,
-//             studentId: req.user.id
-//         });
-//         res.json({ "message": "Comment created" });
-//     }else{
-//         res.json({ "message": "Not a student user"});
-//     }
-// });
-
 router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
     try {
         let user;
@@ -89,21 +74,6 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
         res.status(500).json({ "error": "Internal server error" });
     }
 });
-
-// router.post("/:postId", validate, async (req, res) =>{
-//     const user = await students.findOne({ where: {username: req.user.name, id: req.user.id}});
-//     if(user){
-//         await comments.create({
-//             body: req.body.body,
-//             // image: req.body.image,
-//             foodId: req.params.postId,
-//             studentId: req.user.id
-//         });
-//         res.json({ "message": "Comment created" });
-//     }else{
-//         res.json({ "message": "Not a student user"});
-//     }
-// });
 
 //gets all comments from a given food posts, given its id
 router.get("/:postId", async (req, res) =>{

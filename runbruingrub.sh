@@ -8,7 +8,7 @@ npm install bcrypt jsonwebtoken express sequelize cors multer jwt-decode react r
 
 #prompt the user to enter the API key and put it in .env
 read -p 'Enter API Key: ' api_key
-sed -i 's/SECRET_KEY=.*/SECRET_KEY='$api_key'/' ./server/.env
+sed -i 's/SECRET_KEY=.*/SECRET_KEY='$api_key'/' ./.env
 
 # Start the backend server (‘&’ to run in the background)
 node index.js &

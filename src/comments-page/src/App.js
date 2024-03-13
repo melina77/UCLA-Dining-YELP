@@ -7,7 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 function ImageUpload({fileInputRef}) {
   const [image, setImage] = useState(null);
 
-  // Function to handle the image selection
+  //function to handle the image selection
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -16,7 +16,7 @@ function ImageUpload({fileInputRef}) {
     }
   };
 
-  // Function to trigger file input on button click
+  //function to trigger file input on button click
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
@@ -28,7 +28,7 @@ function ImageUpload({fileInputRef}) {
         type="file"
         accept="image/*"
         onChange={handleImageChange}
-        style={{ display: 'none' }} // Hide the file input
+        style={{ display: 'none' }} //hide the file input
         ref={fileInputRef}
       />
       {image && <img src={image} alt="Uploaded" style={{ width: '75%', marginTop: '20px' }} />}
