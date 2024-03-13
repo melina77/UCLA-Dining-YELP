@@ -5,14 +5,7 @@ import Search from '../search-page/src/Search.js';
 
 
 function Header({ handleSearch, searchTerm, setSearchTerm }) {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  // const navigate = useNavigate();
-
-  const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-  }
-
+  // Remove token and navigate when logging out
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     Navigate('/'); // Use navigate to redirect to '/'
@@ -25,7 +18,6 @@ function Header({ handleSearch, searchTerm, setSearchTerm }) {
           <img src="/bruingrub-high-resolution-logo-transparent.png" alt="Logo" className="logo" />
         </div>
         <nav>
-          {/* <button onClick={handleLogout}>Remove Token</button> */}
           <Link to="/home" className="nav-link">Home</Link>
           <Link to="/calorie-counter" className="nav-link">Calorie Counter</Link>
           <Link to="/" className="nav-link" onClick={handleLogout}>Logout</Link>

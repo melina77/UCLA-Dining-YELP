@@ -36,9 +36,10 @@ function CalorieCounter() {
             totalFood -= 1;
           }
           else {
+            // Add to total count
             totalFood += 1;
             totalCalories += parseInt(food.calories);
-            console.log(food);
+
             // Set food and calories to array
             foodList.push(food);
           }

@@ -1,7 +1,6 @@
 body {
     font-family: monospace;
     background-color: #8fabff;
-    /* background: linear-gradient(to bottom right, #c5d3fc, #718bd9); */
     margin: 0;
     padding: 0;
 }
@@ -10,11 +9,7 @@ header {
     display: flex;
     color: white;
     background-color: #718bd9;
-    /*border-top: 2px solid black;
-    border-left: 2px solid black;
-    border-right: 2px solid black;*/
     width: 100%;
-    /* flex-direction: row; */
     align-items: center;
     justify-content: space-between;
     position: relative;
