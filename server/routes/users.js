@@ -10,6 +10,7 @@ router.post("/student-register", async (req, res) =>{
     students.findOne({
         where: {username: req.body.username}
     }).then(acc => {
+        console.log(acc);
         //if a student user does not exist, then create a new user
         if(!acc){
             //hashes password
@@ -25,7 +26,7 @@ router.post("/student-register", async (req, res) =>{
                 })
             });
         } else {
-            res.json({ message: 'Username or email already taken' });
+            res.status(401).json({ message: 'Username or email already taken' });
         }
     });
 });

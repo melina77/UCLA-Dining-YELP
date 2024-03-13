@@ -61,20 +61,6 @@ function LoginPage({setUserType}) {
     });
   };
 
-  //commented implementation does not take into account the Student/Dining Hall toggle
-
-  // const handleRegistrationSubmit = (e) => {
-  //   e.preventDefault();
-  //   //logic to handle registration submission
-  //   const userData = {
-  //     username: username,
-  //     password: password,
-  //     email: email
-  //   };
-  //   //can send userData to your backend for further processing
-  //   console.log(userData);
-  // };
-
   const handleRegistrationSubmit = (e) => {
     e.preventDefault();
     const userData = {
@@ -109,8 +95,15 @@ function LoginPage({setUserType}) {
       .catch(error => {
         console.error('Network error: ', error);
       });
+
     } else if (formToShow === 'register-form-dining-hall') {
+      // Check if password length is greater than 8 on submission
+      if (password.length < 8) {
+        alert('Network error! Is your password at least 8 characters?');
+        return console.error("Input Error: Password is not more than 8 characters");
+      }
       // Send dining hall registration data to the dining hall registration endpoint
+
       fetch('http://localhost:8080/dining-register', {//replace with URL of backend endpoint
         method: 'POST',
         body: JSON.stringify(userData),
@@ -122,6 +115,7 @@ function LoginPage({setUserType}) {
         if (response.ok) {
           return response.json();
         } else{
+            alert("Error! Email already exists!");
             console.error('Dining hall registration failed');
         }
       })
@@ -132,7 +126,6 @@ function LoginPage({setUserType}) {
         navigate('/home')
       })
       .catch(error => {
-        alert('Network error! Is your password at least 8 characters?', error);
         console.error('Network error: ', error);
       });
     }

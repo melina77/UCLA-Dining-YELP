@@ -7,7 +7,7 @@ import Header from './global-header/header.js';
 import Header_Dining from './global-header/header2.js';
 import CalorieCounter from './counter-page/counter.js';
 import HomePage from './main-page/App.js';
-import CommentsPage from './comments-page/src/App.js';
+import CommentsPage from './comments-page/App.js';
 import PostPage from './post-page-new/App.js';
 import SearchPage from './search-page/App.js';
 import HomePage_Dining from './main-page-dining/App.js';
