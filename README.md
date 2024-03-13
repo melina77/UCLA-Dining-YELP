@@ -1,4 +1,4 @@
-# <div style="background-color:black;"> BruinGrub <img src = "[https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruingrub-high-resolution-logo-transparent.png"/> </div>
+# <div style="background-color:black;"> BruinGrub <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruingrub-high-resolution-logo-transparent.png"/> </div>
 BruinGrub is a full stack web application that allows UCLA students to see what kinds of food are being offered at the #1 rated university dining hall, leave reviews on food by adding comments, and also keep track of their calories for the day.
 ## Table of Contents
 1. [Components](#components)
