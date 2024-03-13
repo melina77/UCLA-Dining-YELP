@@ -13,6 +13,7 @@
   }
 }
 
+/* login/registration header (different from the rest of the website) */
 .header {
   background-color: #718bd9;
   padding: 20px;
@@ -20,11 +21,11 @@
 }
 
 .logo-container {
-  display: inline-block;  /*align the contents left*/
+  display: inline-block;  /* align the contents left */
 }
 
 .logo {
-  width: 200px; /* Adjust the size of the logo as needed */
+  width: 200px;
   height: auto;
   display: block; 
 }
@@ -59,6 +60,7 @@
   margin: auto;
 }
 
+/* login form */
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -110,8 +112,6 @@
 }
 
 .form .message large {
-  /*margin: 15px 0 0;*/
-  /*color: #b3b3b3;*/
   font-size: 16px;
 }
 
@@ -159,18 +159,13 @@
   color: #EF3B3A;
 }
 body {
-  background: #8fabff; /* fallback for old browsers */
-  /*background: rgb(141,194,111);
-  background: linear-gradient(90deg, rgba(141,194,111,1) 0%, rgba(118,184,82,1) 50%);*/
+  background: #8fabff;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 } 
 
 /* ====================================== Toggle Style ====================================== */
-/* body{
-  text-align:center;
-} */
 .toggle {
   position: relative;
   display: block;
@@ -249,7 +244,6 @@ body {
   box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Transition*/
 .toggle-label,
 .toggle-handle {
   transition: All 0.3s ease;
@@ -258,7 +252,7 @@ body {
   -o-transition: All 0.3s ease;
 }
 
-/* login.css */
+/* Login Form */
 .form-enter {
   display: block;
   opacity: 0;
@@ -268,7 +262,7 @@ body {
 
 .form-enter-active {
   opacity: 1;
-  max-height: 500px; /* Adjust based on your form's size */
+  max-height: 500px;
 }
 
 .form-exit {
