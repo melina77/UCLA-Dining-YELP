@@ -93,6 +93,7 @@ function LoginPage({setUserType}) {
           navigate('/home')
         })
       .catch(error => {
+        alert("Username or email taken");
         console.error('Network error: ', error);
       });
 
@@ -130,7 +131,6 @@ function LoginPage({setUserType}) {
       });
     }
   };
-  
   
   return (
     <div className = "app">

@@ -1,4 +1,5 @@
 const express = require("express");
+const { Op } = require('sequelize');
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
@@ -8,9 +9,11 @@ const { students, dining } = require("../models");
 router.post("/student-register", async (req, res) =>{
     //checks if a student user exists
     students.findOne({
-        where: {username: req.body.username}
-    }).then(acc => {
-        console.log(acc);
+        where: {
+            [Op.or]: [{ username: req.body.username }, { email: req.body.email }]
+        }
+    })
+    .then(acc => {
         //if a student user does not exist, then create a new user
         if(!acc){
             //hashes password

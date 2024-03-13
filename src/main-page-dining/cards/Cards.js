@@ -103,7 +103,6 @@ function Cards() {
                     }
                 });
                 const data = await response.json();
-                console.log("this is data: ", data);
                 setCardsData(data);
             } catch (error) {
                 console.error("Failed to fetch cards data:", error);
