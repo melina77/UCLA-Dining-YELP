@@ -8,17 +8,17 @@ function CommentDisplay({posts, setPosts})  {
   <div>
     {posts.map(post => (
       <div className = "comment-box">
-      <div className = "text-box">
-      <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
-        {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '150px', height: '150px' }} />}
-        <div style={{flex:1}}>
-          <div>
-          <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
+        <div className = "text-box">
+          <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
+            {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '15%', height: 'auto' }} />}
+            <div style={{flex:1}}>
+              <div>
+                <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
+              </div>
+              <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
+            </div>
+          </div>
         </div>
-        <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
-        </div>
-      </div>
-      </div>
       </div>
     ))}
   </div>

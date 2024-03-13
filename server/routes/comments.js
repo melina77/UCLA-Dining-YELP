@@ -17,37 +17,16 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
-//     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
-//     if(user){
-//         await comments.create({
-//             body: req.body.body,
-//             image: req.file.filename,
-//             foodId: req.params.postId,
-//             studentId: req.user.id
-//         });
-//         res.json({ "message": "Comment created" });
-//     }else{
-//         res.json({ "message": "Not a student user"});
-//     }
-// });
-
 router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
     console.log("i am dining and i don't want an image: ", req.file);
     try {
         let user;
-<<<<<<< HEAD
-=======
-        //checks if the validation middleware was able to find a valid token
-        //searches through both the student and dining database tables to search for the currently logged in user
->>>>>>> origin/fullstack
         if (req.user.username) {
             user = await students.findOne({ where: { username: req.user.username, id: req.user.id } });
         } else {
             user = await dining.findOne({ where: { name: req.user.name, id: req.user.id } });
         }
 
-<<<<<<< HEAD
         if (user && req.user.username) {
             if (req.file) {
                 await comments.create({
@@ -85,27 +64,6 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
                     studentId: req.user.id
                 });
             }
-=======
-        //checks if a student user exists and if the middleware validated and creates a comment
-        if(user && req.user.username && req.file){
-            await comments.create({
-                poster: req.user.username,
-                body: req.body.body,
-                image: req.file.filename,
-                foodId: req.params.postId,
-                studentId: req.user.id
-            });
-            res.json({ "message": "Comment created" });
-        }
-        else if(user && req.user.name && req.file){
-            await comments.create({
-                poster: req.user.name,
-                body: req.body.body,
-                image: req.file.filename,
-                foodId: req.params.postId,
-                studentId: req.user.diningId
-            });
->>>>>>> origin/fullstack
             res.json({ "message": "Comment created" });
         }
         else if (user && req.user.username) {
