@@ -38,30 +38,10 @@ To run a local instance of BruinGrub, first clone or download a copy of this rep
 ## Commands
 To clone the repository, run:  
 `git clone https://github.com/melina77/UCLA-Dining-YELP.git`  
-### Backend  
-To setup the dependencies for the backend server, run:  
+### Shell Script  
+We created a shell script to setup both the dependencies for the backend server and frontend application. Some of the backend dependencies include express, cors, and sequelize. The frontend dependencies include React.js and react-router-dom. To run the script, use the following commands:  
 ```
-cd backend  
-npm install
 ```
-To begin running backend, run:
-```
-cd backend  
-npm start
-```
-The backend server will be available on http://localhost:8080.  
-### Frontend  
-To setup the dependencies for the frontend application, run:  
-```
-cd frontend  
-npm install
-```
-Some of the main frontend dependes are React.js and react-router-dom.  
-To begin running frontend, run:
-```
-cd frontend
-npm start
-```
-The frontend will be available on http://localhost:3000, which should pop up in your browser automatically.  
+The backend server will be available on http://localhost:8080, while the frontend application should pop up automatically in the browser on http://localhost:3000.  
 # Contributors
 Lucas Thai, Melina Eftekhari, Michelle Sun, Faith Nguyen, Phuc Truong
