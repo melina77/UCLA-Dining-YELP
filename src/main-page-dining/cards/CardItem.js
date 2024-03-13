@@ -1,39 +1,32 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import LikeButton from '../likes/LikeButton';
 import { Link } from 'react-router-dom';
 
+// defines each individual food card post
 function CardItem(props) {
 
-    // Example handleAddFoodClick implementation
+    // called the onAddCalories function passed through Cards.js
     const handleAddFoodClick = () => {
-        // const caloriesFromFood = 100; // Placeholder value
-        // props.onAddCalories(caloriesFromFood); // onAddCalories would be a function passed as a prop from the parent component
         props.onAddCalories();
     };
-    
-    // // Example handleOpenCommentsClick implementation
-    // const handleOpenCommentsClick = () => {
-    //     // Assuming you manage the comments visibility and possibly the current item ID in a parent component
-    //     props.onOpenComments(true, props.itemId); 
-    // };
   
     return (
         <>
         <li className='cards__item'>
             <div className='cards__item__link'>
             <figure className='cards__item__wrap-dining_name' data-category={props.dining_name}>
+                {/* post image */}
                 <img
                 className='cards__item__img'
                 src={`http://localhost:8080/images/${props.src}`}
                 />
             </figure>
             <div className='cards__item__caption'>
+                {/* card caption */}
                 <h5 className='cards__item__caption_text'>Name: {props.name}</h5>
                 <h5 className='cards__item__caption_text'>Description: {props.description}</h5>
                 <h5 className='cards__item__caption_text'>Calorie Count: {props.calories}</h5>
-                {/* <h5 className='cards__item__caption_text'>TESTING postId: {props.food_id}</h5> */}
+                {/* post buttons */}
                 <div className='cards__item__buttons'>
                     <Link to={`/posts/${props.food_id}/comments`}>
                         <button>💬</button>

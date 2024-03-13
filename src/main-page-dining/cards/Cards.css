@@ -1,5 +1,5 @@
+/* between the cards and the general webpage */
 .cards {
-    /* between the cards and the general webpage */
     padding: 4rem;
     background: #8fabff;
 }
@@ -9,12 +9,13 @@ h1 {
   color: white;
 }
 
-/* search bar */
+/* search bar input */
 .cards input{
   padding: 1rem;
   width: 97%;
 }
 
+/* post css */
 .cards__container {
   display: flex;
   flex-flow: column;
@@ -60,11 +61,6 @@ h1 {
   overflow: hidden;
 }
 
-/* .fade-img {
-  animation-name: fade-img;
-  animation-duration: 2s;
-} */
-
 .cards__item__wrap-dining_name::after {
   content: attr(data-category);
   position: absolute;
@@ -84,7 +80,7 @@ h1 {
   top: 0;
   right: 0;
   bottom: 0;
-  /* 🌸🌸🌸 TEMPORARY SOLUTION 🌸🌸🌸 */
+  /* to adjust the image to be centered */
   left: -80px;
   display: block;
   width: 100%;
@@ -92,12 +88,7 @@ h1 {
   height: 100%;
   max-height: 100%;
   object-fit: cover;
-  /* transition: all 0.2s linear; */
 }
-
-/* .cards__item__img:hover {
-  transform: scale(1.1);
-} */
 
 /* caption */
 .cards__item__caption {
@@ -110,6 +101,7 @@ h1 {
   line-height: 24px;
 }
 
+/* display the cards vertically */
 @media only screen and (min-width: 12000px) {
   .content__blog__container {
     width: 84%;

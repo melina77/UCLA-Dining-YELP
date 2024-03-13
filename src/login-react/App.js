@@ -104,6 +104,7 @@ function LoginPage({setUserType}) {
         })
         //  catch network error
       .catch(error => {
+        alert("Username or email taken");
         console.error('Network error: ', error);
       });
       // if user clicked it the dining registration form
