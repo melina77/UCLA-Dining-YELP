@@ -44,4 +44,5 @@ We created a shell script to setup both the dependencies for the backend server 
 ```
 The backend server will be available on http://localhost:8080, while the frontend application should pop up automatically in the browser on http://localhost:3000.  
 # Contributors
-Lucas Thai, Melina Eftekhari, Michelle Sun, Faith Nguyen, Phuc Truong
+Lucas Thai, Melina Eftekhari, Michelle Sun, Faith Nguyen, Phuc Truong  
+All group members worked collaboratively on completing this group project.
