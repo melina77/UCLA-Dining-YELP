@@ -4,6 +4,27 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 
 function CommentDisplay({posts, setPosts})  {
+  const token = localStorage.getItem('authToken');
+  const handleDelete = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:8080/c/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        // Filter out the deleted comment from the posts
+        setPosts(posts.filter(post => post.id !== postId));
+      } else {
+        console.error('Failed to delete comment:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   return(      
   <div>
     {posts.map(post => (
@@ -16,7 +37,8 @@ function CommentDisplay({posts, setPosts})  {
                 <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
               </div>
               <p style={{ fontFamily: 'monospace' }}>{post.body}</p>
-            </div>
+              <button onClick={() => handleDelete(post.id)}>Delete</button>
+            </div> 
           </div>
         </div>
       </div>

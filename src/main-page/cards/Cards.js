@@ -26,7 +26,6 @@ function Cards() {
                     }
                 });
                 const data = await response.json();
-                console.log("this is data: ", data);
                 setCardsData(data);
             } catch (error) {
                 console.error("Failed to fetch cards data:", error);
@@ -36,25 +35,11 @@ function Cards() {
         fetchCardsData();
     }, []);
 
-    const [totalCalories, setTotalCalories] = useState(0);
-
-    const onAddFood = (calories) => {
-        setTotalCalories(totalCalories + calories);
-        console.log("clicked the add food button! that's it sorry :(");
-    };
-    // Pass onAddFood down to each CardItem, where it's invoked with specific calorie values
+    
 
     // Example state and modal opening function in a parent component
     const [isCommentsModalOpen, setCommentsModalOpen] = useState(false);
     const [selectedItemId, setSelectedItemId] = useState(null);
-
-    // comments button
-    // const onOpenComments = (itemId) => {
-    //     setSelectedItemId(itemId);
-    //     setCommentsModalOpen(true);
-    //     console.log("clicked the comments button! that's it sorry :(");
-    //     // 🍅🍅🍅🍅🍅: IMPLEMENT OPENING THE COMMENTS
-    // };
 
     // get userID from local token
     const getUserIdFromToken = () => {
@@ -92,7 +77,7 @@ function Cards() {
         return data;
     };
 
-    // 🌼 SEARCH BAR 🌼
+    // SEARCH BAR 
     const [searchTerm, setSearchTerm] = useState('');
 
     // Filter cardsData based on search term
@@ -102,9 +87,6 @@ function Cards() {
         card.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // const functionSetSearchTerm = (inputVal) => {
-    //     setSearchTerm(inputVal);
-    // };
     // Render the cards dynamically
     return (
         <div className='cards'>
@@ -117,24 +99,6 @@ function Cards() {
             <div className='cards__container'>
                 <div className='cards__wrapper'>
                     <ul className='cards__items'>
-                        {/* {cardsData.map((card, index) => (
-                            <CardItem
-                                key={index}
-                                src={card.image}
-                                name={card.name}
-                                description={card.description}
-                                calories={card.calories}
-                                dining_name={card.poster}
-                                onAddCalories={() => onAddCalories(card.id, card.calories)} // Pass card.id to onAddCalories
-                                // onOpenComments={onOpenComments} // 🍅🍅 I still need to implement smh
-                                food_id={card.id}
-                                likes_array={card.likes.length}
-                            />
-                        ))} */}
-                        {/* {filteredItems.map((item) => (
-                            // Render your item component here, passing the item as a prop
-                        ))} */}
-
                         {/* Now map over filteredCards instead of cardsData */}
                         {filteredCards.map((card, index) => (
                             <CardItem

@@ -18,7 +18,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
-    console.log("i am dining and i don't want an image: ", req.file);
     try {
         let user;
         // Allow both dining workers and students to comment
@@ -27,7 +26,7 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
         } else {
             user = await dining.findOne({ where: { name: req.user.name, id: req.user.id } });
         }
-
+        console.log("this is id", req.user.id);
         // For students
         if (user && req.user.username) {
             if (req.file) {
@@ -58,7 +57,7 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
                     body: req.body.body,
                     image: req.file.filename,
                     foodId: req.params.postId,
-                    studentId: req.user.diningId
+                    diningId: req.user.id
                 });
             // No image provided
             } else {
@@ -67,7 +66,7 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
                     body: req.body.body,
                     image: null,
                     foodId: req.params.postId,
-                    studentId: req.user.diningId
+                    diningId: req.user.id
                 });
             }
             res.json({ "message": "Comment created" });
@@ -87,6 +86,29 @@ router.get("/:postId", async (req, res) =>{
         where: {foodId: req.params.postId}, order: [['createdAt', 'DESC']]
     });
     res.json(result);
+});
+
+// Remove a comment by its ID
+router.delete("/:commentId", validate, async (req, res) => {
+    try {
+        const comment = await comments.findOne({ where: { id: req.params.commentId } });
+
+        if (!comment) {
+            return res.status(404).json({ "error": "Comment not found" });
+        }
+
+        // Check if the user is authorized to delete the comment
+        if (comment.studentId !== req.user.id && comment.diningId !== req.user.id) {
+            return res.status(403).json({ "error": "Not authorized to delete this comment" });
+        }
+
+        // Delete the comment
+        await comment.destroy();
+        res.json({ "message": "Comment deleted successfully" });
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        res.status(500).json({ "error": "Internal server error" });
+    }
 });
 
 module.exports = router;
