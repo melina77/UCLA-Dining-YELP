@@ -26,7 +26,7 @@ export default function App() {
           ) : (
             <Header_Dining /> // Render dining hall header
           )}
-          <PageRoutes userType={userType} />
+          <PageRoutes userType={userType} setUserType={setUserType} />
         </>
       )}
     </Router>
@@ -34,7 +34,7 @@ export default function App() {
 }
 
 
-function PageRoutes({userType}) {
+function PageRoutes({userType, setUserType}) {
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -50,6 +50,7 @@ function PageRoutes({userType}) {
     
     // Check if token is present
     if (!token && location.pathname !== '/') { // Only redirect if not already on login page
+      setUserType(null);
       navigate('/');
     }
 
@@ -57,12 +58,18 @@ function PageRoutes({userType}) {
     else if (decodedToken !== undefined && decodedToken.exp < currentTime && location.pathname !== '/') {
       // Remove token and navigate back to login page
       localStorage.removeItem('authToken');
-      Navigate('/');
+      setUserType(null);
+      navigate('/');
     }
   };
 
     checkAuthToken({
   }, []);
+
+  // Check location whenever page route changes
+  useEffect(() => {
+    checkAuthToken();
+  }, [location]);
 
   return (
     <div>
