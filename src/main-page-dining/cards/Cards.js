@@ -29,10 +29,7 @@ function Cards() {
                     }
                 });
                 const data = await response.json();
-<<<<<<< HEAD
-=======
                 // storing the cards data from the request
->>>>>>> origin/fullstack
                 setCardsData(data);
             // catch errors
             } catch (error) {
