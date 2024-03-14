@@ -67,10 +67,10 @@ function LikeButton({ initialLikes, postId }) {
             setLiked(data.liked);
             // ADJUSTED: had to manually update likes:
                 // the totalLikes wasn't updating bc it called toggleLike and fetchTotalLikes at the same time, so that’s why it doesnt update until the next time you click it
-            if (liked){
+            if (liked) {
                 setLikes(likes - 1);
             }
-            else{
+            else {
                 setLikes(likes + 1);
             }
         })

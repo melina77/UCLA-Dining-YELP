@@ -79,6 +79,11 @@ function LoginPage({setUserType}) {
     
     // if user clicked the student registration form:
     if (formToShow === 'register-form-student') {
+      if (password.length < 8) {
+        alert("Password must be atleast 8 characters");
+        console.error("Password must be atleast 8 characters");
+        return;
+      }
       // post request to send student registration data to the student registration endpoint
       fetch('http://localhost:8080/student-register', {
         method: 'POST',
