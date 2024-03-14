@@ -1,6 +1,6 @@
 //makes a database table for student users with columns corresponding to username, email, and password
 //each student user is associated with comments, a calorie counter, and likes
-module.exports = (sequelize, DataTypes) =>{
+module.exports = (sequelize, DataTypes) => {
     const students = sequelize.define("students", {
         id: {
             type: DataTypes.UUID,
@@ -13,19 +13,17 @@ module.exports = (sequelize, DataTypes) =>{
             unique: true,
         },
         email: {
-           type: DataTypes.STRING,
-           allowNull: false,
-           unique: true,
-           validate: {
-            isEmail: true,
-           }, 
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
         },
         password: {
             type: DataTypes.STRING,
-            allowNull:false,
+            allowNull: false,
         },
     });
-    students.associate = (models) =>{
+
+    students.associate = (models) => {
         students.hasMany(models.comments, {
             onDelete: "cascade",
         })
@@ -36,5 +34,6 @@ module.exports = (sequelize, DataTypes) =>{
             onDelete: "cascade",
         })
     }
+
     return students;
 }

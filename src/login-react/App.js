@@ -13,6 +13,15 @@ function LoginPage({setUserType}) {
 
   const navigate = useNavigate();
 
+  // Check if email is valid
+  function isValidEmail(email) {
+    // Regular expression pattern to validate email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    // Test the input against the pattern
+    return emailPattern.test(email);
+}
+
   // depending on the toggle, decides which user login form to show
   const toggleForm = (newForm) => {
     setFormToShow(newForm);
@@ -79,11 +88,20 @@ function LoginPage({setUserType}) {
     
     // if user clicked the student registration form:
     if (formToShow === 'register-form-student') {
+      // Check if password length is correct
       if (password.length < 8) {
         alert("Password must be atleast 8 characters");
         console.error("Password must be atleast 8 characters")
         return;
       }
+
+      // Check if email is correct forrmat
+      if (!isValidEmail(email)) {
+        alert("Invalid email format");
+        console.error("Error: Invalid email format");
+        return;
+      }
+
       // post request to send student registration data to the student registration endpoint
       fetch('http://localhost:8080/student-register', {
         method: 'POST',
@@ -109,7 +127,7 @@ function LoginPage({setUserType}) {
         })
         //  catch network error
       .catch(error => {
-        alert("Username or email taken");
+        alert("Username or email taken/Invalid Input");
         console.error('Network error: ', error);
       });
       // if user clicked it the dining registration form
@@ -120,6 +138,13 @@ function LoginPage({setUserType}) {
         return console.error("Input Error: Password is not more than 8 characters");
       }
       
+      // Check if email is correct forrmat
+      if (!isValidEmail(email)) {
+        alert("Invalid email format");
+        console.error("Error: Invalid email format");
+        return;
+      }
+
       // post request to send dining hall registration data to the dining hall registration endpoint
       fetch('http://localhost:8080/dining-register', {
         method: 'POST',

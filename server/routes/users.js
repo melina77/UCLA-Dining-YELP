@@ -31,6 +31,10 @@ router.post("/student-register", async (req, res) =>{
         } else {
             res.status(401).json({ message: 'Username or email already taken' });
         }
+    })
+    .catch(error => {
+        // Catching Sequelize errors related to email validation
+        res.status(400).json({ message: 'Invalid email format' });
     });
 });
 
@@ -57,6 +61,10 @@ router.post("/dining-register", async (req, res) =>{
         } else {
             res.status(401).json({ message: 'Email already taken' });
         }
+    })
+    .catch(error => {
+        // Catching Sequelize errors related to email validation
+        res.status(400).json({ message: 'Invalid email format' });
     });
 });
 
