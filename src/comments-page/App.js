@@ -31,7 +31,7 @@ function CommentDisplay({posts, setPosts})  {
       <div className = "comment-box">
         <div className = "text-box">
           <div key={post.id} className = "comment" style={{ marginBottom: '20px' }}>
-            {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '15%', height: '10%' }} />}
+            {post.image && <img src={`http://localhost:8080/comimages/${post.image}`} style={{ width: '10%', height: 'auto' }} />}
             <div style={{flex:1}}>
               <div>
                 <p style={{ fontFamily: 'monospace' }}>@{post.poster}: <span className = "timestamp">{new Date(post.createdAt).toLocaleString()}</span></p>
