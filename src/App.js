@@ -9,7 +9,6 @@ import CalorieCounter from './counter-page/counter.js';
 import HomePage from './main-page/App.js';
 import CommentsPage from './comments-page/App.js';
 import PostPage from './post-page-new/App.js';
-// import SearchPage from './search-page/App.js';
 import HomePage_Dining from './main-page-dining/App.js';
 
 export default function App() {
@@ -77,7 +76,6 @@ function PageRoutes({userType, setUserType}) {
         <Route path="/" element={<LoginPage />} />
         {userType === 'student' && (
           <>
-            {/* <Route path="/search" element={<SearchPage />} /> */}
             <Route path="/home" element={<HomePage />} />
             <Route path="/calorie-counter" element={<CalorieCounter />} />
             <Route path="/posts/:postId/comments" element={<CommentsPage />} />
@@ -85,7 +83,6 @@ function PageRoutes({userType, setUserType}) {
         )}
         {userType === 'dining hall' && (
           <>
-            {/* <Route path="/search" element={<SearchPage />} /> */}
             <Route path="/home" element={<HomePage_Dining />} />
             <Route path="/calorie-counter" element={<CalorieCounter />} />
             <Route path="/posts/:postId/comments" element={<CommentsPage />} />
