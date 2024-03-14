@@ -26,7 +26,6 @@ router.post("/", validate, upload.single('image'), async (req, res) =>{
         user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
     } else {
         user = await students.findOne({where: {name: req.user.username, id: req.user.id}});
-
     }
 
     //if a user exists, create a new food item
@@ -63,7 +62,7 @@ router.delete("/:id", validate, async (req, res) => {
 
         await post.destroy();
         res.json({ "message": "Post deleted successfully" });
-        
+
     } catch (error) {
         console.error("Error deleting post:", error);
         res.status(500).json({ "message": "Internal server error" });
@@ -76,7 +75,15 @@ router.get("/", async (req, res) =>{
     const endOfDay = new Date();
     const result = await food.findAll({
         include: [likes],
-        order: [['createdAt', 'DESC']],
+        order: [['createdAt', 'DESC'], 'name'],
+    });
+    res.json(result);
+});
+
+router.get("/:postid", async (req, res) =>{
+    const result = await food.findAll({
+        where: {id: req.params.postid},
+        attributes: ['name']
     });
     res.json(result);
 });
