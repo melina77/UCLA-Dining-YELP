@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 function CardItem(props) {
 
     // called the onAddCalories function passed through Cards.js
-    const handleAddFoodClick = () => {
-        props.onAddCalories();
+    const handleRemoveFood = () => {
+        props.onDeletePost();
     };
   
     return (
@@ -31,6 +31,7 @@ function CardItem(props) {
                     <Link to={`/posts/${props.food_id}/comments`}>
                         <button>💬</button>
                     </Link>
+                    <button onClick={handleRemoveFood}>Delete Post</button>
                     <LikeButton postId={props.food_id} initialLikes={props.likes_array} />
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useRef} from 'react';
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 import './App.css';
 import { jwtDecode } from 'jwt-decode';
@@ -18,7 +18,8 @@ function ImageUpload({fileInputRef}) {
   };
 
   // Function to trigger file input on button click
-  const handleButtonClick = () => {
+  const handleButtonClick = (e) => {
+    e.preventDefault();
     fileInputRef.current.click();
   };
 
@@ -89,37 +90,41 @@ function App() {
       formData.append('image', fileInputRef.current.files[0]); // Ensure the image is included
     }
 
-  // Get decoded token
-  const authToken = localStorage.getItem('authToken');
-  let decodedToken;
-  if (authToken) {
-    decodedToken = jwtDecode(authToken);  // Get data from decoded token
-  }
-
-  // Send food data to database
-  if (fileInputRef.current.files[0] !== undefined) {
-    try {
-      const response = await fetch('http://localhost:8080/posts/', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Authorization': `Bearer ${authToken}`,
-        }
-      });
-
-      // If posted successfully navigate back to home page
-      if (response.ok) {
-        const data = await response.json();
-        navigate('/home')
-
-      } else {
-        console.error('Failed to create post:', response.statusText);
-        } 
-
-      } catch (error) {
-      console.error('Error:', error);
+    // Get decoded token
+    const authToken = localStorage.getItem('authToken');
+    let decodedToken;
+    if (authToken) {
+      decodedToken = jwtDecode(authToken);  // Get data from decoded token
     }
-  }}
+
+    // Send food data to database
+    if (fileInputRef.current.files[0] !== undefined && calories) {
+      try {
+        const response = await fetch('http://localhost:8080/posts/', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+          }
+        });
+
+        // If posted successfully navigate back to home page
+        if (response.ok) {
+          const data = await response.json();
+          navigate('/home')
+
+        } else {
+          console.error('Failed to create post:', response.statusText);
+          } 
+
+        } catch (error) {
+        console.error('Error:', error);
+      }
+    } else {
+      alert("Please add an image with calorie value");
+      console.error("Error: No image selected or calorie inputted");
+    }
+  }
 
   return (
       <div className="App">
