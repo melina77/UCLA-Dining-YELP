@@ -92,6 +92,7 @@ function Comment() {
   const [reloadPage, setReloadPage] = useState(true);
   const [inputValue, setInputValue] = useState('');
   const [image, setImage] = useState(null);
+  const [foodName, setFoodName] = useState('');
   const [posts, setPosts] = useState([]);
   const fileInputRef = useRef(null);
 
@@ -100,6 +101,27 @@ function Comment() {
     element.style.height = 'auto'; // Reset height to recalculate
     element.style.height = `${element.scrollHeight}px`; // Set new height based on content
   };
+  useEffect (() => {
+    const fetchName = () => {
+      fetch(`http://localhost:8080/f/${postId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Network response error');
+        }
+      })
+      .then(data => {
+        setFoodName(data[0].name);
+      })
+    }
+    fetchName();
+  })
 
   // Fetch comments for specific post
   const fetchComments = ()=> {
@@ -161,12 +183,12 @@ function Comment() {
 }
 
    useEffect(() => {
-      fetchComments()
+      fetchComments();
     }, [reloadPage]);
   
   return (
     <div className="App">
-      <h1> ~ Here is the comment section! ~ </h1>
+      <h1> ~ Leave a comment for {foodName} ~ </h1>
       <p></p>
        <CommentDisplay posts={posts} setPosts={setPosts} />
            <div>

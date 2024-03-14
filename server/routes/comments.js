@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { students, comments, dining } = require("../models");
+const { students, comments, dining, food } = require("../models");
 const multer = require("multer");
 const { validate } = require("./auth");
 
@@ -26,7 +26,7 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
         } else {
             user = await dining.findOne({ where: { name: req.user.name, id: req.user.id } });
         }
-        console.log("this is id", req.user.id);
+    
         // For students
         if (user && req.user.username) {
             if (req.file) {
@@ -81,7 +81,7 @@ router.post("/:postId", validate, upload.single('image'), async (req, res) =>{
 
 //gets all comments from a given food posts, given its id
 router.get("/:postId", async (req, res) =>{
-    console.log(req.params.postId);
+
     const result = await comments.findAll({ 
         where: {foodId: req.params.postId}, order: [['createdAt', 'DESC']]
     });
