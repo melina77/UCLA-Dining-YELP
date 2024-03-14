@@ -36,16 +36,16 @@ BruinGrub is a full stack web application that allows UCLA students to see what 
 ## Setup
 To run a local instance of BruinGrub, first clone or download a copy of this repository. Follow the commands below to initialize a local instance of each part of the application.  
 ### mySQL Datastore  
-To start the backend portion, you would need to set up the mySQL workbench. Go to 
+To start the backend portion, you will need to set up the mySQL workbench if not previously downloaded. Go to 
 https://dev.mysql.com/downloads/mysql/ and download the package compatible with your machine. Next, go to https://dev.mysql.com/downloads/workbench/ and download the package compatible with your machine. Open up the workbench and create a new connection. Create a new schema with the name <i>cs35l-proj</i>. You will have to use the workbench later on to run the backend portion.  
 
 ## Commands
 To clone the repository, run:  
 `git clone https://github.com/melina77/UCLA-Dining-YELP.git`  
-After cloning the repository, locate the config.json file found in <i>server</i> under <i>config</i>. Change the password to be your mySQL root password.  
+After cloning the repository, locate the config.json file found in <i>server</i> under <i>config</i>. If your mySQL root password is not <i>password</i>, change the "password" to be your mySQL root password.  
 
 ### Shell Script  
-We created a shell script to setup both the dependencies for the backend server and frontend application. Some of the backend dependencies include express, cors, and sequelize. The frontend dependencies include React.js and react-router-dom. To run the script, use the following commands:  
+We created a shell script to setup both the dependencies for the backend server and frontend application. Some of the backend dependencies include express, cors, and sequelize. The frontend dependencies include React.js and react-router-dom. To run the bash script on Linux, use the following commands:  
 ```
 cd UCLA-Dining-YELP
 chmod +x run_bruingrub.sh
