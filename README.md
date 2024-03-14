@@ -57,8 +57,8 @@ After cloning the repository, locate the config.json file found in <i>server</i>
 We created a shell script to setup both the dependencies for the backend server and frontend application. Some of the backend dependencies include express, cors, and sequelize. The frontend dependencies include React.js and react-router-dom. To run the bash script on Linux, use the following commands:  
 ```
 cd UCLA-Dining-YELP
-chmod +x run_bruingrub.sh
-./run_bruingrub.sh
+chmod +x runbruingrub.sh
+./runbruingrub.sh
 ```
 The backend server will be available on http://localhost:8080, while the frontend application should pop up automatically in the browser on http://localhost:3000.  
 # Contributors
