@@ -60,7 +60,7 @@ After cloning the repository, locate the config.json file found in <i>server</i>
 
 As you can see in the image, you only need to change the fields that are under "development" and do not modify the "test" or "production" fields. In our example, when we were setting up MySQL Workbench, we named the "username: " as "root", the "password: " as "password", and the "database: " as "cs35l-proj".  
 
-<img src = “https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/config-file.png” height="200" width = "150" />
+<img src = “raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/config-file.png” height="200" width = "150" />
 
 
 ### Shell Script  
