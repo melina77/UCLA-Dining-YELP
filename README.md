@@ -44,14 +44,22 @@ Contributors and GitHub usernames:
 ## Setup
 To run a local instance of BruinGrub, first clone or download a copy of this repository. Follow the commands below to initialize a local instance of each part of the application.  
 **NOTE:** The final version of Bruingrub is on the *'fullstack'* branch, which is the default branch.
-### mySQL Datastore  
-To start the backend portion, you will need to set up a MySQL server. One way to do this is by downloading mySQL workbench if not previously downloaded. Go to 
-https://dev.mysql.com/downloads/mysql/ and download the package compatible with your machine. Next, go to https://dev.mysql.com/downloads/workbench/ and download the package compatible with your machine. Open up the workbench and create a new connection. Then, by editing the file located in /server/config/config.json, you can connect to your database. By changing the username, password, database name, and host, you can connect to your locally hosted MySQL database.
+### Setting up MySQL Datastore  
+To start the backend portion, you must set up a MySQL server. One way to do this is by downloading mySQL workbench if not previously downloaded. Go to 
+https://dev.mysql.com/downloads/mysql/ and download the package compatible with your machine. Next, go to https://dev.mysql.com/downloads/workbench/ and download the package compatible with your machine. Open up the workbench and create a new connection by clicking the "+" button next to "MySQL Connections" and typing "BruinGrub" into the "Connection Name" field. Now, we want to set up the schema. First, open your newly created connection by clicking on the square that says "BruinGrub". Once it is open, locate in the top left bar a cylinder icon with a "+" (you can double check this is correct by hovering over the icon and it should say "Create a new schema in the connected server"). Once you click the button to create a schema, you must name it "cs35l-proj" in the "Schema Name: " field. Do not modify any other fields, simply click "Apply" and then you can click "Apply" again in the bottom right corner of the next pop-up. Then you can click "Close". Congratulations, your MySQL Workbench has been set up!
+
+(Alternatively, you can use other services to host your MySQL database)
+
 
 ## Commands
+Node.js must be installed along with Git.
+
 To clone the repository, run:  
 `git clone https://github.com/melina77/UCLA-Dining-YELP.git`  
-After cloning the repository, locate the config.json file found in <i>server</i> under <i>config</i>. If your mySQL root password is not <i>password</i>, change the "password" to be your mySQL root password.  
+After cloning the repository, locate the config.json file found in <i>server</i> under <i>config</i>, where you can specify your configurations for connecting to your database. If your mySQL root password is not <i>password</i>, change the "password" to be your mySQL root password.
+
+As you can see in the image, you only need to change the fields that are under "development" and do not modify the "test" or "production" fields. In our example, when we were setting up MySQL Workbench, we named the "username: " as "root", the "password: " as "password", and the "database: " as "cs35l-proj".
+
 
 ### Shell Script  
 We created a shell script to setup both the dependencies for the backend server and frontend application. Some of the backend dependencies include express, cors, and sequelize. The frontend dependencies include React.js and react-router-dom. To run the bash script on Linux, use the following commands:  
