@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Search from '../search-page/Search.js';
+// import Search from '../search-page/Search.js';
 
 
 function Header({ handleSearch, searchTerm, setSearchTerm }) {
