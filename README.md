@@ -44,8 +44,8 @@ Contributors and GitHub usernames:
 ## Setup
 To run a local instance of BruinGrub, first clone or download a copy of this repository. Follow the commands below to initialize a local instance of each part of the application.  
 ### mySQL Datastore  
-To start the backend portion, you will need to set up the mySQL workbench if not previously downloaded. Go to 
-https://dev.mysql.com/downloads/mysql/ and download the package compatible with your machine. Next, go to https://dev.mysql.com/downloads/workbench/ and download the package compatible with your machine. Open up the workbench and create a new connection. Create a new schema with the name <i>cs35l-proj</i>. You will have to use the workbench later on to run the backend portion.  
+To start the backend portion, you will need to set up a MySQL server. One way to do this is by downloading mySQL workbench if not previously downloaded. Go to 
+https://dev.mysql.com/downloads/mysql/ and download the package compatible with your machine. Next, go to https://dev.mysql.com/downloads/workbench/ and download the package compatible with your machine. Open up the workbench and create a new connection. Then, by editing the file located in /server/config/config.json, you can connect to your database. By changing the username, password, database name, and host, you can connect to your locally hosted MySQL database.
 
 ## Commands
 To clone the repository, run:  
