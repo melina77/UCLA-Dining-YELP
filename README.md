@@ -1,4 +1,4 @@
-#  <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruin-bear-transparent.png" height="45" width = "75"/> BruinGrub <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruin-bear-transparent.jpeg" height="45" width = "75">
+#  <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruin-bear-transparent.png" height="45" width = "75"/> BruinGrub <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruin-bear-transparent.png" height="45" width = "75"/>
 BruinGrub is a full stack web application that allows UCLA students to see what kinds of food are being offered at the #1 rated university dining hall, leave reviews on food by adding comments, and also keep track of their calories for the day.
 
 Contributors and GitHub usernames:
