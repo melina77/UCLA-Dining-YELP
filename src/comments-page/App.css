@@ -158,10 +158,11 @@ button {
   justify-content: flex-start;
   gap: 40px; 
   margin-bottom: 20px; 
+  margin-top: 20px; /* top fit the image in the comment box */
 }
 
 .comment img {
-  width: 40%; 
+  width: 80%; 
   border-radius: 10px; 
 }
 .comment p{
