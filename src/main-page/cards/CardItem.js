@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 // defines each individual food card post
 function CardItem(props) {
-
     // called the onAddCalories function passed through Cards.js
     const handleAddFoodClick = () => {
         props.onAddCalories();

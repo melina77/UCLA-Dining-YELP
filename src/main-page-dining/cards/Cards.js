@@ -78,6 +78,26 @@ function Cards() {
         return data;
     };
 
+    // Delete post
+    const onDeletePost = async (postId) => {
+        try {
+            const response = await fetch(`http://localhost:8080/f/${postId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.ok) {
+                // Remove the deleted post from the state
+                setCardsData(cardsData.filter(card => card.id !== postId));
+            } else {
+                console.error('Failed to delete post');
+            }
+        } catch (error) {
+            console.error('Failed to delete post:', error);
+        }
+    };
+
     // SEARCH BAR
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -109,7 +129,7 @@ function Cards() {
                             description={card.description}
                             calories={card.calories}
                             dining_name={card.poster}
-                            onAddCalories={() => onAddCalories(card.id, card.calories)}
+                            onDeletePost={() => onDeletePost(card.id)}
                             food_id={card.id}
                             likes_array={card.likes.length}
                             />

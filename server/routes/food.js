@@ -22,11 +22,11 @@ router.post("/", validate, upload.single('image'), async (req, res) =>{
     let user;
 
     //checks if a user is currently signed in through validation middleware
-    //finds the user in both the
     if (req.user.name) {
         user = await dining.findOne({ where: {name: req.user.name, id: req.user.id}});
     } else {
-        user = await dining.findOne({where: {name: req.user.username, id: req.user.id}});
+        user = await students.findOne({where: {name: req.user.username, id: req.user.id}});
+
     }
 
     //if a user exists, create a new food item
@@ -42,6 +42,31 @@ router.post("/", validate, upload.single('image'), async (req, res) =>{
         res.json({ "message": "Post created" });
     } else{
         res.status(401).json({"message": "Not a dining hall user"});
+    }
+});
+
+// Delete a food item by ID
+router.delete("/:id", validate, async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const user = req.user;
+
+        const post = await food.findOne({ where: { id: postId } });
+
+        if (!post) {
+            return res.status(404).json({ "message": "Post not found" });
+        }
+
+        if (post.poster !== user.name) {
+            return res.status(403).json({ "message": "You are not authorized to delete this post" });
+        }
+
+        await post.destroy();
+        res.json({ "message": "Post deleted successfully" });
+        
+    } catch (error) {
+        console.error("Error deleting post:", error);
+        res.status(500).json({ "message": "Internal server error" });
     }
 });
 

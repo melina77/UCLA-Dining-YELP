@@ -5,12 +5,10 @@ const { validate } = require("./auth");
 
 //router that handles post requests to localhost:8080/calorie-counter/
 router.post("/", validate, async (req, res) =>{
-    console.log(req.user);
     //searches database for a student user
     const user = await students.findOne({ where: {username: req.user.username, id: req.user.id}});
     //if a user exists, then either create or destroy an entry in the database
     if(user){
-        console.log("user:", user);
         //checks calorie counter database table to see if an entry of a student adding the same food item to calorie counter exists
         const result = await calcounter.findOne({
             where: { foodId: req.body.foodId, studentId: req.user.id },

@@ -1,5 +1,13 @@
-#  <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruin-bear.jpeg" height="45" width = "75"> BruinGrub <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruin-bear.jpeg" height="45" width = "75">
+#  <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruin-bear-transparent.png" height="45" width = "75"/> BruinGrub <img src = "https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/bruin-bear-transparent.png" height="45" width = "75"/>
 BruinGrub is a full stack web application that allows UCLA students to see what kinds of food are being offered at the #1 rated university dining hall, leave reviews on food by adding comments, and also keep track of their calories for the day.
+
+Contributors and GitHub usernames:
+1) Michelle Sun - 22sunm50
+2) Phuc Truong - PTruong9090
+3) Melina Eftekhari - melina77
+4) Lucas Thai - Lukerulez29
+5) Faith Nguyen - faithnguyen7
+
 ## Table of Contents
 1. [Components](#components)
 2. [Features](#features)
@@ -35,9 +43,10 @@ BruinGrub is a full stack web application that allows UCLA students to see what 
   * Students will be able to keep track of how many calories they have consumed with the calorie counter by simply adding food from a post to their tracker by pressing the button found underneath the post. After adding the food from the main page, students can navigate to the calorie-counter to view their total calorie intake as well as the number of foods they are consuming. In the calorie-counter page, students also have the option to delete food items by pressing a button.
 ## Setup
 To run a local instance of BruinGrub, first clone or download a copy of this repository. Follow the commands below to initialize a local instance of each part of the application.  
+**NOTE:** The final version of Bruingrub is on the *'fullstack'* branch, which is the default branch.
 ### mySQL Datastore  
-To start the backend portion, you will need to set up the mySQL workbench if not previously downloaded. Go to 
-https://dev.mysql.com/downloads/mysql/ and download the package compatible with your machine. Next, go to https://dev.mysql.com/downloads/workbench/ and download the package compatible with your machine. Open up the workbench and create a new connection. Create a new schema with the name <i>cs35l-proj</i>. You will have to use the workbench later on to run the backend portion.  
+To start the backend portion, you will need to set up a MySQL server. One way to do this is by downloading mySQL workbench if not previously downloaded. Go to 
+https://dev.mysql.com/downloads/mysql/ and download the package compatible with your machine. Next, go to https://dev.mysql.com/downloads/workbench/ and download the package compatible with your machine. Open up the workbench and create a new connection. Then, by editing the file located in /server/config/config.json, you can connect to your database. By changing the username, password, database name, and host, you can connect to your locally hosted MySQL database.
 
 ## Commands
 To clone the repository, run:  
