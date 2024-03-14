@@ -60,8 +60,6 @@ After cloning the repository, locate the config.json file found in <i>server</i>
 
 You only need to change the fields that are under "development" and do not modify the "test" or "production" fields. In our example, when we were setting up MySQL Workbench, we named the "username: " as "root", the "password: " as "password", and the "database: " as "cs35l-proj".  
 
-<img src = “![alt text](https://raw.githubusercontent.com/melina77/UCLA-Dining-YELP/fullstack/public/config-file.png)” height="100" width = "75" />
-
 
 ### Shell Script  
 We created a shell script to setup both the dependencies for the backend server and frontend application. Some of the backend dependencies include express, cors, and sequelize. The frontend dependencies include React.js and react-router-dom. To run the bash script on Linux, use the following commands:  
