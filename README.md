@@ -84,7 +84,10 @@ Michelle Sun
 Faith Nguyen
 
 
-Phuc Truong - Calorie Counter and Navigation/Header
+Phuc Truong
+1. Backend and Frontend for Calorie Counter
+2. Backend and Frontend for Navigation Bar
+3. Backend for Post Page
 
 
 All group members worked collaboratively on completing this group project.
