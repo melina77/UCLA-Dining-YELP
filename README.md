@@ -72,8 +72,6 @@ chmod +x runbruingrub.sh
 ```
 The backend server will be available on http://localhost:8080, while the frontend application should pop up automatically in the browser on http://localhost:3000.  
 # Contributors
-Lucas Thai
-
 
 Melina Eftekhari
 1. Frontend and connected to Backend for Login/Registration Page.
