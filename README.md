@@ -90,7 +90,8 @@ Michelle Sun
 4. Frontend for Post Page
 
 Faith Nguyen
-
+1. Frontend and connected to Backend for Comments Page
+2. Frontend for Posts Page
 
 Phuc Truong
 1. Backend and Frontend for Calorie Counter
