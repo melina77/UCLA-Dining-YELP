@@ -86,7 +86,7 @@ Faith Nguyen
 
 Phuc Truong
 1. Backend and Frontend for Calorie Counter
-2. Backend and Frontend for Navigation Bar
+2. Backend and Frontend for Navigation/Header Bar
 3. Backend for Post Page
 
 
