@@ -80,10 +80,9 @@ Melina Eftekhari
 
 Michelle Sun
 1. Frontend and connected to Backend for Login/Registration Page
-2. Frontend and connected to Backend for Main Page
-
-   --> Implemented the Search Bar
-4. Frontend for Comments Page & Post Page
+2. Frontend and connected to Backend for Main Page (including the Search Bar)
+3. Frontend for Comments Page
+4. Frontend for Post Page
 
 Faith Nguyen
 
