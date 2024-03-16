@@ -77,7 +77,7 @@ Lucas Thai
 
 Melina Eftekhari
 1. Frontend and connected to Backend for Login/Registration Page.
-2. Frontend styling changes across the whole site.
+2. Frontend styling changes to stay consistent across the whole site.
 3. Frontend and backend of search feature.
 4. Frontend additions to Navigration/Header Bar.
 5. Frontend additions to Calorie Counter.
