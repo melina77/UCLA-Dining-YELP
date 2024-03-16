@@ -98,5 +98,9 @@ Phuc Truong
 2. Backend and Frontend for Navigation/Header Bar
 3. Backend for Post Page
 
+Lucas Thai
+1. MySQL database structure in server/models folder
+2. Backend routers for calorie counter, comments, food, likes, and users
+3. Authentication and file upload system middlewares
 
 All group members worked collaboratively on completing this group project.
